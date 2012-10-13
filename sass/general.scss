@@ -1,0 +1,46 @@
+/* Colors */
+
+$bg: #f7f7f7;
+$white: #f7f7f7;
+$black: #222;
+$main: #8f8f3d;
+
+$text-color: #444;
+$link-color: #4095bf;
+
+/* Type Styles */
+
+@mixin type-heading() {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+}
+
+@mixin type-body() {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: normal;
+	color: $text-color;
+}
+
+/* Generic Styles */
+
+::-moz-selection {
+	background: lighten($main,10%);
+	color: $white;
+}
+
+::selection {
+	background: lighten($main,10%);
+	color: $white;
+}
+
+a {
+	color: $link-color;
+
+	&:hover, &:focus {
+		color: lighten($link-color,10%);
+	}
+
+	&:active {
+		color: darken($link-color,10%);
+	}
+}
