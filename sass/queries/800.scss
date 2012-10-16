@@ -1,3 +1,54 @@
 .menu-trigger {
 	display: none;
 }
+
+header.main {
+	@include no-box-shadow;
+	@include clearfix;
+	position: static;
+	height: auto;
+	border: none;
+	padding-top: 1.5%;
+	padding-bottom: 1.5%;
+	background: none;
+
+	.logo {
+		float: left;
+		text-align: left;
+		line-height: 1;
+
+		$iconPosition: 7px;
+
+		a {
+			position: relative;
+			left: $iconPosition;
+		}
+
+		a:before {
+			display: block !important;
+			position: relative;
+			top: 2px;
+			left: -$iconPosition;
+			color: $green;
+			font-size: 80%;
+		}
+	}
+
+	nav {
+		display: block;
+		float: right;
+
+		li {
+			float: left;
+			margin-right: 20px;
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+.content {
+	padding-top: 0;
+}

@@ -1,9 +1,71 @@
 body {
 	@include type-body;
-	width: 90%;
-	margin: 0 auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	@include type-heading;
+}
+
+header.main {
+	@include box-shadow(0,1px,5px,rgba($black,.1));
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 90%;
+	height: 50px;
+	padding: 0 5%;
+	border-bottom: 1px solid darken($white,7%);
+	background: $white;
+
+	a {
+		text-decoration: none;
+		color: $text-color;
+	}
+
+	.logo {
+		margin: 0;
+		font-size: 1.4em;
+		text-align: center;
+		line-height: 50px;
+
+		a {
+			&:hover, &:focus {
+				color: $green;
+			}
+
+			&:before { display: none !important; }
+		}
+	}
+
+	.menu-trigger {
+		position: absolute;
+		top: 15px;
+		left: 5%;
+		font-size: 1.2em;
+
+		&:hover, &:focus {
+			color: $green;
+		}
+	}
+
+	nav {
+		display: none;
+
+		a {
+			font-weight: bold;
+			color: $link-color;
+
+			&:hover, &:focus {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+.content {
+	padding: 50px 5% 0;
+}
+
+footer.main {
+	padding: 0 5% 25px;
 }
