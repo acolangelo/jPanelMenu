@@ -1,3 +1,4 @@
 $(function() {
-	console.log('JS is ready to go!');
+	var jPanelMenu = $.jPanelMenu();
+	jPanelMenu.on();
 });
