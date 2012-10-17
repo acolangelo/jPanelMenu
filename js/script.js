@@ -1,5 +1,7 @@
 $(function() {
-	var jPanelMenu = $.jPanelMenu();
+	var jPanelMenu = $.jPanelMenu({
+		menu: 'header.main nav'
+	});
 	var jR = jRespond([
 		{
 			label: 'small',
