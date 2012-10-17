@@ -23,7 +23,7 @@
 			},options),
 
 			setMenuState: function(position) {
-				console.log('setMenuState();');
+				console.log('setMenuState(' + position + ');');
 			},
 
 			getMenuState: function() {
@@ -31,11 +31,11 @@
 			},
 
 			setMenuStyle: function(styles) {
-				console.log('setMenuStyle();');
+				console.log('setMenuStyle(' + styles + ');');
 			},
 
 			setPanelStyle: function(styles) {
-				console.log('setPanelStyle();');
+				console.log('setPanelStyle(' + styles + ');');
 			},
 
 			openMenu: function() {
@@ -50,12 +50,36 @@
 				console.log('triggerMenu();');
 			},
 
+			initiateClickListeners: function() {
+				console.log('initiateClickListeners();');
+			},
+
+			destroyClickListeners: function() {
+				console.log('destroyClickListeners();');
+			},
+
+			initiateKeyboardListeners: function() {
+				console.log('initiateKeyboardListeners();');
+			},
+
+			destroyKeyboardListeners: function() {
+				console.log('destroyKeyboardListeners();');
+			},
+
 			init: function() {
 				console.log('init();');
+
+				jP.initiateClickListeners();
+				if ( jP.options.keyboardShortcuts ) { jP.initiateKeyboardListeners(); }
+
+				jP.setMenuState('closed');
 			},
 
 			destroy: function() {
 				console.log('destroy();');
+				
+				jP.destroyClickListeners();
+				if ( jP.options.keyboardShortcuts ) { jP.destroyKeyboardListeners(); }
 			}
 		};
 
