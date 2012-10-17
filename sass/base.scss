@@ -19,6 +19,7 @@ header.main {
 
 	a {
 		text-decoration: none;
+		text-shadow: 0 1px 1px #fff;
 		color: $text-color;
 	}
 
@@ -53,10 +54,10 @@ header.main {
 
 		a {
 			font-weight: bold;
-			color: $link-color;
+			color: $text-color;
 
 			&:hover, &:focus {
-				text-decoration: underline;
+				color: $link-color;
 			}
 		}
 	}
