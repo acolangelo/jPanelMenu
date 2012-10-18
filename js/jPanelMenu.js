@@ -24,58 +24,69 @@
 
 			setMenuState: function(open) {
 				var position = (open)?'open':'closed';
-				console.log('setMenuState(' + position + ');');
 				$('body').attr('data-menu-position', position);
 			},
 
 			getMenuState: function() {
-				console.log('getMenuState();');
 				return $('body').attr('data-menu-position');
 			},
 
 			menuIsOpen: function() {
-				console.log('menuIsOpen();');
 				if ( jP.getMenuState() == 'open' ) return true;
 				else return false;
 			},
 
 			setMenuStyle: function(styles) {
-				console.log('setMenuStyle(' + styles + ');');
+				$('#jPanelMenu-menu').css(styles);
 			},
 
 			setPanelStyle: function(styles) {
-				console.log('setPanelStyle(' + styles + ');');
+				$('.jPanelMenu-panel').css(styles);
 			},
 
 			openMenu: function() {
-				console.log('openMenu();');
 				jP.setMenuState(true);
+				$('html, body').css({
+					overflow: 'hidden'
+				});
+				jP.setPanelStyle({
+					position: 'relative',
+					left: jP.options.openPosition + '%'
+				});
+				jP.setMenuStyle({
+					display: 'block'
+				});
 			},
 
 			closeMenu: function() {
-				console.log('closeMenu();');
 				jP.setMenuState(false);
+				$('html, body').css({
+					'overflow-x': 'hidden',
+					'overflow-y': 'scroll'
+				});
+				jP.setPanelStyle({
+					position: 'static',
+					left: 0
+				});
+				jP.setMenuStyle({
+					display: 'none'
+				});
 			},
 
 			triggerMenu: function() {
-				console.log('--------------------');
-				console.log('triggerMenu();');
 				if ( jP.menuIsOpen() ) jP.closeMenu();
 				else jP.openMenu();
 			},
 
 			initiateClickListeners: function() {
-				console.log('initiateClickListeners();');
 				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(); return false; });
 			},
 
 			destroyClickListeners: function() {
-				console.log('destroyClickListeners();');
 				$(document).off('click',jP.options.trigger,null);
 			},
 
 			initiateKeyboardListeners: function() {
-				console.log('initiateKeyboardListeners();');
 				$(document).on('keydown',function(e){
 					switch (e.which) {
 						case 27:
@@ -99,39 +110,33 @@
 			},
 
 			destroyKeyboardListeners: function() {
-				console.log('destroyKeyboardListeners();');
 				$(document).off('keydown',null);
 			},
 
 			setupMarkup: function() {
-				console.log('setupMarkup();');
 				$('html').addClass('jPanelMenu');
 				$('body > *').not('#jPanelMenu-menu, style, script').wrapAll('<div class="jPanelMenu-panel"/>');
-				$(jP.options.menu).hide().clone().attr('id','jPanelMenu-menu').insertAfter('body > .jPanelMenu-panel').show();
+				$(jP.options.menu).hide().clone().attr('id','jPanelMenu-menu').insertAfter('body > .jPanelMenu-panel');
 			},
 
 			resetMarkup: function() {
-				console.log('resetMarkup();');
 				$('html').removeClass('jPanelMenu');
 				$('body > .jPanelMenu-panel > *').unwrap();
 				$('#jPanelMenu-menu').remove();
 			},
 
 			init: function() {
-				console.log('--------------------');
-				console.log('init();');
-
 				jP.initiateClickListeners();
 				if ( jP.options.keyboardShortcuts ) { jP.initiateKeyboardListeners(); }
 
 				jP.setMenuState(false);
 				jP.setupMarkup();
+				jP.setMenuStyle({
+					width: jP.options.openPosition + '%'
+				});
 			},
 
 			destroy: function() {
-				console.log('--------------------');
-				console.log('destroy();');
-				
 				jP.destroyClickListeners();
 				if ( jP.options.keyboardShortcuts ) { jP.destroyKeyboardListeners(); }
 

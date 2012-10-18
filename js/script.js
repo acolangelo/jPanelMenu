@@ -1,6 +1,7 @@
 $(function() {
 	var jPanelMenu = $.jPanelMenu({
-		menu: 'header.main nav'
+		menu: 'header.main nav',
+		keyboardShortcuts: false
 	});
 	var jR = jRespond([
 		{
