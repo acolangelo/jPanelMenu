@@ -8,14 +8,14 @@ h1, h2, h3, h4, h5, h6 {
 
 header.main {
 	@include box-shadow(0,1px,5px,rgba($black,.1));
+	@include linear-gradient(lighten($white,1%),darken($white,1%));
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 90%;
 	height: 50px;
-	padding: 0 5%;
+	padding: 0 5% 1px;
 	border-bottom: 1px solid darken($white,7%);
-	background: $white;
 
 	a {
 		text-decoration: none;
@@ -24,29 +24,32 @@ header.main {
 	}
 
 	.logo {
-		margin: 0;
+		width: 80%;
+		margin: 0 auto;
+		padding-bottom: 1px;
 		font-size: 1.4em;
 		text-align: center;
 		line-height: 50px;
 
 		a {
-			&:hover, &:focus {
-				color: $green;
-			}
+			display: block;
+			height: 100%;
 
+			&:hover, &:focus { color: $green; }
 			&:before { display: none !important; }
 		}
 	}
 
 	.menu-trigger {
+		@include box-shadow(0,-1px,1px,darken($white,40%));
 		position: absolute;
-		top: 15px;
-		left: 5%;
+		top: 0;
+		left: 0;
+		border-right: 1px solid #fff;
+		padding: 15px 5% 10px;
 		font-size: 1.2em;
 
-		&:hover, &:focus {
-			color: $green;
-		}
+		&:hover, &:focus { color: $green; }
 	}
 
 	nav {
@@ -56,9 +59,7 @@ header.main {
 			font-weight: bold;
 			color: $text-color;
 
-			&:hover, &:focus {
-				color: $link-color;
-			}
+			&:hover, &:focus { color: $link-color; }
 		}
 	}
 }
