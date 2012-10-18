@@ -82,12 +82,18 @@
 				console.log('destroyKeyboardListeners();');
 			},
 
-			buildHTML: function() {
-				console.log('buildHTML();');
+			setupMarkup: function() {
+				console.log('setupMarkup();');
+				$('html').addClass('jPanelMenu');
+				$('body > *').not('#jPanelMenu-menu, style, script').wrapAll('<div class="jPanelMenu-panel"/>');
+				$(jP.options.menu).hide().clone().attr('id','jPanelMenu-menu').insertAfter('body > .jPanelMenu-panel').show();
 			},
 
-			deconstructHTML: function() {
-				console.log('deconstructHTML();');
+			resetMarkup: function() {
+				console.log('resetMarkup();');
+				$('html').removeClass('jPanelMenu');
+				$('body > .jPanelMenu-panel > *').unwrap();
+				$('#jPanelMenu-menu').remove();
 			},
 
 			init: function() {
@@ -98,7 +104,7 @@
 				if ( jP.options.keyboardShortcuts ) { jP.initiateKeyboardListeners(); }
 
 				jP.setMenuState(false);
-				jP.buildHTML();
+				jP.setupMarkup();
 			},
 
 			destroy: function() {
@@ -109,7 +115,7 @@
 				if ( jP.options.keyboardShortcuts ) { jP.destroyKeyboardListeners(); }
 
 				jP.setMenuState(false);
-				jP.deconstructHTML();
+				jP.resetMarkup();
 			}
 		};
 
