@@ -76,10 +76,31 @@
 
 			initiateKeyboardListeners: function() {
 				console.log('initiateKeyboardListeners();');
+				$(document).on('keydown',function(e){
+					switch (e.which) {
+						case 27:
+							if ( jP.menuIsOpen() ) jP.closeMenu();
+							break;
+
+						case 37:
+							if ( jP.menuIsOpen() ) jP.closeMenu();
+							break;
+
+						case 39:
+							jP.triggerMenu();
+							break;
+
+						case 77:
+							jP.triggerMenu();
+							break;
+					}
+					return false;
+				});
 			},
 
 			destroyKeyboardListeners: function() {
 				console.log('destroyKeyboardListeners();');
+				$(document).off('keydown',null);
 			},
 
 			setupMarkup: function() {
