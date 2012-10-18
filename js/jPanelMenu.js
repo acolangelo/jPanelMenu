@@ -17,17 +17,26 @@
 				openEasing: options.easing || 'swing',
 				closeEasing: options.easing || 'swing',
 
-				after: function(){},
-				afterOpen: function(){},
-				afterClose: function(){}
+				after: function(){ console.log('jP.options.after();'); },
+				afterOpen: function(){ console.log('jP.options.afterOpen();'); },
+				afterClose: function(){ console.log('jP.options.afterClose();'); }
 			},options),
 
-			setMenuState: function(position) {
+			setMenuState: function(open) {
+				var position = (open)?'open':'closed';
 				console.log('setMenuState(' + position + ');');
+				$('body').attr('data-menu-position', position);
 			},
 
 			getMenuState: function() {
 				console.log('getMenuState();');
+				return $('body').attr('data-menu-position');
+			},
+
+			menuIsOpen: function() {
+				console.log('menuIsOpen();');
+				if ( jP.getMenuState() == 'open' ) return true;
+				else return false;
 			},
 
 			setMenuStyle: function(styles) {
@@ -40,22 +49,29 @@
 
 			openMenu: function() {
 				console.log('openMenu();');
+				jP.setMenuState(true);
 			},
 
 			closeMenu: function() {
 				console.log('closeMenu();');
+				jP.setMenuState(false);
 			},
 
 			triggerMenu: function() {
+				console.log('--------------------');
 				console.log('triggerMenu();');
+				if ( jP.menuIsOpen() ) jP.closeMenu();
+				else jP.openMenu();
 			},
 
 			initiateClickListeners: function() {
 				console.log('initiateClickListeners();');
+				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(); return false; });
 			},
 
 			destroyClickListeners: function() {
 				console.log('destroyClickListeners();');
+				$(document).off('click',jP.options.trigger,null);
 			},
 
 			initiateKeyboardListeners: function() {
@@ -66,20 +82,34 @@
 				console.log('destroyKeyboardListeners();');
 			},
 
+			buildHTML: function() {
+				console.log('buildHTML();');
+			},
+
+			deconstructHTML: function() {
+				console.log('deconstructHTML();');
+			},
+
 			init: function() {
+				console.log('--------------------');
 				console.log('init();');
 
 				jP.initiateClickListeners();
 				if ( jP.options.keyboardShortcuts ) { jP.initiateKeyboardListeners(); }
 
-				jP.setMenuState('closed');
+				jP.setMenuState(false);
+				jP.buildHTML();
 			},
 
 			destroy: function() {
+				console.log('--------------------');
 				console.log('destroy();');
 				
 				jP.destroyClickListeners();
 				if ( jP.options.keyboardShortcuts ) { jP.destroyKeyboardListeners(); }
+
+				jP.setMenuState(false);
+				jP.deconstructHTML();
 			}
 		};
 
