@@ -1,1 +1,1 @@
-.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:none;background:#962;position:fixed;top:0;left:0;min-height:100%;z-index:1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{background:#fc3;position:static;left:0;top:0;z-index:2}
+.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:none;position:fixed;top:0;left:0;height:100%;z-index:1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;left:0;top:0;z-index:2}

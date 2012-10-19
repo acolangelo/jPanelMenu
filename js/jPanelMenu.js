@@ -22,6 +22,10 @@
 				afterClose: function(){ console.log('jP.options.afterClose();'); }
 			},options),
 
+			menu: '#jPanelMenu-menu',
+
+			panel: '.jPanelMenu-panel',
+
 			setMenuState: function(open) {
 				var position = (open)?'open':'closed';
 				$('body').attr('data-menu-position', position);
@@ -37,11 +41,11 @@
 			},
 
 			setMenuStyle: function(styles) {
-				$('#jPanelMenu-menu').css(styles);
+				$(jP.menu).css(styles);
 			},
 
 			setPanelStyle: function(styles) {
-				$('.jPanelMenu-panel').css(styles);
+				$(jP.panel).css(styles);
 			},
 
 			openMenu: function() {
@@ -55,6 +59,12 @@
 				});
 				jP.setMenuStyle({
 					display: 'block'
+				});
+
+				$(jP.panel + ' > *').each(function(){
+					if ( $(this).css('position') == 'fixed' ) {
+						$(this).css({'left': jP.options.openPosition + '%'});
+					}
 				});
 			},
 
@@ -70,6 +80,12 @@
 				});
 				jP.setMenuStyle({
 					display: 'none'
+				});
+
+				$(jP.panel + ' > *').each(function(){
+					if ( $(this).css('position') == 'fixed' ) {
+						$(this).css({'left': 0 + '%'});
+					}
 				});
 			},
 
@@ -115,14 +131,14 @@
 
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
-				$('body > *').not('#jPanelMenu-menu, style, script').wrapAll('<div class="jPanelMenu-panel"/>');
-				$(jP.options.menu).hide().clone().attr('id','jPanelMenu-menu').insertAfter('body > .jPanelMenu-panel');
+				$('body > *').not(jP.menu + ', style, script').wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
+				$(jP.options.menu).hide().clone().attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
 			},
 
 			resetMarkup: function() {
 				$('html').removeClass('jPanelMenu');
-				$('body > .jPanelMenu-panel > *').unwrap();
-				$('#jPanelMenu-menu').remove();
+				$('body > ' + jP.panel + ' > *').unwrap();
+				$(jP.menu).remove();
 			},
 
 			init: function() {
