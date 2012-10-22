@@ -5,6 +5,7 @@
 			options: $.extend({
 				trigger: '.menu-trigger',
 				menu: '#menu',
+				fixedChildren: '',
 				keyboardShortcuts: true,
 
 				openPosition: 75,
@@ -16,6 +17,10 @@
 				easing: 'swing',
 				openEasing: options.easing || 'swing',
 				closeEasing: options.easing || 'swing',
+
+				before: function(){ console.log('jP.options.before();'); },
+				beforeOpen: function(){ console.log('jP.options.beforeOpen();'); },
+				beforeClose: function(){ console.log('jP.options.beforeClose();'); },
 
 				after: function(){ console.log('jP.options.after();'); },
 				afterOpen: function(){ console.log('jP.options.afterOpen();'); },
@@ -48,50 +53,45 @@
 				$(jP.panel).css(styles);
 			},
 
-			openMenu: function() {
-				jP.setMenuState(true);
-				$('html, body').css({
-					overflow: 'hidden'
-				});
-				jP.setPanelStyle({
-					position: 'relative',
-					left: jP.options.openPosition + '%'
-				});
-				jP.setMenuStyle({
-					display: 'block'
-				});
+			openMenu: function(animated) {
+				jP.options.before();
+				jP.options.beforeOpen();
 
-				$(jP.panel + ' > *').each(function(){
-					if ( $(this).css('position') == 'fixed' ) {
-						$(this).css({'left': jP.options.openPosition + '%'});
-					}
-				});
+				jP.setMenuState(true);
+
+				if ( animated ) {
+					console.log('openMenu(animated);')
+				}
+				else {
+					console.log('openMenu();')
+				}
+
+				jP.options.after();
+				jP.options.afterOpen();
 			},
 
-			closeMenu: function() {
-				jP.setMenuState(false);
-				$('html, body').css({
-					'overflow-x': 'hidden',
-					'overflow-y': 'scroll'
-				});
-				jP.setPanelStyle({
-					position: 'static',
-					left: 0
-				});
-				jP.setMenuStyle({
-					display: 'none'
-				});
+			closeMenu: function(animated) {
+				jP.options.before();
+				jP.options.beforeClose();
 
-				$(jP.panel + ' > *').each(function(){
-					if ( $(this).css('position') == 'fixed' ) {
-						$(this).css({'left': 0 + '%'});
-					}
-				});
+				jP.setMenuState(false);
+
+				if ( animated ) {
+					console.log('closeMenu(animated);')
+				}
+				else {
+					console.log('closeMenu();')
+				}
+
+				jP.options.after();
+				jP.options.afterClose();
 			},
 
 			triggerMenu: function() {
+				console.log('--------------------------------------------------');
 				if ( jP.menuIsOpen() ) jP.closeMenu();
-				else jP.openMenu();
+				else jP.openMenu(true);
+				console.log('Fixed Children: ',jP.options.fixedChildren);
 			},
 
 			initiateClickListeners: function() {
@@ -142,6 +142,7 @@
 			},
 
 			init: function() {
+				jP.closeMenu();
 				jP.initiateClickListeners();
 				if ( jP.options.keyboardShortcuts ) { jP.initiateKeyboardListeners(); }
 
@@ -153,10 +154,10 @@
 			},
 
 			destroy: function() {
+				jP.closeMenu();
 				jP.destroyClickListeners();
 				if ( jP.options.keyboardShortcuts ) { jP.destroyKeyboardListeners(); }
 
-				jP.setMenuState(false);
 				jP.resetMarkup();
 			}
 		};
