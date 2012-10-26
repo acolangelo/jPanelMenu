@@ -5,8 +5,8 @@
 			options: $.extend({
 				trigger: '.menu-trigger',
 				menu: '#menu',
-				fixedChildren: '',
 				keyboardShortcuts: true,
+				transformsSupported: ($('html').hasClass('csstransitions'))?true:false,
 
 				openPosition: 75,
 
@@ -59,15 +59,18 @@
 
 				jP.setMenuState(true);
 
+				$(jP.menu).css({
+					display: 'block'
+				});
+				
+				setTimeout(function(){
+					$(jP.panel).addClass('open');
+				},50);
+
 				if ( animated ) {
-					console.log('openMenu(animated);')
 				}
 				else {
-					console.log('openMenu();')
 				}
-
-				jP.options.after();
-				jP.options.afterOpen();
 			},
 
 			closeMenu: function(animated) {
@@ -76,26 +79,33 @@
 
 				jP.setMenuState(false);
 
+				$(jP.panel).removeClass('open');
+
+				setTimeout(function(){
+					$(jP.menu).css({
+						display: 'none'
+					});
+				},100);
+
 				if ( animated ) {
-					console.log('closeMenu(animated);')
 				}
 				else {
-					console.log('closeMenu();')
 				}
 
 				jP.options.after();
 				jP.options.afterClose();
 			},
 
-			triggerMenu: function() {
+			triggerMenu: function(animated) {
+				console.log(' ');
 				console.log('--------------------------------------------------');
-				if ( jP.menuIsOpen() ) jP.closeMenu();
-				else jP.openMenu(true);
-				console.log('Fixed Children: ',jP.options.fixedChildren);
+				console.log(' ');
+				if ( jP.menuIsOpen() ) jP.closeMenu(animated);
+				else jP.openMenu(animated);
 			},
 
 			initiateClickListeners: function() {
-				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(); return false; });
+				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(true); return false; });
 			},
 
 			destroyClickListeners: function() {
@@ -106,19 +116,19 @@
 				$(document).on('keydown',function(e){
 					switch (e.which) {
 						case 27:
-							if ( jP.menuIsOpen() ) jP.closeMenu();
+							if ( jP.menuIsOpen() ) jP.closeMenu(true);
 							break;
 
 						case 37:
-							if ( jP.menuIsOpen() ) jP.closeMenu();
+							if ( jP.menuIsOpen() ) jP.closeMenu(true);
 							break;
 
 						case 39:
-							jP.triggerMenu();
+							jP.triggerMenu(true);
 							break;
 
 						case 77:
-							jP.triggerMenu();
+							jP.triggerMenu(true);
 							break;
 					}
 					return false;
@@ -142,6 +152,8 @@
 			},
 
 			init: function() {
+				if ( jP.options.openPosition > 100 ) { jP.options.openPosition = 100; }
+
 				jP.closeMenu();
 				jP.initiateClickListeners();
 				if ( jP.options.keyboardShortcuts ) { jP.initiateKeyboardListeners(); }
@@ -151,6 +163,26 @@
 				jP.setMenuStyle({
 					width: jP.options.openPosition + '%'
 				});
+
+				$(jP.panel).find(' > *').each(function(){
+					if ( $(this).css('position') == 'fixed' && $(this).css('left') == 'auto' ) {
+						$(this).css('left','0%');
+					}
+				});
+
+				$(jP.panel).css({
+					position: 'relative'
+				});
+
+				if ( jP.options.transformsSupported )
+				{
+					if ( $('#jPanelMenu-transform-styles').length == 0 )
+					{
+						$('body').append('<style id="jPanelMenu-transform-styles">.jPanelMenu-panel{-webkit-transition: all .1s ease-in-out;} .jPanelMenu-panel.open{left:' + jP.options.openPosition + '%;}</style>');
+					}
+				}
+
+				console.log('Transforms supported: ', jP.options.transformsSupported);
 			},
 
 			destroy: function() {
