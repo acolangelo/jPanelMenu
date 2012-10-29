@@ -6,7 +6,12 @@
 				trigger: '.menu-trigger',
 				menu: '#menu',
 				keyboardShortcuts: true,
-				transformsSupported: ($('html').hasClass('csstransitions'))?true:false,
+				transitionsSupported:	'WebkitTransition' in document.body.style ||
+										'MozTransition' in document.body.style ||
+										'msTransition' in document.body.style ||
+										'OTransition' in document.body.style ||
+										'Transition' in document.body.style
+				,
 
 				openPosition: 75,
 
@@ -53,24 +58,39 @@
 				$(jP.panel).css(styles);
 			},
 
+			enableTransitions: function(duration) {
+				var formattedDuration = duration/1000;
+				jP.disableTransitions();
+				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{-webkit-transition: all ' + formattedDuration + 's ease-in-out;-moz-transition: all ' + formattedDuration + 's ease-in-out;-o-transition: all ' + formattedDuration + 's ease-in-out;transition: all ' + formattedDuration + 's ease-in-out;}</style>');
+			},
+
+			disableTransitions: function() {
+				$('#jPanelMenu-style-transitions').remove();
+			},
+
 			openMenu: function(animated) {
 				jP.options.before();
 				jP.options.beforeOpen();
 
 				jP.setMenuState(true);
 
-				$(jP.menu).css({
-					display: 'block'
-				});
-				
-				setTimeout(function(){
-					$(jP.panel).addClass('open');
-				},50);
+				if ( (animated && jP.options.transitionsSupported) || (!animated) ) {
+					if ( !animated ) { jP.disableTransitions(); }
+					else if ( animated && jP.options.transitionsSupported ) { jP.enableTransitions(jP.options.openDuration); }
 
-				if ( animated ) {
+					jP.setPanelStyle({
+						position: 'relative',
+						left: jP.options.openPosition + '%'
+					});
+
+					if ( !animated ) { jP.enableTransitions(jP.options.openDuration); }
 				}
 				else {
+					console.log('Using jQuery to animate the menu opening.');
 				}
+
+				jP.options.after();
+				jP.options.afterOpen();
 			},
 
 			closeMenu: function(animated) {
@@ -79,17 +99,17 @@
 
 				jP.setMenuState(false);
 
-				$(jP.panel).removeClass('open');
+				if ( (animated && jP.options.transitionsSupported) || (!animated) ) {
+					if ( !animated && jP.options.transitionsSupported ) { jP.disableTransitions(); }
+					else if ( animated && jP.options.transitionsSupported ) { jP.enableTransitions(jP.options.closeDuration); }
 
-				setTimeout(function(){
-					$(jP.menu).css({
-						display: 'none'
-					});
-				},100);
+					jP.setPanelStyle({ left: 0 });
+					setTimeout(function(){ jP.setPanelStyle({ position: 'static' }); }, jP.options.closeDuration);
 
-				if ( animated ) {
+					if ( !animated && jP.options.transitionsSupported ) { jP.enableTransitions(jP.options.closeDuration); }
 				}
 				else {
+					console.log('Using jQuery to animate the menu closing.');
 				}
 
 				jP.options.after();
@@ -105,7 +125,7 @@
 			},
 
 			initiateClickListeners: function() {
-				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(true); return false; });
+				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(false); return false; });
 			},
 
 			destroyClickListeners: function() {
@@ -164,25 +184,27 @@
 					width: jP.options.openPosition + '%'
 				});
 
-				$(jP.panel).find(' > *').each(function(){
-					if ( $(this).css('position') == 'fixed' && $(this).css('left') == 'auto' ) {
-						$(this).css('left','0%');
-					}
-				});
+				console.log('Transitions supported:',jP.options.transitionsSupported);
 
-				$(jP.panel).css({
-					position: 'relative'
-				});
+				// $(jP.panel).find(' > *').each(function(){
+				// 	if ( $(this).css('position') == 'fixed' && $(this).css('left') == 'auto' ) {
+				// 		$(this).css('left','0%');
+				// 	}
+				// });
 
-				if ( jP.options.transformsSupported )
-				{
-					if ( $('#jPanelMenu-transform-styles').length == 0 )
-					{
-						$('body').append('<style id="jPanelMenu-transform-styles">.jPanelMenu-panel{-webkit-transition: all .1s ease-in-out;} .jPanelMenu-panel.open{left:' + jP.options.openPosition + '%;}</style>');
-					}
-				}
+				// $(jP.panel).css({
+				// 	position: 'relative'
+				// });
 
-				console.log('Transforms supported: ', jP.options.transformsSupported);
+				// if ( jP.options.transformsSupported )
+				// {
+				// 	if ( $('#jPanelMenu-transform-styles').length == 0 )
+				// 	{
+				// 		$('body').append('<style id="jPanelMenu-transform-styles">.jPanelMenu-panel{-webkit-transition: all .1s ease-in-out;} .jPanelMenu-panel.open{-webkit-transform: translatex(' + jP.options.openPosition + '%); -webkit-transform-origin: top left;}</style>');
+				// 	}
+				// }
+
+				// console.log('Transforms supported: ', jP.options.transformsSupported);
 			},
 
 			destroy: function() {
