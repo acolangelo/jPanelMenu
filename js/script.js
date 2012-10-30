@@ -1,7 +1,9 @@
 $(function() {
 	var jPanelMenu = $.jPanelMenu({
 		menu: 'header.main nav',
-		keyboardShortcuts: false
+		keyboardShortcuts: false,
+		openDuration: 200,
+		closeDuration: 1500
 	});
 	var jR = jRespond([
 		{

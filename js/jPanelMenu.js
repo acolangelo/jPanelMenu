@@ -96,30 +96,45 @@
 				$('#jPanelMenu-style-transitions').remove();
 			},
 
+			enableFixedTransitions: function(selector, id, duration) {
+				var formattedDuration = duration/1000;
+				jP.disableFixedTransitions(id);
+				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{-webkit-transition: all ' + formattedDuration + 's ease-in-out;-moz-transition: all ' + formattedDuration + 's ease-in-out;-o-transition: all ' + formattedDuration + 's ease-in-out;transition: all ' + formattedDuration + 's ease-in-out;}</style>');
+			},
+
+			disableFixedTransitions: function(id) {
+				$('#jPanelMenu-style-fixed-' + id).remove();
+			},
+
 			openMenu: function(animated) {
 				jP.options.before();
 				jP.options.beforeOpen();
 
 				jP.setMenuState(true);
 
-				if ( (animated && jP.options.transitionsSupported) || (!animated) ) {
-					if ( !animated ) { jP.disableTransitions(); }
-					else if ( animated && jP.options.transitionsSupported ) { jP.enableTransitions(jP.options.openDuration); }
+				var animationChecks = {
+					none: (!animated)?true:false,
+					transitions: (animated && jP.options.transitionsSupported)?true:false
+				};
+
+				if ( animationChecks.transitions || animationChecks.none ) {
+					if ( animationChecks.none ) jP.disableTransitions();
+					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.openDuration);
 
 					jP.setPanelStyle({
 						position: 'relative',
 						left: jP.options.openPosition + '%'
 					});
 
-					if ( !animated ) { jP.enableTransitions(jP.options.openDuration); }
+					setTimeout(function(){
+						jP.disableTransitions();
 
-					jP.options.after();
-					jP.options.afterOpen();
+						jP.options.after();
+						jP.options.afterOpen();
+					}, jP.options.openDuration);
 				}
 				else {
-					jP.setPanelStyle({
-						position: 'relative',
-					});
+					jP.setPanelStyle({ position: 'relative' });
 
 					$(jP.panel).animate({
 						left: jP.options.openPosition + '%'
@@ -136,22 +151,31 @@
 
 				jP.setMenuState(false);
 
-				if ( (animated && jP.options.transitionsSupported) || (!animated) ) {
-					if ( !animated && jP.options.transitionsSupported ) { jP.disableTransitions(); }
-					else if ( animated && jP.options.transitionsSupported ) { jP.enableTransitions(jP.options.closeDuration); }
+				var animationChecks = {
+					none: (!animated)?true:false,
+					transitions: (animated && jP.options.transitionsSupported)?true:false
+				};
+
+				if ( animationChecks.transitions || animationChecks.none ) {
+					if ( animationChecks.none ) jP.disableTransitions();
+					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.closeDuration);
 
 					jP.setPanelStyle({ left: 0 });
-					setTimeout(function(){ jP.setPanelStyle({ position: 'static' }); }, jP.options.closeDuration);
 
-					if ( !animated && jP.options.transitionsSupported ) { jP.enableTransitions(jP.options.closeDuration); }
+					setTimeout(function(){
+						jP.setPanelStyle({ position: 'static' });
 
-					jP.options.after();
-					jP.options.afterClose();
+						jP.disableTransitions();
+
+						jP.options.after();
+						jP.options.afterClose();
+					}, jP.options.closeDuration);
 				}
 				else {
 					$(jP.panel).animate({
 						left: '0%'
 					}, jP.options.closeDuration, jP.options.closeEasing, function(){
+						jP.setPanelStyle({ position: 'static' });
 						jP.options.after();
 						jP.options.afterClose();
 					});
@@ -236,6 +260,7 @@
 				if ( jP.options.keyboardShortcuts ) { jP.destroyKeyboardListeners(); }
 
 				jP.resetMarkup();
+				jP.fixedChildren = [];
 			}
 		};
 
