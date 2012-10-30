@@ -1,22 +1,14 @@
 (function($){
-	$.jPanelMenu = function(options){
+	$.jPanelMenu = function(options) {
 		if ( typeof(options) == "undefined" || options == null ) { options = {}; };
 		var jP = {
 			options: $.extend({
 				trigger: '.menu-trigger',
 				menu: '#menu',
-				keyboardShortcuts: true,
-				transitionsSupported:	'WebkitTransition' in document.body.style ||
-										'MozTransition' in document.body.style ||
-										'msTransition' in document.body.style ||
-										'OTransition' in document.body.style ||
-										'Transition' in document.body.style
-				,
-				shiftFixedChildren: false,
 
-				panelPosition: 'relative',
+				keyboardShortcuts: true,
+
 				openPosition: '75%',
-				positionUnits: '%',
 
 				duration: 150,
 				openDuration: options.duration || 150,
@@ -34,6 +26,18 @@
 				afterOpen: function(){ },
 				afterClose: function(){ }
 			},options),
+
+			settings: {
+				transitionsSupported:	'WebkitTransition' in document.body.style ||
+										'MozTransition' in document.body.style ||
+										'msTransition' in document.body.style ||
+										'OTransition' in document.body.style ||
+										'Transition' in document.body.style
+				,
+				shiftFixedChildren: false,
+				panelPosition: 'relative',
+				positionUnits: '%',
+			},
 
 			menu: '#jPanelMenu-menu',
 
@@ -59,11 +63,11 @@
 					if ( jP.options.openPosition.toString().substr(-unit.length) == unit )
 					{
 						foundUnit = true;
-						jP.options.positionUnits = unit;
+						jP.settings.positionUnits = unit;
 					}
 				}
 
-				if ( !foundUnit ) { jP.options.openPosition = parseInt(jP.options.openPosition) + jP.options.positionUnits }
+				if ( !foundUnit ) { jP.options.openPosition = parseInt(jP.options.openPosition) + jP.settings.positionUnits }
 			},
 
 			checkFixedChildren: function() {
@@ -85,7 +89,7 @@
 						left: '1px'
 					});
 
-					if ( parseInt($(jP.fixedChildren[0]).offset().left) == 0 ) { jP.options.shiftFixedChildren = true; }
+					if ( parseInt($(jP.fixedChildren[0]).offset().left) == 0 ) { jP.settings.shiftFixedChildren = true; }
 				}
 
 				jP.setPanelStyle(defaultPanelStyle);
@@ -209,7 +213,7 @@
 
 				var animationChecks = {
 					none: (!animated)?true:false,
-					transitions: (animated && jP.options.transitionsSupported)?true:false
+					transitions: (animated && jP.settings.transitionsSupported)?true:false
 				};
 
 				if ( animationChecks.transitions || animationChecks.none ) {
@@ -218,7 +222,7 @@
 
 					jP.setPanelStyle({ left: jP.options.openPosition });
 
-					if ( jP.options.shiftFixedChildren )
+					if ( jP.settings.shiftFixedChildren )
 					{
 						$(jP.fixedChildren).each(function(){
 							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
@@ -237,7 +241,7 @@
 
 					jP.timeouts.afterOpen = setTimeout(function(){
 						jP.disableTransitions();
-						if ( jP.options.shiftFixedChildren )
+						if ( jP.settings.shiftFixedChildren )
 						{
 							$(jP.fixedChildren).each(function(){
 								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
@@ -264,7 +268,7 @@
 						jP.initiateContentClickListeners();
 					});
 
-					if ( jP.options.shiftFixedChildren )
+					if ( jP.settings.shiftFixedChildren )
 					{
 						$(jP.fixedChildren).each(function(){
 							$(this).stop().animate({
@@ -285,16 +289,16 @@
 
 				var animationChecks = {
 					none: (!animated)?true:false,
-					transitions: (animated && jP.options.transitionsSupported)?true:false
+					transitions: (animated && jP.settings.transitionsSupported)?true:false
 				};
 
 				if ( animationChecks.transitions || animationChecks.none ) {
 					if ( animationChecks.none ) jP.disableTransitions();
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.closeDuration, jP.options.closeEasing);
 
-					jP.setPanelStyle({ left: 0 + jP.options.positionUnits });
+					jP.setPanelStyle({ left: 0 + jP.settings.positionUnits });
 
-					if ( jP.options.shiftFixedChildren )
+					if ( jP.settings.shiftFixedChildren )
 					{
 						$(jP.fixedChildren).each(function(){
 							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
@@ -306,16 +310,16 @@
 							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.closeDuration, jP.options.closeEasing);
 
 							$(this).css({
-								left: 0 + jP.options.positionUnits
+								left: 0 + jP.settings.positionUnits
 							});
 						});
 					}
 
 					jP.timeouts.afterClose = setTimeout(function(){
-						jP.setPanelStyle({ position: jP.options.panelPosition });
+						jP.setPanelStyle({ position: jP.settings.panelPosition });
 
 						jP.disableTransitions();
-						if ( jP.options.shiftFixedChildren )
+						if ( jP.settings.shiftFixedChildren )
 						{
 							$(jP.fixedChildren).each(function(){
 								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
@@ -338,7 +342,7 @@
 					$(jP.panel).stop().animate({
 						left: '0%'
 					}, jP.options.closeDuration, formattedEasing, function(){
-						jP.setPanelStyle({ position: jP.options.panelPosition });
+						jP.setPanelStyle({ position: jP.settings.panelPosition });
 
 						jP.hideMenu();
 						jP.options.after();
@@ -346,11 +350,11 @@
 						jP.destroyContentClickListeners();
 					});
 
-					if ( jP.options.shiftFixedChildren )
+					if ( jP.settings.shiftFixedChildren )
 					{
 						$(jP.fixedChildren).each(function(){
 							$(this).stop().animate({
-								left: 0 + jP.options.positionUnits
+								left: 0 + jP.settings.positionUnits
 							}, jP.options.closeDuration, formattedEasing);
 						});
 					}
