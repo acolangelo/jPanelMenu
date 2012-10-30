@@ -26,13 +26,13 @@
 				openEasing: options.easing || 'ease-in-out',
 				closeEasing: options.easing || 'ease-in-out',
 
-				before: function(){ console.log('jP.options.before();'); },
-				beforeOpen: function(){ console.log('jP.options.beforeOpen();'); },
-				beforeClose: function(){ console.log('jP.options.beforeClose();'); },
+				before: function(){ },
+				beforeOpen: function(){ },
+				beforeClose: function(){ },
 
-				after: function(){ console.log('jP.options.after();'); },
-				afterOpen: function(){ console.log('jP.options.afterOpen();'); },
-				afterClose: function(){ console.log('jP.options.afterClose();'); }
+				after: function(){ },
+				afterOpen: function(){ },
+				afterClose: function(){ }
 			},options),
 
 			menu: '#jPanelMenu-menu',
@@ -250,6 +250,7 @@
 
 						jP.options.after();
 						jP.options.afterOpen();
+						jP.initiateContentClickListeners();
 					}, jP.options.openDuration);
 				}
 				else {
@@ -260,6 +261,7 @@
 					}, jP.options.openDuration, formattedEasing, function(){
 						jP.options.after();
 						jP.options.afterOpen();
+						jP.initiateContentClickListeners();
 					});
 
 					if ( jP.options.shiftFixedChildren )
@@ -327,6 +329,7 @@
 						jP.hideMenu();
 						jP.options.after();
 						jP.options.afterClose();
+						jP.destroyContentClickListeners();
 					}, jP.options.closeDuration);
 				}
 				else {
@@ -340,6 +343,7 @@
 						jP.hideMenu();
 						jP.options.after();
 						jP.options.afterClose();
+						jP.destroyContentClickListeners();
 					});
 
 					if ( jP.options.shiftFixedChildren )
@@ -354,9 +358,6 @@
 			},
 
 			triggerMenu: function(animated) {
-				console.log(' ');
-				console.log('--------------------------------------------------');
-				console.log(' ');
 				if ( jP.menuIsOpen() ) jP.closeMenu(animated);
 				else jP.openMenu(animated);
 			},
@@ -367,6 +368,27 @@
 
 			destroyClickListeners: function() {
 				$(document).off('click',jP.options.trigger,null);
+			},
+
+			initiateContentClickListeners: function() {
+				$(document).on('click',jP.panel,function(e){
+					if ( jP.menuIsOpen() )
+					{
+						if ( !$(e.target).hasClass('menu-trigger') ) { jP.closeMenu(true); }
+					}
+				});
+				
+				$(document).on('touchend',jP.panel,function(e){
+					if ( jP.menuIsOpen() )
+					{
+						if ( !$(e.target).hasClass('menu-trigger') ) { jP.closeMenu(true); }
+					}
+				});
+			},
+
+			destroyContentClickListeners: function() {
+				$(document).off('click',jP.panel,null);
+				$(document).off('touchend',jP.panel,null);
 			},
 
 			initiateKeyboardListeners: function() {
