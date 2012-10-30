@@ -39,6 +39,8 @@
 
 			fixedChildren: [],
 
+			timeouts: {},
+
 			checkFixedChildren: function() {
 				jP.disableTransitions();
 
@@ -107,6 +109,8 @@
 			},
 
 			openMenu: function(animated) {
+				clearTimeout(jP.timeouts.afterOpen);
+
 				jP.options.before();
 				jP.options.beforeOpen();
 
@@ -126,8 +130,35 @@
 						left: jP.options.openPosition + '%'
 					});
 
-					setTimeout(function(){
+					if ( jP.options.shiftFixedChildren )
+					{
+						$(jP.fixedChildren).each(function(){
+							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
+								selector = id.replace(' ','.'),
+								id = id.replace(' ','-')
+							;
+
+							if ( animationChecks.none ) jP.disableFixedTransitions(id);
+							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.openDuration);
+
+							$(this).css({
+								left: jP.options.openPosition + '%'
+							});
+						});
+					}
+
+					jP.timeouts.afterOpen = setTimeout(function(){
 						jP.disableTransitions();
+						if ( jP.options.shiftFixedChildren )
+						{
+							$(jP.fixedChildren).each(function(){
+								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
+									id = id.replace(' ','-')
+								;
+
+								jP.disableFixedTransitions(id);
+							});
+						}
 
 						jP.options.after();
 						jP.options.afterOpen();
@@ -136,16 +167,27 @@
 				else {
 					jP.setPanelStyle({ position: 'relative' });
 
-					$(jP.panel).animate({
+					$(jP.panel).stop().animate({
 						left: jP.options.openPosition + '%'
 					}, jP.options.openDuration, jP.options.openEasing, function(){
 						jP.options.after();
 						jP.options.afterOpen();
 					});
+
+					if ( jP.options.shiftFixedChildren )
+					{
+						$(jP.fixedChildren).each(function(){
+							$(this).stop().animate({
+								left: jP.options.openPosition + '%'
+							}, jP.options.openDuration, jP.options.openEasing);
+						});
+					}
 				}
 			},
 
 			closeMenu: function(animated) {
+				clearTimeout(jP.timeouts.afterClose);
+
 				jP.options.before();
 				jP.options.beforeClose();
 
@@ -162,23 +204,59 @@
 
 					jP.setPanelStyle({ left: 0 });
 
-					setTimeout(function(){
+					if ( jP.options.shiftFixedChildren )
+					{
+						$(jP.fixedChildren).each(function(){
+							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
+								selector = id.replace(' ','.'),
+								id = id.replace(' ','-')
+							;
+
+							if ( animationChecks.none ) jP.disableFixedTransitions(id);
+							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.closeDuration);
+
+							$(this).css({
+								left: 0 + '%'
+							});
+						});
+					}
+
+					jP.timeouts.afterClose = setTimeout(function(){
 						jP.setPanelStyle({ position: 'static' });
 
 						jP.disableTransitions();
+						if ( jP.options.shiftFixedChildren )
+						{
+							$(jP.fixedChildren).each(function(){
+								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
+									id = id.replace(' ','-')
+								;
+
+								jP.disableFixedTransitions(id);
+							});
+						}
 
 						jP.options.after();
 						jP.options.afterClose();
 					}, jP.options.closeDuration);
 				}
 				else {
-					$(jP.panel).animate({
+					$(jP.panel).stop().animate({
 						left: '0%'
 					}, jP.options.closeDuration, jP.options.closeEasing, function(){
 						jP.setPanelStyle({ position: 'static' });
 						jP.options.after();
 						jP.options.afterClose();
 					});
+
+					if ( jP.options.shiftFixedChildren )
+					{
+						$(jP.fixedChildren).each(function(){
+							$(this).stop().animate({
+								left: 0 + '%'
+							}, jP.options.closeDuration, jP.options.closeEasing);
+						});
+					}
 				}
 			},
 
