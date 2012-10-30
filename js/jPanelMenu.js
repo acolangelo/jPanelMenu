@@ -36,7 +36,7 @@
 				,
 				shiftFixedChildren: false,
 				panelPosition: 'relative',
-				positionUnits: '%',
+				positionUnits: '%'
 			},
 
 			menu: '#jPanelMenu-menu',
