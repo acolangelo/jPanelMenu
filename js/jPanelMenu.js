@@ -14,7 +14,9 @@
 				,
 				shiftFixedChildren: false,
 
-				openPosition: 75,
+				panelPosition: 'relative',
+				openPosition: '75%',
+				positionUnits: '%',
 
 				duration: 150,
 				openDuration: options.duration || 150,
@@ -40,6 +42,29 @@
 			fixedChildren: [],
 
 			timeouts: {},
+
+			clearTimeouts: function() {
+				clearTimeout(jP.timeouts.open);
+				clearTimeout(jP.timeouts.afterOpen);
+				clearTimeout(jP.timeouts.afterClose);
+			},
+
+			setPositionUnits: function() {
+				var foundUnit = false,
+					allowedUnits = ['%','px','em']
+				;
+
+				for ( unitID in allowedUnits ) {
+					var unit = allowedUnits[unitID];
+					if ( jP.options.openPosition.toString().substr(-unit.length) == unit )
+					{
+						foundUnit = true;
+						jP.options.positionUnits = unit;
+					}
+				}
+
+				if ( !foundUnit ) { jP.options.openPosition = parseInt(jP.options.openPosition) + jP.options.positionUnits }
+			},
 
 			checkFixedChildren: function() {
 				jP.disableTransitions();
@@ -86,6 +111,24 @@
 
 			setPanelStyle: function(styles) {
 				$(jP.panel).css(styles);
+			},
+
+			showMenu: function() {
+				jP.setMenuStyle({
+					display: 'block'
+				});
+				jP.setMenuStyle({
+					'z-index': '1'
+				});
+			},
+
+			hideMenu: function() {
+				jP.setMenuStyle({
+					'z-index': '-1'
+				});
+				jP.setMenuStyle({
+					display: 'none'
+				});
 			},
 
 			enableTransitions: function(duration, easing) {
@@ -153,12 +196,16 @@
 			},
 
 			openMenu: function(animated) {
-				clearTimeout(jP.timeouts.afterOpen);
+				jP.clearTimeouts();
 
 				jP.options.before();
 				jP.options.beforeOpen();
 
 				jP.setMenuState(true);
+
+				jP.setPanelStyle({ position: 'relative' });
+				
+				jP.showMenu();
 
 				var animationChecks = {
 					none: (!animated)?true:false,
@@ -169,10 +216,7 @@
 					if ( animationChecks.none ) jP.disableTransitions();
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.openDuration, jP.options.openEasing);
 
-					jP.setPanelStyle({
-						position: 'relative',
-						left: jP.options.openPosition + '%'
-					});
+					jP.setPanelStyle({ left: jP.options.openPosition });
 
 					if ( jP.options.shiftFixedChildren )
 					{
@@ -186,7 +230,7 @@
 							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.openDuration, jP.options.openEasing);
 
 							$(this).css({
-								left: jP.options.openPosition + '%'
+								left: jP.options.openPosition
 							});
 						});
 					}
@@ -211,10 +255,8 @@
 				else {
 					var formattedEasing = jP.getJSEasingFunction(jP.options.openEasing);
 
-					jP.setPanelStyle({ position: 'relative' });
-
 					$(jP.panel).stop().animate({
-						left: jP.options.openPosition + '%'
+						left: jP.options.openPosition
 					}, jP.options.openDuration, formattedEasing, function(){
 						jP.options.after();
 						jP.options.afterOpen();
@@ -224,7 +266,7 @@
 					{
 						$(jP.fixedChildren).each(function(){
 							$(this).stop().animate({
-								left: jP.options.openPosition + '%'
+								left: jP.options.openPosition
 							}, jP.options.openDuration, formattedEasing);
 						});
 					}
@@ -232,7 +274,7 @@
 			},
 
 			closeMenu: function(animated) {
-				clearTimeout(jP.timeouts.afterClose);
+				jP.clearTimeouts();
 
 				jP.options.before();
 				jP.options.beforeClose();
@@ -248,7 +290,7 @@
 					if ( animationChecks.none ) jP.disableTransitions();
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.closeDuration, jP.options.closeEasing);
 
-					jP.setPanelStyle({ left: 0 });
+					jP.setPanelStyle({ left: 0 + jP.options.positionUnits });
 
 					if ( jP.options.shiftFixedChildren )
 					{
@@ -262,13 +304,13 @@
 							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.closeDuration, jP.options.closeEasing);
 
 							$(this).css({
-								left: 0 + '%'
+								left: 0 + jP.options.positionUnits
 							});
 						});
 					}
 
 					jP.timeouts.afterClose = setTimeout(function(){
-						jP.setPanelStyle({ position: 'static' });
+						jP.setPanelStyle({ position: jP.options.panelPosition });
 
 						jP.disableTransitions();
 						if ( jP.options.shiftFixedChildren )
@@ -282,6 +324,7 @@
 							});
 						}
 
+						jP.hideMenu();
 						jP.options.after();
 						jP.options.afterClose();
 					}, jP.options.closeDuration);
@@ -292,7 +335,9 @@
 					$(jP.panel).stop().animate({
 						left: '0%'
 					}, jP.options.closeDuration, formattedEasing, function(){
-						jP.setPanelStyle({ position: 'static' });
+						jP.setPanelStyle({ position: jP.options.panelPosition });
+
+						jP.hideMenu();
 						jP.options.after();
 						jP.options.afterClose();
 					});
@@ -301,7 +346,7 @@
 					{
 						$(jP.fixedChildren).each(function(){
 							$(this).stop().animate({
-								left: 0 + '%'
+								left: 0 + jP.options.positionUnits
 							}, jP.options.closeDuration, formattedEasing);
 						});
 					}
@@ -354,7 +399,7 @@
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
 				$('body > *').not(jP.menu + ', style, script').wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
-				$(jP.options.menu).hide().clone().attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
+				$(jP.options.menu).clone().attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
 			},
 
 			resetMarkup: function() {
@@ -364,11 +409,6 @@
 			},
 
 			init: function() {
-				console.log(jP.options);
-
-				if ( jP.options.openPosition > 100 ) { jP.options.openPosition = 100; }
-
-				jP.closeMenu();
 				jP.initiateClickListeners();
 				if ( jP.options.keyboardShortcuts ) { jP.initiateKeyboardListeners(); }
 
@@ -376,10 +416,13 @@
 				jP.setupMarkup();
 
 				jP.setMenuStyle({
-					width: jP.options.openPosition + '%'
+					width: jP.options.openPosition
 				});
 
 				jP.checkFixedChildren();
+				jP.setPositionUnits();
+
+				jP.closeMenu(false);
 			},
 
 			destroy: function() {
@@ -388,6 +431,7 @@
 				if ( jP.options.keyboardShortcuts ) { jP.destroyKeyboardListeners(); }
 
 				jP.resetMarkup();
+				$(jP.fixedChildren).each(function(){ $(this).css({ left: 'auto' }); });
 				jP.fixedChildren = [];
 			}
 		};
