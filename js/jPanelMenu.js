@@ -20,9 +20,9 @@
 				openDuration: options.duration || 150,
 				closeDuration: options.duration || 150,
 
-				easing: 'swing',
-				openEasing: options.easing || 'swing',
-				closeEasing: options.easing || 'swing',
+				easing: 'ease-in-out',
+				openEasing: options.easing || 'ease-in-out',
+				closeEasing: options.easing || 'ease-in-out',
 
 				before: function(){ console.log('jP.options.before();'); },
 				beforeOpen: function(){ console.log('jP.options.beforeOpen();'); },
@@ -50,7 +50,7 @@
 				};
 
 				$(jP.panel).find('> *').each(function(){
-					if ( $(this).css('position') == 'fixed' ) { jP.fixedChildren.push(this); }
+					if ( $(this).css('position') == 'fixed' && $(this).css('left') == 'auto' ) { jP.fixedChildren.push(this); }
 				});
 				
 				if ( jP.fixedChildren.length > 0 )
@@ -88,24 +88,68 @@
 				$(jP.panel).css(styles);
 			},
 
-			enableTransitions: function(duration) {
+			enableTransitions: function(duration, easing) {
 				var formattedDuration = duration/1000;
+				var formattedEasing = jP.getCSSEasingFunction(easing);
 				jP.disableTransitions();
-				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{-webkit-transition: all ' + formattedDuration + 's ease-in-out;-moz-transition: all ' + formattedDuration + 's ease-in-out;-o-transition: all ' + formattedDuration + 's ease-in-out;transition: all ' + formattedDuration + 's ease-in-out;}</style>');
+				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableTransitions: function() {
 				$('#jPanelMenu-style-transitions').remove();
 			},
 
-			enableFixedTransitions: function(selector, id, duration) {
+			enableFixedTransitions: function(selector, id, duration, easing) {
 				var formattedDuration = duration/1000;
+				var formattedEasing = jP.getCSSEasingFunction(easing);
 				jP.disableFixedTransitions(id);
-				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{-webkit-transition: all ' + formattedDuration + 's ease-in-out;-moz-transition: all ' + formattedDuration + 's ease-in-out;-o-transition: all ' + formattedDuration + 's ease-in-out;transition: all ' + formattedDuration + 's ease-in-out;}</style>');
+				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableFixedTransitions: function(id) {
 				$('#jPanelMenu-style-fixed-' + id).remove();
+			},
+
+			getCSSEasingFunction: function(name) {
+				switch ( name )
+				{
+					case 'linear':
+						return name;
+						break;
+
+					case 'ease':
+						return name;
+						break;
+
+					case 'ease-in':
+						return name;
+						break;
+
+					case 'ease-out':
+						return name;
+						break;
+
+					case 'ease-in-out':
+						return name;
+						break;
+
+					default:
+						return 'ease-in-out';
+						break;
+				}
+			},
+
+			getJSEasingFunction: function(name) {
+				switch ( name )
+				{
+					case 'linear':
+						return name;
+						break;
+
+					default:
+						return 'swing';
+						break;
+				}
 			},
 
 			openMenu: function(animated) {
@@ -123,7 +167,7 @@
 
 				if ( animationChecks.transitions || animationChecks.none ) {
 					if ( animationChecks.none ) jP.disableTransitions();
-					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.openDuration);
+					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.openDuration, jP.options.openEasing);
 
 					jP.setPanelStyle({
 						position: 'relative',
@@ -139,7 +183,7 @@
 							;
 
 							if ( animationChecks.none ) jP.disableFixedTransitions(id);
-							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.openDuration);
+							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.openDuration, jP.options.openEasing);
 
 							$(this).css({
 								left: jP.options.openPosition + '%'
@@ -165,11 +209,13 @@
 					}, jP.options.openDuration);
 				}
 				else {
+					var formattedEasing = jP.getJSEasingFunction(jP.options.openEasing);
+
 					jP.setPanelStyle({ position: 'relative' });
 
 					$(jP.panel).stop().animate({
 						left: jP.options.openPosition + '%'
-					}, jP.options.openDuration, jP.options.openEasing, function(){
+					}, jP.options.openDuration, formattedEasing, function(){
 						jP.options.after();
 						jP.options.afterOpen();
 					});
@@ -179,7 +225,7 @@
 						$(jP.fixedChildren).each(function(){
 							$(this).stop().animate({
 								left: jP.options.openPosition + '%'
-							}, jP.options.openDuration, jP.options.openEasing);
+							}, jP.options.openDuration, formattedEasing);
 						});
 					}
 				}
@@ -200,7 +246,7 @@
 
 				if ( animationChecks.transitions || animationChecks.none ) {
 					if ( animationChecks.none ) jP.disableTransitions();
-					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.closeDuration);
+					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.closeDuration, jP.options.closeEasing);
 
 					jP.setPanelStyle({ left: 0 });
 
@@ -213,7 +259,7 @@
 							;
 
 							if ( animationChecks.none ) jP.disableFixedTransitions(id);
-							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.closeDuration);
+							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.closeDuration, jP.options.closeEasing);
 
 							$(this).css({
 								left: 0 + '%'
@@ -241,9 +287,11 @@
 					}, jP.options.closeDuration);
 				}
 				else {
+					var formattedEasing = jP.getJSEasingFunction(jP.options.closeEasing);
+
 					$(jP.panel).stop().animate({
 						left: '0%'
-					}, jP.options.closeDuration, jP.options.closeEasing, function(){
+					}, jP.options.closeDuration, formattedEasing, function(){
 						jP.setPanelStyle({ position: 'static' });
 						jP.options.after();
 						jP.options.afterClose();
@@ -254,7 +302,7 @@
 						$(jP.fixedChildren).each(function(){
 							$(this).stop().animate({
 								left: 0 + '%'
-							}, jP.options.closeDuration, jP.options.closeEasing);
+							}, jP.options.closeDuration, formattedEasing);
 						});
 					}
 				}
@@ -316,6 +364,8 @@
 			},
 
 			init: function() {
+				console.log(jP.options);
+
 				if ( jP.options.openPosition > 100 ) { jP.options.openPosition = 100; }
 
 				jP.closeMenu();
