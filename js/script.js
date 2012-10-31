@@ -1,5 +1,6 @@
+var jPanelMenu = {};
 $(function() {
-	var jPanelMenu = $.jPanelMenu({
+	jPanelMenu = $.jPanelMenu({
 		menu: 'header.main nav',
 		openPosition: '250px'
 	});
