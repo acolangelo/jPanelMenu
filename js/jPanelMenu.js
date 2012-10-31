@@ -1,6 +1,7 @@
 (function($){
 	$.jPanelMenu = function(options) {
 		if ( typeof(options) == "undefined" || options == null ) { options = {}; };
+
 		var jP = {
 			options: $.extend({
 				trigger: '.menu-trigger',
@@ -400,21 +401,24 @@
 					switch (e.which) {
 						case 27:
 							if ( jP.menuIsOpen() ) jP.closeMenu(true);
+							return false;
 							break;
 
 						case 37:
 							if ( jP.menuIsOpen() ) jP.closeMenu(true);
+							return false;
 							break;
 
 						case 39:
 							jP.triggerMenu(true);
+							return false;
 							break;
 
 						case 77:
 							jP.triggerMenu(true);
+							return false;
 							break;
 					}
-					return false;
 				});
 			},
 
@@ -468,7 +472,11 @@
 			trigger: jP.triggerMenu,
 			open: jP.openMenu,
 			close: jP.closeMenu,
-			isOpen: jP.menuIsOpen
+			isOpen: jP.menuIsOpen,
+			menu: jP.menu,
+			getMenu: function() { return $(jP.menu); },
+			panel: jP.panel,
+			getPanel: function() { return $(jP.panel); }
 		};
 	};
 })(jQuery);
