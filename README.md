@@ -242,22 +242,121 @@ Called after the menu is closed, regardless of animation state.
 
 #API
 
-The following are the methods and properties of the object returned by the jPanelMenu constructor function call.
+The following are the methods and properties of the object returned by the jPanelMenu constructor function call. In the following example, these would be the methods and properties of `jPM`.
 
-###Example
-	var obj = $.jPanelMenu({ /* options */ });
+	var jPM = $.jPanelMenu();
 
-###Methods
+###on( )
 
-	on (function)
-	Initializes a jPanelMenu instance. Sets up the markup, styles, listeners, and interactions, according to the options passed into the constructor function.
+Initializes a jPanelMenu instance. Sets up the markup, styles, listeners, and interactions, according to the options passed into the constructor function.
 
-	* * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	off (function)
-	Destroys a jPanelMenu instance. Resets the markup and styles, removes listeners and interactions.
+- **Returns:** `null`
 
-###Properties
+
+***
+
+
+###off( )
+
+Destroys a jPanelMenu instance. Resets the markup and styles, removes listeners and interactions.
+
+- **Returns:** `null`
+
+
+***
+
+
+###trigger( `animated` )
+
+Triggers the opening or closing of the menu, depending on the current state (open or closed).
+
+- **Parameters**
+	- `animated`
+		- A boolean value that determines whether or not to animate the action. The action will animate if `animated` is `true`, and will not animate if `animated` is `false`. If no value is passed in, the action will not be animated.
+		- **Data Type:** `boolean`
+		- **Accepted Values:** `true`, `false`
+- **Returns:** `null`
+
+
+***
+
+
+###open( `animated` )
+
+Triggers the opening of the menu.
+
+- **Parameters**
+	- `animated`
+		- A boolean value that determines whether or not to animate the action. The action will animate if `animated` is `true`, and will not animate if `animated` is `false`. If no value is passed in, the action will not be animated.
+		- **Data Type:** `boolean`
+		- **Accepted Values:** `true`, `false`
+- **Returns:** `null`
+
+
+***
+
+
+###close( `animated` )
+
+Triggers the closing of the menu.
+
+- **Parameters**
+	- `animated`
+		- A boolean value that determines whether or not to animate the action. The action will animate if `animated` is `true`, and will not animate if `animated` is `false`. If no value is passed in, the action will not be animated.
+		- **Data Type:** `boolean`
+		- **Accepted Values:** `true`, `false`
+
+
+***
+
+
+###isOpen( )
+
+Checks the current state of the menu. Returns `true` if the menu is currently open, and `false` if it is closed.
+
+- **Returns:** `boolean`, `true` or `false`
+
+
+***
+
+
+###menu
+
+A property equal to the raw selector of the created menu object.
+
+- **Data Type:** `string`
+
+
+***
+
+
+###getMenu( )
+
+Returns the created menu object in the form of a `jQuery Object`.
+
+- **Returns:** `jQuery Object`
+
+
+***
+
+
+###panel
+
+A property equal to the raw selector of the created panel object.
+
+- **Data Type:** `string`
+
+
+***
+
+
+###getPanel( )
+
+Returns the created panel object in the form of a `jQuery Object`.
+
+- **Returns:** `jQuery Object`
+
+
 
 #Best Practices
 
