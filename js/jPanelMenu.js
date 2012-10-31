@@ -4,8 +4,8 @@
 
 		var jP = {
 			options: $.extend({
-				trigger: '.menu-trigger',
 				menu: '#menu',
+				trigger: '.menu-trigger',
 
 				keyboardShortcuts: true,
 
