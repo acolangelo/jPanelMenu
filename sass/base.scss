@@ -16,6 +16,7 @@ header.main {
 	@include linear-gradient(lighten($white,1%),darken($white,1%));
 	position: fixed;
 	top: 0;
+	z-index: 100;
 	width: 90%;
 	height: 50px;
 	padding: 0 5% 1px;
@@ -38,8 +39,7 @@ header.main {
 		a {
 			display: block;
 			height: 100%;
-
-			&:hover, &:focus { color: $green; }
+			
 			&:before { display: none !important; }
 		}
 	}
@@ -68,6 +68,27 @@ header.main {
 
 .content {
 	padding: 50px 5% 0;
+
+	h2 {
+		position: relative;
+		margin-top: 0;
+		padding-top: 60px;
+
+		&:before {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 30px;
+			left: 0;
+			width: 100%;
+			height: 1px;
+			background: darken($bg,10%);
+		}
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
 }
 
 footer.main {
