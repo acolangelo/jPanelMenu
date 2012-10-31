@@ -91,6 +91,22 @@ header.main {
 	}
 }
 
+dl {
+	margin-top: 30px;
+}
+
+dt {
+	margin-top: 45px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+}
+
+dd {
+	margin-left: 30px;
+}
+
 footer.main {
 	padding: 0 5% 25px;
 }
