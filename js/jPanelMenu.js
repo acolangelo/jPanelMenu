@@ -467,7 +467,8 @@
 			off: jP.destroy,
 			trigger: jP.triggerMenu,
 			open: jP.openMenu,
-			close: jP.closeMenu
+			close: jP.closeMenu,
+			isOpen: jP.menuIsOpen
 		};
 	};
 })(jQuery);
