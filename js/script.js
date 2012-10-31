@@ -28,4 +28,7 @@ $(function() {
 			jPanelMenu.off();
 		}
 	});
+	$(document).on('click',jPanelMenu.menu + ' li a',function(e){
+		if ( jPanelMenu.isOpen() ) { jPanelMenu.close(true); }
+	});
 });
