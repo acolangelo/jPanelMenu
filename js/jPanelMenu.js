@@ -9,7 +9,7 @@
 
 				keyboardShortcuts: true,
 
-				openPosition: '75%',
+				openPosition: '250px',
 
 				duration: 150,
 				openDuration: options.duration || 150,
@@ -37,7 +37,7 @@
 				,
 				shiftFixedChildren: false,
 				panelPosition: 'relative',
-				positionUnits: '%'
+				positionUnits: 'px'
 			},
 
 			menu: '#jPanelMenu-menu',
@@ -428,7 +428,7 @@
 
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
-				$('body > *').not(jP.menu + ', style, script').wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
+				$('body > *').not(jP.menu + ', style').wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
 				$(jP.options.menu).clone().attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
 			},
 
