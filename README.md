@@ -96,13 +96,43 @@ Generally, `<style>` and `<script>` tags should not be moved from their original
 
 ###keyboardShortcuts
 
-A boolean value specifiying whether or not keyboard shortcuts for opening and closing the menu are active.
+An option that allows you to control if keyboard shortcuts are enabled, and if they are, which keys do what.
 
-**ADD KEYBOARD SHORTCUTS**
+Setting this option to `false` will disable keyboard shortcuts entirely. To enable keyboard shortcuts, pass in an `array` of `objects`. Each enabled key gets its own `object` in the `array` and each object should be structured as follows:
 
-- **Data Type:** `boolean`
-- **Accepted Values:** `true`, `false`
-- **Default Value:** `true`
+	{
+		code: Keycode of enabled key,
+		open: Boolean value (true or false), specifying whether or not this key should open the menu,
+		close: Boolean value (true or false), specifying whether or not this key should close the menu
+	}
+
+- **Data Type:** `array` or `boolean`
+- **Accepted Values:** `array` or `false`
+- **Default Value:**
+	
+
+		[
+			{
+				code: 27,
+				open: false,
+				close: true 
+			},
+			{
+				code: 37,
+				open: false,
+				close: true 
+			},
+			{
+				code: 39,
+				open: true,
+				close: true 
+			},
+			{
+				code: 77,
+				open: true,
+				close: true 
+			}
+		]
 
 
 ***
