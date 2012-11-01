@@ -81,6 +81,19 @@ The selector pointing to the menu-triggering element.
 ***
 
 
+###excludedPanelContent
+
+A selector string specifying which tags within the `<body>` element should not be pushed into `.jPanelMenu-panel`.
+
+Generally, `<style>` and `<script>` tags should not be moved from their original location, but in certain circumstances (mostly advertising), `<script>` tags may need to move with the page content.
+
+- **Data Type:** `string`
+- **Default Value:** `style, script`
+
+
+***
+
+
 ###keyboardShortcuts
 
 A boolean value specifiying whether or not keyboard shortcuts for opening and closing the menu are active.
