@@ -427,6 +427,11 @@ jRespond and jPanelMenu are the perfect couple &mdash; use jRespond to enable an
 Responsive design is awesome on its own, but add responsive behavior to the mix, and you&rsquo;ve made something incredible.
 
 
+#Questions, Comments, Insults, or Other Feedback?
+
+[Send me a message](http://acolangelo.com/contact), let&rsquo;s talk.
+
+
 
 
 
