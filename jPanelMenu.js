@@ -1,3 +1,11 @@
+/**
+  *
+  * jPanelMenu 1.0.0
+  * 
+  * By Anthony Colangelo (http://acolangelo.com)
+  * Free to use, but please give credit where credit is due.
+  *
+* */
 (function($){
 	$.jPanelMenu = function(options) {
 		if ( typeof(options) == "undefined" || options == null ) { options = {}; };
