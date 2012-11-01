@@ -6,8 +6,30 @@
 			options: $.extend({
 				menu: '#menu',
 				trigger: '.menu-trigger',
+				excludedPanelContent: 'style, script',
 
-				keyboardShortcuts: true,
+				keyboardShortcuts: [
+					{
+						code: 27,
+						open: false,
+						close: true 
+					},
+					{
+						code: 37,
+						open: false,
+						close: true 
+					},
+					{
+						code: 39,
+						open: true,
+						close: true 
+					},
+					{
+						code: 77,
+						open: true,
+						close: true 
+					}
+				],
 
 				openPosition: '250px',
 
@@ -398,26 +420,17 @@
 
 			initiateKeyboardListeners: function() {
 				$(document).on('keydown',function(e){
-					switch (e.which) {
-						case 27:
-							if ( jP.menuIsOpen() ) jP.closeMenu(true);
-							return false;
-							break;
+					for ( mapping in jP.options.keyboardShortcuts ) {
+						if ( e.which == jP.options.keyboardShortcuts[mapping].code )
+						{
+							var key = jP.options.keyboardShortcuts[mapping];
 
-						case 37:
-							if ( jP.menuIsOpen() ) jP.closeMenu(true);
-							return false;
-							break;
+							if ( key.open && key.close ) { jP.triggerMenu(true); }
+							else if ( (key.open && !key.close) && !jP.menuIsOpen() ) { jP.openMenu(true); }
+							else if ( (!key.open && key.close) && jP.menuIsOpen() ) { jP.closeMenu(true); }
 
-						case 39:
-							jP.triggerMenu(true);
 							return false;
-							break;
-
-						case 77:
-							jP.triggerMenu(true);
-							return false;
-							break;
+						}
 					}
 				});
 			},
@@ -428,7 +441,7 @@
 
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
-				$('body > *').not(jP.menu + ', style, script').wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
+				$('body > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
 				$(jP.options.menu).clone().attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
 			},
 
@@ -440,7 +453,7 @@
 
 			init: function() {
 				jP.initiateClickListeners();
-				if ( jP.options.keyboardShortcuts ) { jP.initiateKeyboardListeners(); }
+				if ( Object.prototype.toString.call(jP.options.keyboardShortcuts) === '[object Array]' ) { jP.initiateKeyboardListeners(); }
 
 				jP.setMenuState(false);
 				jP.setupMarkup();
@@ -458,7 +471,7 @@
 			destroy: function() {
 				jP.closeMenu();
 				jP.destroyClickListeners();
-				if ( jP.options.keyboardShortcuts ) { jP.destroyKeyboardListeners(); }
+				if ( Object.prototype.toString.call(jP.options.keyboardShortcuts) === '[object Array]' ) { jP.destroyKeyboardListeners(); }
 
 				jP.resetMarkup();
 				$(jP.fixedChildren).each(function(){ $(this).css({ left: 'auto' }); });
