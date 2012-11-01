@@ -15,17 +15,17 @@ Build your page as you normally would (the source order does not matter), and in
 By default, jPanelMenu will look for an element with an ID of `menu` to use as the menu, and elements with a class of `menu-trigger` to use as the trigger(s). To point jPanelMenu to your menu and trigger elements, pass an object into the constructor function call, as follows:
 
 	var jPM = $.jPanelMenu({
-		menu: '#custom-menu-selector',
-		trigger: '.custom-menu-trigger-selector'
+		menu: &rsquo;#custom-menu-selector&rsquo;,
+		trigger: &rsquo;.custom-menu-trigger-selector&rsquo;
 	});
 
 **Note:** Check out the [options section](#options) for more customization goodness like the above.
 
-After jPanelMenu has been instantiated (and made sure to save the returned object to a variable, as shown above), it's time to turn it on!
+After jPanelMenu has been instantiated (and made sure to save the returned object to a variable, as shown above), it&rsquo;s time to turn it on!
 
 	jPM.on();
 
-After that, jPanelMenu will be functioning, and that's it!
+After that, jPanelMenu will be functioning, and that&rsquo;s it!
 
 If you want to take things to the next level, keep reading.
 
@@ -44,6 +44,15 @@ To style or select the menu, use the following selector: `#jPanelMenu-menu`.
 To style or select the content panel, use the following selector: `.jPanelMenu-panel`.
 
 When jPanelMenu is turned off, the two `<div>` elements are removed, and all of the content inside `.jPanelMenu-panel` is moved back into the `<body>` element. 
+
+
+#Does It Animate?
+
+Of course, if you want it to!
+
+Animation is handled by CSS transitions, for browsers with support. CSS transitions are hardware-accelerated on supporting devices, so the animations are silky smooth.
+
+For browsers that do not support CSS transitions, the jQuery animation engine is used as a fallback.
 
 
 
@@ -401,13 +410,22 @@ Returns the created panel object in the form of a `jQuery Object`.
 
 
 
-#Best Practices
+#Best Practices, Tips, and Other Good Ideas
 
 ###Progressive Enhancement
 
-Users without JavaScript (whether they have turned it off or are using a device without it) will obviously not get the interactions provided by jPanelMenu. It's a good idea to take a "progressive enhancement" approach, and build your site's navigation to work without JavaScript running.
+Users without JavaScript (whether they have turned it off or are using a device without it) will obviously not get the interactions provided by jPanelMenu. It&rsquo;s a good idea to take a [&ldquo;progressive enhancement&rdquo;](http://www.alistapart.com/articles/understandingprogressiveenhancement/) approach, and build your site&rsquo;s navigation to work without JavaScript running.
 
-A good way to do that is to have your site's basic CSS display and style the navigation (or whatever is the content of your jPanelMenu) in an appropriate way, and use JavaScript to apply any styles that are specific to the JavaScript-enabled implementation.
+A good way to do that is to have your site&rsquo;s basic CSS display and style the navigation (or whatever is the content of your jPanelMenu) in an appropriate way, and use JavaScript to apply any styles that are specific to the JavaScript-enabled implementation (maybe have your site&rsquo;s JavaScript write out a `<style>` tag).
+
+###jPanelMenu and jRespond &mdash; Perfect Together
+
+I'm a **huge** fan of [jRespond](https://github.com/ten1seven/jRespond), which is &ldquo;a simple way to globally manage JavaScript on responsive websites.&rdquo;
+
+jRespond and jPanelMenu are the perfect couple &mdash; use jRespond to enable and disable jPanelMenu at appropriate breakpoints, creating a truly great experience. That&rsquo;s how I almost always use jPanelMenu (that&rsquo;s how the [documentation/demo site](http://jpanelmenu.com) works), and I think you should give it a shot, too.
+
+Responsive design is awesome on its own, but add responsive behavior to the mix, and you&rsquo;ve made something incredible.
+
 
 
 
