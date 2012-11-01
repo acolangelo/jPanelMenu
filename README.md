@@ -12,16 +12,16 @@ Build your page as you normally would (the source order does not matter), and in
 
 	var jPM = $.jPanelMenu();
 
-By default, jPanelMenu will look for an element with an ID of `menu` to use as the menu, and elements with a class of `menu-trigger` to use as the trigger(s). To point jPanelMenu to your menu and trigger elements, pass an object into the constructor function call, as follows:
+By default, jPanelMenu will look for an element with an ID of `menu` to use as the menu, and elements with a class of `menu-trigger` to use as the trigger(s). To use a custom selector string to point jPanelMenu to your menu and trigger elements, pass an object into the constructor function call, as follows:
 
 	var jPM = $.jPanelMenu({
-		menu: &rsquo;#custom-menu-selector&rsquo;,
-		trigger: &rsquo;.custom-menu-trigger-selector&rsquo;
+		menu: '#custom-menu-selector',
+		trigger: '.custom-menu-trigger-selector'
 	});
 
-**Note:** Check out the [options section](#options) for more customization goodness like the above.
+**Note:** Check out the [options section](#options) for more customizable goodness like the above.
 
-After jPanelMenu has been instantiated (and made sure to save the returned object to a variable, as shown above), it&rsquo;s time to turn it on!
+After jPanelMenu has been instantiated (make sure to save the returned object to a variable, as shown above), it&rsquo;s time to turn it on!
 
 	jPM.on();
 
@@ -48,7 +48,7 @@ When jPanelMenu is turned off, the two `<div>` elements are removed, and all of 
 
 #Does It Animate?
 
-Of course, if you want it to!
+Of course! (If you want it to.)
 
 Animation is handled by CSS transitions, for browsers with support. CSS transitions are hardware-accelerated on supporting devices, so the animations are silky smooth.
 
@@ -70,7 +70,7 @@ The following options can be set via an object passed into the constructor funct
 
 ###menu
 
-The selector pointing to the desired menu element.
+A selector string pointing to the desired menu element.
 
 - **Data Type:** `string`
 - **Default Value:** `#menu`
@@ -81,7 +81,7 @@ The selector pointing to the desired menu element.
 
 ###trigger
 
-The selector pointing to the menu-triggering element.
+A selector string pointing to the menu-triggering element.
 
 - **Data Type:** `string`
 - **Default Value:** `.menu-trigger`
@@ -374,7 +374,7 @@ Checks the current state of the menu. Returns `true` if the menu is currently op
 
 ###menu
 
-A property equal to the raw selector of the created menu object.
+A property equal to the raw selector string of the created menu object.
 
 - **Data Type:** `string`
 
@@ -384,7 +384,7 @@ A property equal to the raw selector of the created menu object.
 
 ###getMenu( )
 
-Returns the created menu object in the form of a `jQuery Object`.
+Returns a `jQuery Object` containing the created menu object.
 
 - **Returns:** `jQuery Object`
 
@@ -394,7 +394,7 @@ Returns the created menu object in the form of a `jQuery Object`.
 
 ###panel
 
-A property equal to the raw selector of the created panel object.
+A property equal to the raw selector string of the created panel object.
 
 - **Data Type:** `string`
 
@@ -404,7 +404,7 @@ A property equal to the raw selector of the created panel object.
 
 ###getPanel( )
 
-Returns the created panel object in the form of a `jQuery Object`.
+Returns a `jQuery Object` containing the created panel object.
 
 - **Returns:** `jQuery Object`
 
@@ -430,17 +430,3 @@ Responsive design is awesome on its own, but add responsive behavior to the mix,
 #Questions, Comments, Insults, or Other Feedback?
 
 [Send me a message](http://acolangelo.com/contact), let&rsquo;s talk.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
