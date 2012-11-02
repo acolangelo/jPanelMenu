@@ -1,10 +1,12 @@
-#jPanelMenu
+#<a id="docs" href="#docs">jPanelMenu</a>
 
 jPanelMenu is a [jQuery](http://jquery.com) plugin that creates a paneled-style menu (like the type seen in the mobile versions of [Facebook](http://m.facebook.com) and [Google](http://google.com), as well as in many native iPhone applications).
 
+Check out the [demo (and documentation) site](http://jpanelmenu.com) to see it in action.
 
 
-#How Do I Use This Thing?
+
+#<a id="usage" href="#usage">How Do I Use This Thing?</a>
 
 Start off by including the jPanelMenu.js file in your page. (Bonus points for using the minified version [jPanelMenu.min.js], or for bundling the jPanelMenu code into your own JavaScript file to reduce size and HTTP requests.)
 
@@ -12,7 +14,7 @@ Build your page as you normally would (the source order does not matter), and in
 
 	var jPM = $.jPanelMenu();
 
-By default, jPanelMenu will look for an element with an ID of `menu` to use as the menu, and elements with a class of `menu-trigger` to use as the trigger(s). To use a custom selector string to point jPanelMenu to your menu and trigger elements, pass an object into the constructor function call, as follows:
+By default, jPanelMenu will look for an element with an ID of `menu` to use as the menu, and elements with a class of `menu-trigger` to use as the trigger(s). Either use these IDs and classes on your elements, or pass a custom selector string pointing jPanelMenu to your menu and trigger elements in an object into the constructor function call, as follows:
 
 	var jPM = $.jPanelMenu({
 		menu: '#custom-menu-selector',
@@ -31,13 +33,13 @@ If you want to take things to the next level, keep reading.
 
 
 
-#How Does This Thing Work?
+#<a id="how" href="#how">How Does This Thing Work?</a>
 
 When jPanelMenu is turned on, two `<div>` elements are created. The menu element (with an id of `jPanelMenu-menu`, and the panel element (with a class of `jPanelMenu-panel`).
 
 The menu, `#jPanelMenu-menu`, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. The targeted menu element is cloned into `#jPanelMenu-menu`, and is not removed from its original position in the DOM, it is only hidden (using `display: none`).
 
-The panel, `.jPanelMenu-panel`, contains all of the content in the `<body>` element (except for `<style>` tags and `#jPanelMenu-menu`). The selected content is moved, not cloned, into `.jPanelMenu-panel`.
+The panel, `.jPanelMenu-panel`, contains all of the content in the `<body>` element (except for the elements specified by the `excludedPanelContent` option). The selected content is moved, not cloned, into `.jPanelMenu-panel`.
 
 To style or select the menu, use the following selector: `#jPanelMenu-menu`.
 
@@ -46,9 +48,9 @@ To style or select the content panel, use the following selector: `.jPanelMenu-p
 When jPanelMenu is turned off, the two `<div>` elements are removed, and all of the content inside `.jPanelMenu-panel` is moved back into the `<body>` element. 
 
 
-#Does It Animate?
+#<a id="animation" href="#animation">Does It Animate?</a>
 
-Of course! (If you want it to.)
+Of course! (If you want it to, there&rsquo;s an option for that.)
 
 Animation is handled by CSS transitions, for browsers with support. CSS transitions are hardware-accelerated on supporting devices, so the animations are silky smooth.
 
@@ -56,7 +58,7 @@ For browsers that do not support CSS transitions, the jQuery animation engine is
 
 
 
-#Options
+#<a id="options" href="#options">Options</a>
 
 The following options can be set via an object passed into the constructor function call.
 
@@ -92,12 +94,38 @@ A selector string pointing to the menu-triggering element.
 
 ###excludedPanelContent
 
-A selector string specifying which tags within the `<body>` element should not be pushed into `.jPanelMenu-panel`.
+A selector string specifying which tags within the `<body>` element should **not** be pushed into `.jPanelMenu-panel`.
 
 Generally, `<style>` and `<script>` tags should not be moved from their original location, but in certain circumstances (mostly advertising), `<script>` tags may need to move with the page content.
 
 - **Data Type:** `string`
 - **Default Value:** `style, script`
+
+
+***
+
+
+###openPosition
+
+The measurement value for the open position of the menu. Can be set as a pixel, percentage, or em value.
+
+- **Data Type:** `string`
+- **Examples:** `250px`, `75%`, `20em`
+- **Default Value:** `250px`
+
+
+***
+
+
+###animated
+
+A boolean value specifying whether or not the opening and closing of the menu should be animated.
+
+**Note:** When using the API functions `open( )`, `close( )`, or `trigger( )`, this setting can be overridden by passing in `true` as the parameter. More info in the [API section](#api).
+
+- **Data Type:** `boolean`
+- **Accepted Values:** `true` or `false`
+- **Default Value:** `true`
 
 
 ***
@@ -122,38 +150,26 @@ Setting this option to `false` will disable keyboard shortcuts entirely. To enab
 
 		[
 			{
-				code: 27,
+				code: 27, /* Escape Key */
 				open: false,
 				close: true 
 			},
 			{
-				code: 37,
+				code: 37, /* Left Arrow Key */
 				open: false,
 				close: true 
 			},
 			{
-				code: 39,
+				code: 39, /* Right Arrow Key */
 				open: true,
 				close: true 
 			},
 			{
-				code: 77,
+				code: 77, /* M Key */
 				open: true,
 				close: true 
 			}
 		]
-
-
-***
-
-
-###openPosition
-
-The measurement value for the open position of the menu. Can be set as a pixel, percentage, or em value.
-
-- **Data Type:** `string`
-- **Examples:** `250px`, `75%`, `20em`
-- **Default Value:** `250px`
 
 
 ***
@@ -292,11 +308,15 @@ Called after the menu is closed, regardless of animation state.
 
 
 
-#API
+#<a id="api" href="#api">API</a>
 
 The following are the methods and properties of the object returned by the jPanelMenu constructor function call. In the following example, these would be the methods and properties of `jPM`.
 
 	var jPM = $.jPanelMenu();
+
+	jPM.on();
+	
+	jPM.trigger(true);
 
 ###on( )
 
@@ -410,7 +430,7 @@ Returns a `jQuery Object` containing the created panel object.
 
 
 
-#Best Practices, Tips, and Other Good Ideas
+#<a id="tips" href="#tips">Best Practices, Tips, and Other Good Ideas</a>
 
 ###Progressive Enhancement
 
@@ -422,11 +442,11 @@ A good way to do that is to have your site&rsquo;s basic CSS display and style t
 
 I'm a **huge** fan of [jRespond](https://github.com/ten1seven/jRespond), which is &ldquo;a simple way to globally manage JavaScript on responsive websites.&rdquo;
 
-jRespond and jPanelMenu are the perfect couple &mdash; use jRespond to enable and disable jPanelMenu at appropriate breakpoints, creating a truly great experience. That&rsquo;s how I almost always use jPanelMenu (that&rsquo;s how the [documentation/demo site](http://jpanelmenu.com) works), and I think you should give it a shot, too.
+jRespond and jPanelMenu are the perfect couple &mdash; use jRespond to enable and disable jPanelMenu at the appropriate breakpoints, creating a truly great experience. That&rsquo;s how I almost always use jPanelMenu (that&rsquo;s how the [documentation/demo site](http://jpanelmenu.com) works), and I think you should give it a shot, too.
 
 Responsive design is awesome on its own, but add responsive behavior to the mix, and you&rsquo;ve made something incredible.
 
 
-#Questions, Comments, Insults, or Other Feedback?
+#<a id="contact" href="#contact">Questions, Comments, Insults, or Other Feedback?</a>
 
 [Send me a message](http://acolangelo.com/contact), let&rsquo;s talk.
