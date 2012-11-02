@@ -1,0 +1,78 @@
+/* Mixins */
+
+@mixin border-radius ($radius: 5px) {
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin box-shadow($x-pos: 0, $y-pos: 1px, $blur: 1px, $color: rgba(0,0,0,.85), $inset: false) {
+	@if $inset {
+		-moz-box-shadow: $x-pos $y-pos $blur $color inset;
+		-webkit-box-shadow: $x-pos $y-pos $blur $color inset;
+		box-shadow: $x-pos $y-pos $blur $color inset;
+	} @else {
+		-moz-box-shadow: $x-pos $y-pos $blur $color;
+		-webkit-box-shadow: $x-pos $y-pos $blur $color;
+		box-shadow: $x-pos $y-pos $blur $color;
+	}
+}
+
+@mixin box-shadow-inset-with-external ($x-pos: 0, $y-pos: 1px, $blur: 1px, $color: rgba(0,0,0,.85), $external-shadow: 0 0 0 rgba(0,0,0,0)) {
+	-moz-box-shadow: $x-pos $y-pos $blur $color inset, $external-shadow;
+	-webkit-box-shadow: $x-pos $y-pos $blur $color inset, $external-shadow;
+	box-shadow: $x-pos $y-pos $blur $color inset, $external-shadow;
+}
+
+@mixin no-box-shadow {
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+@mixin linear-gradient ($start-color: #fff, $end-color: #000){
+	background: mix($start-color, $end-color);
+	background: -o-linear-gradient(top, $start-color, $end-color);
+	background: -ms-linear-gradient(top, $start-color, $end-color);
+	background: -moz-linear-gradient(top, $start-color, $end-color);
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0, $start-color),color-stop(1, $end-color));
+	background: -webkit-linear-gradient($start-color, $end-color);
+	background: linear-gradient(top, $start-color, $end-color);
+}
+
+@mixin transition ($properties: all, $duration: .25s, $ease: ease-in-out) {
+	-o-transition: $properties $duration $ease;
+	-moz-transition: $properties $duration $ease;
+	-webkit-transition: $properties $duration $ease;
+	transition: $properties $duration $ease;
+}
+
+@mixin no-transition () {
+	-o-transition: none;
+	-moz-transition: none;
+	-webkit-transition: none;
+	transition: none;
+}
+
+@mixin clearfix {
+	&:before, &:after {
+		content:"";
+		display:table;
+	}
+
+	&:after {
+		clear: both;
+	}
+
+	& {
+		zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+	}
+}
+
+@mixin ir {
+	overflow: hidden;
+	font-size: 0;
+	text-indent: 100%;
+	white-space: nowrap;
+	color: transparent;
+}

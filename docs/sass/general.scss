@@ -1,0 +1,73 @@
+/* Colors */
+
+$tan-light: #f2e9e0;
+$tan: #dbb89c;
+
+$blue: #3f94bf;
+$blue-dark: #1b5572;
+
+$white: #f7f7f7;
+$black: #222;
+
+$bg: mix($white, $tan-light);
+$main: $blue;
+
+$text-color: #555;
+$link-color: $blue;
+
+/* Type Styles */
+
+$font-museo: "museo-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+@mixin type-default {
+	font-family: $font-museo;
+	font-weight: 300;
+}
+
+@mixin type-heavy {
+	font-family: $font-museo;
+	font-weight: 900;
+}
+
+@mixin type-heading {
+	@include type-heavy;
+}
+
+@mixin type-body {
+	@include type-default;
+	color: $text-color;
+}
+
+@mixin type-pre {
+	font-family: Consolas, "inconsolata", Menlo, Monaco, monospace;;
+	color: $text-color;
+}
+
+@mixin type-icon {
+	font-family: 'SSStandard';
+	font-weight: normal;
+}
+
+/* Generic Styles */
+
+::-moz-selection {
+	background: lighten($main,10%);
+	color: $white;
+}
+
+::selection {
+	background: lighten($main,10%);
+	color: $white;
+}
+
+a {
+	color: $link-color;
+
+	&:hover, &:focus {
+		color: lighten($link-color,10%);
+	}
+
+	&:active {
+		color: darken($link-color,10%);
+	}
+}
