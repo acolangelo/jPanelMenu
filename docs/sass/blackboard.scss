@@ -16,6 +16,14 @@ pre .subst {
   color: #aeaeae;
 }
 
+pre .function {
+	color: #6a9cc6;
+}
+
+pre .jquery-constructor {
+	color: #ff5f09;
+}
+
 pre .string,
 pre .title,
 pre .haskell .type,
