@@ -33,9 +33,9 @@ If you want to take things to the next level, keep reading.
 
 
 
-#<a id="how" href="#how">How Does This Thing Work?</a>
+#<a id="inner-workings" href="#inner-workings">How Does This Thing Work?</a>
 
-When jPanelMenu is turned on, two `<div>` elements are created. The menu element (with an id of `jPanelMenu-menu`, and the panel element (with a class of `jPanelMenu-panel`).
+When jPanelMenu is turned on, two `<div>` elements are created. The menu element (with an ID of `jPanelMenu-menu`, and the panel element (with a class of `jPanelMenu-panel`).
 
 The menu, `#jPanelMenu-menu`, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. The targeted menu element is cloned into `#jPanelMenu-menu`, and is not removed from its original position in the DOM, it is only hidden (using `display: none`).
 
@@ -50,7 +50,7 @@ When jPanelMenu is turned off, the two `<div>` elements are removed, and all of 
 
 #<a id="animation" href="#animation">Does It Animate?</a>
 
-Of course! (If you want it to, there&rsquo;s an option for that.)
+Of course! (If you want it to, there&rsquo;s an [option](#options) for that.)
 
 Animation is handled by CSS transitions, for browsers with support. CSS transitions are hardware-accelerated on supporting devices, so the animations are silky smooth.
 
@@ -107,7 +107,7 @@ Generally, `<style>` and `<script>` tags should not be moved from their original
 
 ###openPosition
 
-The measurement value for the open position of the menu. Can be set as a pixel, percentage, or em value.
+The measurement value for the open position of the menu. Can be set as a pixel, percentage, or `em` value.
 
 - **Data Type:** `string`
 - **Examples:** `250px`, `75%`, `20em`
@@ -430,7 +430,7 @@ Returns a `jQuery Object` containing the created panel object.
 
 
 
-#<a id="tips" href="#tips">Best Practices, Tips, and Other Good Ideas</a>
+#<a id="tips" href="#tips">Tips, Best Practices, and Other Good Ideas</a>
 
 ###Progressive Enhancement
 
@@ -442,7 +442,7 @@ A good way to do that is to have your site&rsquo;s basic CSS display and style t
 
 I'm a **huge** fan of [jRespond](https://github.com/ten1seven/jRespond), which is &ldquo;a simple way to globally manage JavaScript on responsive websites.&rdquo;
 
-jRespond and jPanelMenu are the perfect couple &mdash; use jRespond to enable and disable jPanelMenu at the appropriate breakpoints, creating a truly great experience. That&rsquo;s how I almost always use jPanelMenu (that&rsquo;s how the [documentation/demo site](http://jpanelmenu.com) works), and I think you should give it a shot, too.
+jRespond and jPanelMenu are the perfect couple &mdash; use jRespond to enable and disable jPanelMenu at the appropriate breakpoints, creating a truly great experience. That&rsquo;s how I almost always use jPanelMenu (that&rsquo;s how the [documentation/demo site](http://jpanelmenu.com) works), and I suggest you give it a shot, too.
 
 Responsive design is awesome on its own, but add responsive behavior to the mix, and you&rsquo;ve made something incredible.
 
