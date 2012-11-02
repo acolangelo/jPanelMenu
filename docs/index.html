@@ -49,26 +49,20 @@
 
 			<p>Build your page as you normally would (the source order does not matter), and instantiate jPanelMenu by calling the plugin constructor function.</p>
 
-			<pre>
-var jPM = $.jPanelMenu();
-			</pre>
+			<pre>var jPM = $.jPanelMenu();</pre>
 
 			<p>By default, jPanelMenu will look for an element with an ID of <code>menu</code> to use as the menu, and elements with a class of <code>menu-trigger</code> to use as the trigger(s). Either use these IDs and classes on your elements, or pass a custom selector string pointing jPanelMenu to your menu and trigger elements in an object into the constructor function call, as follows:</p>
 
-			<pre>
-var jPM = $.jPanelMenu({
+			<pre>var jPM = $.jPanelMenu({
     menu: '#custom-menu-selector',
     trigger: '.custom-menu-trigger-selector'
-});
-			</pre>
+});</pre>
 
 			<p><strong>Note:</strong> Check out the <a href="#options">options section</a> for more customizable goodness like the above.</p>
 
 			<p>After jPanelMenu has been instantiated (make sure to save the returned object to a variable, as shown above), it&rsquo;s time to turn it on!</p>
 
-			<pre>
-jPM.on();
-			</pre>
+			<pre class="javascript">jPM.on();</pre>
 
 			<p>After that, jPanelMenu will be functioning, and that&rsquo;s it!</p>
 
@@ -147,18 +141,17 @@ jPM.on();
 				<h3>keyboardShortcuts</h3>
 				<p>An option that allows you to control if keyboard shortcuts are enabled, and if they are, which keys do what.</p>
 				<p>Setting this option to <code>false</code> will disable keyboard shortcuts entirely. To enable keyboard shortcuts, pass in an <code>array</code> of <code>objects</code>. Each enabled key gets its own <code>object</code> in the <code>array</code> and each object should be structured as follows:</p>
-				<pre>
-{
+				<pre>{
     code: Keycode of enabled key,
     open: Boolean value (true or false), specifying whether or not this key should open the menu,
     close: Boolean value (true or false), specifying whether or not this key should close the menu
-}
-				</pre>
+}</pre>
+
 				<p><strong>Data Type:</strong> <code>array</code> or <code>boolean</code></p>
 				<p><strong>Accepted Values:</strong> <code>array</code> or <code>false</code></p>
 				<p><strong>Default Value:</strong></p>
-				<pre>
-[
+
+				<pre>[
     {
         code: 27, /* Escape Key */
         open: false,
@@ -179,8 +172,7 @@ jPM.on();
         open: true,
         close: true 
     }
-]
-				</pre>
+]</pre>
 			</div>
 
 			<div class="spec">
@@ -276,13 +268,11 @@ jPM.on();
 
 			<p>The following are the methods and properties of the object returned by the jPanelMenu constructor function call. In the following example, these would be the methods and properties of <code>jPM</code>.</p>
 
-			<pre>
-var jPM = $.jPanelMenu();
+			<pre>var jPM = $.jPanelMenu();
 
 jPM.on();
 
-jPM.trigger(true);
-			</pre>
+jPM.trigger(true);</pre>
 
 			<div class="spec">
 				<h3>on( )</h3>
@@ -414,7 +404,7 @@ jPM.trigger(true);
 	<script>window.jQuery || document.write('<script src="js/lib/jquery-1.8.2.min.js"><\/script>')</script>
 	<!--
 	<script src="js/jPanelMenu.min.js"></script>
-	<script src="js/script.min.js"></script>
 	-->
+	<script src="js/script.min.js"></script>
 </body>
 </html>

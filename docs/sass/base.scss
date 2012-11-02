@@ -19,6 +19,13 @@ pre, code {
 	@include type-pre;
 }
 
+pre {
+	@include border-radius(10px);
+	padding: 1em;
+	background: $black;
+	color: $white;
+}
+
 header.main, div.content, footer.main {
 	width: 90%;
 	padding: 0 5%;

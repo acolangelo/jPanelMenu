@@ -1,5 +1,6 @@
 var jPanelMenu = {};
 $(function() {
+	$('pre').each(function(i, e) {hljs.highlightBlock(e)});
 	// jPanelMenu = $.jPanelMenu({
 	// 	menu: 'header.main nav'
 	// });
