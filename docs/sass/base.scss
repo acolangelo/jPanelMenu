@@ -27,8 +27,8 @@ pre {
 }
 
 header.main, div.content, footer.main {
-	width: 90%;
-	padding: 0 5%;
+	width: 85%;
+	padding: 0 7.5%;
 }
 
 header.main, footer.main {
@@ -75,17 +75,16 @@ div.content {
 			color: $text-color;
 
 			&:hover, &:focus {
-				padding-left: 25px;
-
 				&:before {
 					@include type-icon;
 					position: absolute;
 					top: 5px;
-					left: 0;
+					left: -1.25em;
 					content: '\1F517';
 					margin-right: .5em;
 					font-size: .75em;
-					color: $link-color;
+					text-shadow: 0 1px 1px $white;
+					color: mix($text-color,$tan-light);
 				}
 			}
 		}
