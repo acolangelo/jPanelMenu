@@ -1,11 +1,10 @@
 /**
   *
-  * jPanelMenu 1.0.0
-  * 
+  * jPanelMenu 1.0.0 
   * By Anthony Colangelo (http://acolangelo.com)
-  * Free to use, but please give credit where credit is due.
   *
 * */
+
 (function($){
 	$.jPanelMenu = function(options) {
 		if ( typeof(options) == "undefined" || options == null ) { options = {}; };
@@ -15,6 +14,9 @@
 				menu: '#menu',
 				trigger: '.menu-trigger',
 				excludedPanelContent: 'style, script',
+
+				openPosition: '250px',
+				animated: true,
 
 				keyboardShortcuts: [
 					{
@@ -38,8 +40,6 @@
 						close: true 
 					}
 				],
-
-				openPosition: '250px',
 
 				duration: 150,
 				openDuration: options.duration || 150,
@@ -177,7 +177,7 @@
 				var formattedDuration = duration/1000;
 				var formattedEasing = jP.getCSSEasingFunction(easing);
 				jP.disableTransitions();
-				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + '; -webkit-transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; -webkit-perspective: 1000;}</style>');
+				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableTransitions: function() {
@@ -188,7 +188,7 @@
 				var formattedDuration = duration/1000;
 				var formattedEasing = jP.getCSSEasingFunction(easing);
 				jP.disableFixedTransitions(id);
-				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + '; -webkit-transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; -webkit-perspective: 1000;}</style>');
+				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableFixedTransitions: function(id) {
@@ -405,7 +405,7 @@
 			},
 
 			initiateClickListeners: function() {
-				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(true); return false; });
+				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(jP.options.animated); return false; });
 			},
 
 			destroyClickListeners: function() {
@@ -416,14 +416,14 @@
 				$(document).on('click',jP.panel,function(e){
 					if ( jP.menuIsOpen() )
 					{
-						if ( !$(e.target).hasClass('menu-trigger') ) { jP.closeMenu(true); }
+						if ( !$(e.target).hasClass('menu-trigger') ) { jP.closeMenu(jP.options.animated); }
 					}
 				});
 				
 				$(document).on('touchend',jP.panel,function(e){
 					if ( jP.menuIsOpen() )
 					{
-						if ( !$(e.target).hasClass('menu-trigger') ) { jP.closeMenu(true); }
+						if ( !$(e.target).hasClass('menu-trigger') ) { jP.closeMenu(jP.options.animated); }
 					}
 				});
 			},
@@ -440,9 +440,9 @@
 						{
 							var key = jP.options.keyboardShortcuts[mapping];
 
-							if ( key.open && key.close ) { jP.triggerMenu(true); }
-							else if ( (key.open && !key.close) && !jP.menuIsOpen() ) { jP.openMenu(true); }
-							else if ( (!key.open && key.close) && jP.menuIsOpen() ) { jP.closeMenu(true); }
+							if ( key.open && key.close ) { jP.triggerMenu(jP.options.animated); }
+							else if ( (key.open && !key.close) && !jP.menuIsOpen() ) { jP.openMenu(jP.options.animated); }
+							else if ( (!key.open && key.close) && jP.menuIsOpen() ) { jP.closeMenu(jP.options.animated); }
 
 							return false;
 						}
