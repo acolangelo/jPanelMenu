@@ -53,7 +53,15 @@ header.main {
 }
 
 div.content {
+	section {
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+
 	h2 {
+		padding-top: 1em;
+
 		a {
 			position: relative;
 			text-decoration: none;
