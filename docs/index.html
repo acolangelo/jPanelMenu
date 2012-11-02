@@ -49,11 +49,11 @@
 
 			<p>Build your page as you normally would (the source order does not matter), and instantiate jPanelMenu by calling the plugin constructor function.</p>
 
-			<pre>var jPM = $.jPanelMenu();</pre>
+			<pre>var jPM = $.<span class="jquery-constructor">jPanelMenu</span>();</pre>
 
 			<p>By default, jPanelMenu will look for an element with an ID of <code>menu</code> to use as the menu, and elements with a class of <code>menu-trigger</code> to use as the trigger(s). Either use these IDs and classes on your elements, or pass a custom selector string pointing jPanelMenu to your menu and trigger elements in an object into the constructor function call, as follows:</p>
 
-			<pre>var jPM = $.jPanelMenu({
+			<pre>var jPM = $.<span class="jquery-constructor">jPanelMenu</span>({
     menu: '#custom-menu-selector',
     trigger: '.custom-menu-trigger-selector'
 });</pre>
@@ -62,7 +62,7 @@
 
 			<p>After jPanelMenu has been instantiated (make sure to save the returned object to a variable, as shown above), it&rsquo;s time to turn it on!</p>
 
-			<pre class="javascript">jPM.on();</pre>
+			<pre class="javascript">jPM.<span class="function">on</span>();</pre>
 
 			<p>After that, jPanelMenu will be functioning, and that&rsquo;s it!</p>
 
@@ -268,11 +268,11 @@
 
 			<p>The following are the methods and properties of the object returned by the jPanelMenu constructor function call. In the following example, these would be the methods and properties of <code>jPM</code>.</p>
 
-			<pre>var jPM = $.jPanelMenu();
+			<pre>var jPM = $.<span class="jquery-constructor">jPanelMenu</span>();
 
-jPM.on();
+jPM.<span class="function">on</span>();
 
-jPM.trigger(true);</pre>
+jPM.<span class="function">trigger</span>(true);</pre>
 
 			<div class="spec">
 				<h3>on( )</h3>
