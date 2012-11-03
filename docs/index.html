@@ -75,7 +75,7 @@
 
 			<p>When jPanelMenu is turned on, two <code>&lt;div&gt;</code> elements are created. The menu element (with an ID of <code>jPanelMenu-menu</code>, and the panel element (with a class of <code>jPanelMenu-panel</code>).</p>
 
-			<p>The menu, <code>#jPanelMenu-menu</code>, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. The targeted menu element is cloned into <code>#jPanelMenu-menu</code>, and is not removed from its original position in the DOM, it is only hidden (using <code>display: none</code>).</p>
+			<p>The menu, <code>#jPanelMenu-menu</code>, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. The targeted menu element is cloned into <code>#jPanelMenu-menu</code>, and is not removed from its original position in the <abbr title="Document Object Model">DOM</abbr>, it is only hidden (using <code>display: none</code>).</p>
 
 			<p>The panel, <code>.jPanelMenu-panel</code>, contains all of the content in the <code>&lt;body&gt;</code> element (except for the elements specified by the <code>excludedPanelContent</code> option). The selected content is moved, not cloned, into <code>.jPanelMenu-panel</code>.</p>
 
@@ -102,40 +102,50 @@
 			<div class="spec">
 				<h3>menu</h3>
 				<p>A selector string pointing to the desired menu element.</p>
-				<p><strong>Data Type:</strong> <code>string</code></p>
-				<p><strong>Default Value:</strong> <code>#menu</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>string</code></p>
+					<p><strong>Default Value:</strong> <code>#menu</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>trigger</h3>
 				<p>A selector string pointing to the menu-triggering element.</p>
-				<p><strong>Data Type:</strong> <code>string</code></p>
-				<p><strong>Default Value:</strong> <code>.menu-trigger</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>string</code></p>
+					<p><strong>Default Value:</strong> <code>.menu-trigger</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>excludedPanelContent</h3>
 				<p>A selector string specifying which tags within the <code>&lt;body&gt;</code> element should <strong>not</strong> be pushed into <code>.jPanelMenu-panel</code>.</p>
 				<p>Generally, <code>&lt;style&gt;</code> and <code>&lt;script&gt;</code> tags should not be moved from their original location, but in certain circumstances (mostly advertising), <code>&lt;script&gt;</code> tags may need to move with the page content.</p>
-				<p><strong>Data Type:</strong> <code>string</code></p>
-				<p><strong>Default Value:</strong> <code>style, script</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>string</code></p>
+					<p><strong>Default Value:</strong> <code>style, script</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>openPosition</h3>
 				<p>The measurement value for the open position of the menu. Can be set as a pixel, percentage, or <code>em</code> value.</p>
-				<p><strong>Data Type:</strong> <code>string</code></p>
-				<p><strong>Examples:</strong> <code>250px</code>, <code>75%</code>, <code>20em</code></p>
-				<p><strong>Default Value:</strong> <code>250px</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>string</code></p>
+					<p><strong>Examples:</strong> <code>250px</code>, <code>75%</code>, <code>20em</code></p>
+					<p><strong>Default Value:</strong> <code>250px</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>animated</h3>
 				<p>A boolean value specifying whether or not the opening and closing of the menu should be animated.</p>
-				<p>When using the API functions <code>open()</code>, <code>close()</code>, and <code>trigger()</code>, this setting can be overridden by passing in <code>true</code> as the parameter. More info in the <a href="#api" title="jPanelMenu | API">API section</a>.</p>
-				<p><strong>Data Type:</strong> <code>boolean</code></p>
-				<p><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></p>
-				<p><strong>Default Value:</strong> <code>true</code></p>
+				<p>When using the <abbr title="Application Programming Interface">API</abbr> functions <code>open()</code>, <code>close()</code>, and <code>trigger()</code>, this setting can be overridden by passing in <code>true</code> as the parameter. More info in the <a href="#api" title="jPanelMenu | API">API section</a>.</p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>boolean</code></p>
+					<p><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></p>
+					<p><strong>Default Value:</strong> <code>true</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
@@ -148,9 +158,10 @@
     close: false /* Boolean value (true or false), specifying whether or not key should close the menu */
 }</pre>
 
-				<p><strong>Data Type:</strong> <code>array</code> or <code>boolean</code></p>
-				<p><strong>Accepted Values:</strong> <code>array</code> or <code>false</code></p>
-				<p><strong>Default Value:</strong></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>array</code> or <code>boolean</code></p>
+					<p><strong>Accepted Values:</strong> <code>array</code> or <code>false</code></p>
+					<p><strong>Default Value:</strong></p>
 
 				<pre>[
     {
@@ -174,93 +185,118 @@
         close: true 
     }
 ]</pre>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>duration</h3>
 				<p>The time, in milliseconds, which it should take to open and close the menu, when animated.</p>
-				<p><strong>Data Type:</strong> <code>int</code></p>
-				<p><strong>Default Value:</strong> <code>150</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>int</code></p>
+					<p><strong>Default Value:</strong> <code>150</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>openDuration</h3>
 				<p>The time, in milliseconds, which it should take to open the menu, when animated. If set, this overrides the duration option.</p>
-				<p><strong>Data Type:</strong> <code>int</code></p>
-				<p><strong>Default Value:</strong> Inherited from <code>duration</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>int</code></p>
+					<p><strong>Default Value:</strong> Inherited from <code>duration</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>closeDuration</h3>
 				<p>The time, in milliseconds, which it should take to close the menu, when animated. If set, this overrides the duration option.</p>
-				<p><strong>Data Type:</strong> <code>int</code></p>
-				<p><strong>Default Value:</strong> Inherited from <code>duration</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>int</code></p>
+					<p><strong>Default Value:</strong> Inherited from <code>duration</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>easing</h3>
 				<p>The easing function to use when animating the opening and closing of the menu.</p>
-				<p><strong>Data Type:</strong> <code>string</code></p>
-				<p><strong>Accepted Values:</strong> <code>linear</code>, <code>ease</code>, <code>ease-in</code>, <code>ease-out</code>, <code>ase-in-out</code></p>
-				<p><strong>Default Value:</strong> <code>ease-in-out</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>string</code></p>
+					<p><strong>Accepted Values:</strong> <code>linear</code>, <code>ease</code>, <code>ease-in</code>, <code>ease-out</code>, <code>ase-in-out</code></p>
+					<p><strong>Default Value:</strong> <code>ease-in-out</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>openEasing</h3>
 				<p>The easing function to use when animating the opening of the menu. If set, this overrides the easing option.</p>
-				<p><strong>Data Type:</strong> <code>string</code></p>
-				<p><strong>Accepted Values:</strong> <code>linear</code>, <code>ease</code>, <code>ease-in</code>, <code>ease-out</code>, <code>ase-in-out</code></p>
-				<p><strong>Default Value:</strong> Inherited from <code>easing</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>string</code></p>
+					<p><strong>Accepted Values:</strong> <code>linear</code>, <code>ease</code>, <code>ease-in</code>, <code>ease-out</code>, <code>ase-in-out</code></p>
+					<p><strong>Default Value:</strong> Inherited from <code>easing</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>closeEasing</h3>
 				<p>The easing function to use when animating the closing of the menu. If set, this overrides the easing option.</p>
-				<p><strong>Data Type:</strong> <code>string</code></p>
-				<p><strong>Accepted Values:</strong> <code>linear</code>, <code>ease</code>, <code>ease-in</code>, <code>ease-out</code>, <code>ase-in-out</code></p>
-				<p><strong>Default Value:</strong> Inherited from <code>easing</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>string</code></p>
+					<p><strong>Accepted Values:</strong> <code>linear</code>, <code>ease</code>, <code>ease-in</code>, <code>ease-out</code>, <code>ase-in-out</code></p>
+					<p><strong>Default Value:</strong> Inherited from <code>easing</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>before</h3>
 				<p>Called before the menu is opened or closed, regardless of animation state.</p>
-				<p><strong>Data Type:</strong> <code>function</code></p>
-				<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>function</code></p>
+					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>beforeOpen</h3>
 				<p>Called before the menu is opened, regardless of animation state.</p>
-				<p><strong>Data Type:</strong> <code>function</code></p>
-				<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>function</code></p>
+					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>beforeClose</h3>
 				<p>Called before the menu is closed, regardless of animation state.</p>
-				<p><strong>Data Type:</strong> <code>function</code></p>
-				<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>function</code></p>
+					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>after</h3>
 				<p>Called after the menu is opened or closed, regardless of animation state.</p>
-				<p><strong>Data Type:</strong> <code>function</code></p>
-				<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>function</code></p>
+					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>afterOpen</h3>
 				<p>Called after the menu is opened, regardless of animation state.</p>
-				<p><strong>Data Type:</strong> <code>function</code></p>
-				<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>function</code></p>
+					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>afterClose</h3>
 				<p>Called after the menu is closed, regardless of animation state.</p>
-				<p><strong>Data Type:</strong> <code>function</code></p>
-				<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>function</code></p>
+					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				</div>
 			</div>
 		</section>
 
@@ -278,94 +314,114 @@ jPM.<span class="function">trigger</span>(true);</pre>
 			<div class="spec">
 				<h3>on(&nbsp;)</h3>
 				<p>Initializes a jPanelMenu instance. Sets up the markup, styles, listeners, and interactions, according to the options passed into the constructor function.</p>
-				<p><strong>Returns:</strong> <code>null</code></p>
+				<div class="details">
+					<p><strong>Returns:</strong> <code>null</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>off(&nbsp;)</h3>
 				<p>Destroys a jPanelMenu instance. Resets the markup and styles, removes listeners and interactions.</p>
-				<p><strong>Returns:</strong> <code>null</code></p>
+				<div class="details">
+					<p><strong>Returns:</strong> <code>null</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>trigger(&nbsp;<code>animated</code>&nbsp;)</h3>
 				<p>Triggers the opening or closing of the menu, depending on the current state (open or closed).</p>
-				<p><strong>Parameters:</strong></p>
 
-				<div class="param">
-					<p><code>animated</code></p>
-					<ul>
-						<li>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the action will not be animated.</li>
-						<li><strong>Data Type:</strong> <code>boolean</code></li>
-						<li><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></li>
-					</ul>
+				<div class="details">
+					<p><strong>Parameters:</strong></p>
+					<div class="param">
+						<p><code>animated</code></p>
+						<ul>
+							<li>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the action will not be animated.</li>
+							<li><strong>Data Type:</strong> <code>boolean</code></li>
+							<li><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></li>
+						</ul>
+					</div>
+
+					<p><strong>Returns:</strong> <code>null</code></p>
 				</div>
-
-				<p><strong>Returns:</strong> <code>null</code></p>
 			</div>
 
 			<div class="spec">
 				<h3>open(&nbsp;<code>animated</code>&nbsp;)</h3>
 				<p>Triggers the opening of the menu.</p>
-				<p><strong>Parameters:</strong></p>
 
-				<div class="param">
-					<p><code>animated</code></p>
-					<ul>
-						<li>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the action will not be animated.</li>
-						<li><strong>Data Type:</strong> <code>boolean</code></li>
-						<li><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></li>
-					</ul>
+				<div class="details">
+					<p><strong>Parameters:</strong></p>
+					<div class="param">
+						<p><code>animated</code></p>
+						<ul>
+							<li>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the action will not be animated.</li>
+							<li><strong>Data Type:</strong> <code>boolean</code></li>
+							<li><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></li>
+						</ul>
+					</div>
+
+					<p><strong>Returns:</strong> <code>null</code></p>
 				</div>
-
-				<p><strong>Returns:</strong> <code>null</code></p>
 			</div>
 
 			<div class="spec">
 				<h3>close(&nbsp;<code>animated</code>&nbsp;)</h3>
 				<p>Triggers the closing of the menu.</p>
-				<p><strong>Parameters:</strong></p>
 
-				<div class="param">
-					<p><code>animated</code></p>
-					<ul>
-						<li>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the action will not be animated.</li>
-						<li><strong>Data Type:</strong> <code>boolean</code></li>
-						<li><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></li>
-					</ul>
+				<div class="details">
+					<p><strong>Parameters:</strong></p>
+					<div class="param">
+						<p><code>animated</code></p>
+						<ul>
+							<li>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the action will not be animated.</li>
+							<li><strong>Data Type:</strong> <code>boolean</code></li>
+							<li><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></li>
+						</ul>
+					</div>
+
+					<p><strong>Returns:</strong> <code>null</code></p>
 				</div>
-
-				<p><strong>Returns:</strong> <code>null</code></p>
 			</div>
 
 			<div class="spec">
 				<h3>isOpen(&nbsp;)</h3>
 				<p>Checks the current state of the menu. Returns <code>true</code> if the menu is currently open, and <code>false</code> if it is closed.</p>
-				<p><strong>Returns:</strong> <code>boolean</code>, <code>true</code> or <code>false</code></p>
+				<div class="details">
+					<p><strong>Returns:</strong> <code>boolean</code>, <code>true</code> or <code>false</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>menu</h3>
 				<p>A property equal to the raw selector string of the created menu object.</p>
-				<p><strong>Data Type:</strong> <code>string</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>string</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>getMenu(&nbsp;)</h3>
 				<p>Returns a <code>jQuery Object</code> containing the created menu object.</p>
-				<p><strong>Returns:</strong> <code>jQuery Object</code></p>
+				<div class="details">
+					<p><strong>Returns:</strong> <code>jQuery Object</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>panel</h3>
 				<p>A property equal to the raw selector string of the created panel object.</p>
-				<p><strong>Data Type:</strong> <code>string</code></p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>string</code></p>
+				</div>
 			</div>
 
 			<div class="spec">
 				<h3>getPanel(&nbsp;)</h3>
 				<p>Returns a <code>jQuery Object</code> containing the created panel object.</p>
-				<p><strong>Returns:</strong> <code>jQuery Object</code></p>
+				<div class="details">
+					<p><strong>Returns:</strong> <code>jQuery Object</code></p>
+				</div>
 			</div>
 		</section>
 
@@ -376,7 +432,7 @@ jPM.<span class="function">trigger</span>(true);</pre>
 
 			<p>Users without JavaScript (whether they have turned it off or are using a device without it) will obviously not get the interactions provided by jPanelMenu. It&rsquo;s a good idea to take a <a href="http://www.alistapart.com/articles/understandingprogressiveenhancement/" title="Progressive Enhancement | A List Apart">&ldquo;progressive enhancement&rdquo;</a> approach, and build your site&rsquo;s navigation to work without JavaScript running.</p>
 
-			<p>A good way to do that is to have your site&rsquo;s basic CSS display and style the navigation (or whatever is the content of your jPanelMenu) in an appropriate way, and use JavaScript to apply any styles that are specific to the JavaScript-enabled implementation (maybe have your site&rsquo;s JavaScript write out a <code>&lt;style&gt;</code> tag).</p>
+			<p>A good way to do that is to have your site&rsquo;s basic <abbr title="Cascading Style Sheets">CSS</abbr> display and style the navigation (or whatever is the content of your jPanelMenu) in an appropriate way, and use JavaScript to apply any styles that are specific to the JavaScript-enabled implementation (maybe have your site&rsquo;s JavaScript write out a <code>&lt;style&gt;</code> tag).</p>
 
 
 			<h3>jPanelMenu and jRespond &mdash; Perfect Together</h3>
