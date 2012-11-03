@@ -2,6 +2,10 @@ header.main {
 	margin-top: 0;
 	padding-top: $vertical-space;
 
+	.menu-trigger {
+		display: none;
+	}
+
 	nav {
 		ul {
 			@include clearfix;

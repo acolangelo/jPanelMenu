@@ -28,6 +28,10 @@ p {
 	}
 }
 
+strong {
+	@include type-medium;
+}
+
 pre, code {
 	@include type-pre;
 }
@@ -66,7 +70,7 @@ header.main, footer.main {
 
 .logo {
 	$iconPosition: 5px;
-	margin-bottom: $vertical-space-small;
+	margin: 0 0 $vertical-space-small;
 	font-size: 1.4em;
 	text-align: center;
 

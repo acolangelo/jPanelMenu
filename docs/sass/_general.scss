@@ -39,8 +39,13 @@ $font-museo: "museo-sans", "Museo Sans", "Helvetica Neue", Helvetica, Arial, san
 	font-weight: 300;
 }
 
+@mixin type-medium {
+	@include type-default;
+	font-weight: 700;
+}
+
 @mixin type-heavy {
-	font-family: $font-museo;
+	@include type-default;
 	font-weight: 900;
 }
 
