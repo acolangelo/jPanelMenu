@@ -3,7 +3,11 @@ $(function() {
 	$('pre').each(function(i, e) {hljs.highlightBlock(e)});
 	jPanelMenu = $.jPanelMenu({
 		menu: 'header.main nav'
-	}).on();
+	});
+	jPanelMenu.on();
+	$(document).on('click',jPanelMenu.menu + ' li a',function(e){
+		if ( jPanelMenu.isOpen() ) { jPanelMenu.close(); }
+	});
 	// var jR = jRespond([
 	// 	{
 	// 		label: 'small',
@@ -27,8 +31,5 @@ $(function() {
 	// 	exit: function() {
 	// 		jPanelMenu.off();
 	// 	}
-	// });
-	// $(document).on('click',jPanelMenu.menu + ' li a',function(e){
-	// 	if ( jPanelMenu.isOpen() ) { jPanelMenu.close(true); }
 	// });
 });
