@@ -23,6 +23,7 @@
 <body>
 	<header class="main">
 		<h1 class="logo"><a href="." class="ss-list">jPanelMenu</a></h1>
+		<p><a href="#menu" class="menu-trigger">Menu</a></p>
 		<nav>
 			<ul>
 				<li><a href="#usage">Usage</a></li>
@@ -45,7 +46,7 @@
 		<section>
 			<h2 id="usage"><a href="#usage">How Do I Use This Thing?</a></h2>
 
-			<p>Start off by including the jPanelMenu.js file in your page. (Bonus points for using the minified version [jPanelMenu.min.js], or for bundling the jPanelMenu code into your own JavaScript file to reduce size and HTTP requests.)</p>
+			<p>Start off by including the jPanelMenu.js file in your page. (Bonus points for using the minified version [jPanelMenu.min.js], or for bundling the jPanelMenu code into your own JavaScript file to reduce size and <abbr title="Hypertext Transfer Protocol">HTTP</abbr> requests.)</p>
 
 			<p>Build your page as you normally would (the source order does not matter), and instantiate jPanelMenu by calling the plugin constructor function.</p>
 
@@ -58,7 +59,7 @@
     trigger: '.custom-menu-trigger-selector'
 });</pre>
 
-			<p><strong>Note:</strong> Check out the <a href="#options">options section</a> for more customizable goodness like the above.</p>
+			<p class="caption"><strong>Note:</strong> Check out the <a href="#options">options section</a> for more customizable goodness like the above.</p>
 
 			<p>After jPanelMenu has been instantiated (make sure to save the returned object to a variable, as shown above), it&rsquo;s time to turn it on!</p>
 
@@ -131,7 +132,7 @@
 			<div class="spec">
 				<h3>animated</h3>
 				<p>A boolean value specifying whether or not the opening and closing of the menu should be animated.</p>
-				<p><strong>Note:</strong> When using the API functions <code>open( )</code>, <code>close( )</code>, or <code>trigger( )</code>, this setting can be overridden by passing in <code>true</code> as the parameter. More info in the <a href="#api" title="jPanelMenu | API">API section</a>.</p>
+				<p>When using the API functions <code>open()</code>, <code>close()</code>, and <code>trigger()</code>, this setting can be overridden by passing in <code>true</code> as the parameter. More info in the <a href="#api" title="jPanelMenu | API">API section</a>.</p>
 				<p><strong>Data Type:</strong> <code>boolean</code></p>
 				<p><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></p>
 				<p><strong>Default Value:</strong> <code>true</code></p>
@@ -275,19 +276,19 @@ jPM.<span class="function">on</span>();
 jPM.<span class="function">trigger</span>(true);</pre>
 
 			<div class="spec">
-				<h3>on( )</h3>
+				<h3>on(&nbsp;)</h3>
 				<p>Initializes a jPanelMenu instance. Sets up the markup, styles, listeners, and interactions, according to the options passed into the constructor function.</p>
 				<p><strong>Returns:</strong> <code>null</code></p>
 			</div>
 
 			<div class="spec">
-				<h3>off( )</h3>
+				<h3>off(&nbsp;)</h3>
 				<p>Destroys a jPanelMenu instance. Resets the markup and styles, removes listeners and interactions.</p>
 				<p><strong>Returns:</strong> <code>null</code></p>
 			</div>
 
 			<div class="spec">
-				<h3>trigger( <code>animated</code> )</h3>
+				<h3>trigger(&nbsp;<code>animated</code>&nbsp;)</h3>
 				<p>Triggers the opening or closing of the menu, depending on the current state (open or closed).</p>
 				<p><strong>Parameters:</strong></p>
 
@@ -304,7 +305,7 @@ jPM.<span class="function">trigger</span>(true);</pre>
 			</div>
 
 			<div class="spec">
-				<h3>open( <code>animated</code> )</h3>
+				<h3>open(&nbsp;<code>animated</code>&nbsp;)</h3>
 				<p>Triggers the opening of the menu.</p>
 				<p><strong>Parameters:</strong></p>
 
@@ -321,7 +322,7 @@ jPM.<span class="function">trigger</span>(true);</pre>
 			</div>
 
 			<div class="spec">
-				<h3>close( <code>animated</code> )</h3>
+				<h3>close(&nbsp;<code>animated</code>&nbsp;)</h3>
 				<p>Triggers the closing of the menu.</p>
 				<p><strong>Parameters:</strong></p>
 
@@ -338,7 +339,7 @@ jPM.<span class="function">trigger</span>(true);</pre>
 			</div>
 
 			<div class="spec">
-				<h3>isOpen( )</h3>
+				<h3>isOpen(&nbsp;)</h3>
 				<p>Checks the current state of the menu. Returns <code>true</code> if the menu is currently open, and <code>false</code> if it is closed.</p>
 				<p><strong>Returns:</strong> <code>boolean</code>, <code>true</code> or <code>false</code></p>
 			</div>
@@ -350,7 +351,7 @@ jPM.<span class="function">trigger</span>(true);</pre>
 			</div>
 
 			<div class="spec">
-				<h3>getMenu( )</h3>
+				<h3>getMenu(&nbsp;)</h3>
 				<p>Returns a <code>jQuery Object</code> containing the created menu object.</p>
 				<p><strong>Returns:</strong> <code>jQuery Object</code></p>
 			</div>
@@ -362,7 +363,7 @@ jPM.<span class="function">trigger</span>(true);</pre>
 			</div>
 
 			<div class="spec">
-				<h3>getPanel( )</h3>
+				<h3>getPanel(&nbsp;)</h3>
 				<p>Returns a <code>jQuery Object</code> containing the created panel object.</p>
 				<p><strong>Returns:</strong> <code>jQuery Object</code></p>
 			</div>
@@ -398,9 +399,11 @@ jPM.<span class="function">trigger</span>(true);</pre>
 		<small>&copy; 2012 <a href="//acolangelo.com">Anthony Colangelo</a></small>
 	</footer>
 
+	<!--
 	<script src="//use.typekit.net/koc4rlq.js"></script>
 	<script>try{Typekit.load();}catch(e){}</script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	-->
 	<script>window.jQuery || document.write('<script src="js/lib/jquery-1.8.2.min.js"><\/script>')</script>
 	<script src="js/script.min.js"></script>
 </body>

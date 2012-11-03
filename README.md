@@ -121,7 +121,7 @@ The measurement value for the open position of the menu. Can be set as a pixel, 
 
 A boolean value specifying whether or not the opening and closing of the menu should be animated.
 
-**Note:** When using the API functions `open( )`, `close( )`, or `trigger( )`, this setting can be overridden by passing in `true` as the parameter. More info in the [API section](#api).
+When using the API functions `open()`, `close()`, and `trigger()`, this setting can be overridden by passing in `true` as the parameter. More info in the [API section](#api).
 
 - **Data Type:** `boolean`
 - **Accepted Values:** `true` or `false`
@@ -318,7 +318,7 @@ The following are the methods and properties of the object returned by the jPane
 	
 	jPM.trigger(true);
 
-###on( )
+###on(&nbsp;)
 
 Initializes a jPanelMenu instance. Sets up the markup, styles, listeners, and interactions, according to the options passed into the constructor function.
 
@@ -328,7 +328,7 @@ Initializes a jPanelMenu instance. Sets up the markup, styles, listeners, and in
 ***
 
 
-###off( )
+###off(&nbsp;)
 
 Destroys a jPanelMenu instance. Resets the markup and styles, removes listeners and interactions.
 
@@ -338,7 +338,7 @@ Destroys a jPanelMenu instance. Resets the markup and styles, removes listeners 
 ***
 
 
-###trigger( `animated` )
+###trigger(&nbsp;`animated`&nbsp;)
 
 Triggers the opening or closing of the menu, depending on the current state (open or closed).
 
@@ -353,7 +353,7 @@ Triggers the opening or closing of the menu, depending on the current state (ope
 ***
 
 
-###open( `animated` )
+###open(&nbsp;`animated`&nbsp;)
 
 Triggers the opening of the menu.
 
@@ -368,7 +368,7 @@ Triggers the opening of the menu.
 ***
 
 
-###close( `animated` )
+###close(&nbsp;`animated`&nbsp;)
 
 Triggers the closing of the menu.
 
@@ -382,7 +382,7 @@ Triggers the closing of the menu.
 ***
 
 
-###isOpen( )
+###isOpen(&nbsp;)
 
 Checks the current state of the menu. Returns `true` if the menu is currently open, and `false` if it is closed.
 
@@ -402,7 +402,7 @@ A property equal to the raw selector string of the created menu object.
 ***
 
 
-###getMenu( )
+###getMenu(&nbsp;)
 
 Returns a `jQuery Object` containing the created menu object.
 
@@ -422,7 +422,7 @@ A property equal to the raw selector string of the created panel object.
 ***
 
 
-###getPanel( )
+###getPanel(&nbsp;)
 
 Returns a `jQuery Object` containing the created panel object.
 
