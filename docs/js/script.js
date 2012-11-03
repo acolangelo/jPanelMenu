@@ -1,9 +1,9 @@
 var jPanelMenu = {};
 $(function() {
 	$('pre').each(function(i, e) {hljs.highlightBlock(e)});
-	// jPanelMenu = $.jPanelMenu({
-	// 	menu: 'header.main nav'
-	// });
+	jPanelMenu = $.jPanelMenu({
+		menu: 'header.main nav'
+	}).on();
 	// var jR = jRespond([
 	// 	{
 	// 		label: 'small',
