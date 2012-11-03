@@ -1,0 +1,32 @@
+.content {
+	section {
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	h2 {
+		margin-top: 0;
+		padding-top: $vertical-space;
+
+		a {
+			position: relative;
+			text-decoration: none;
+			color: $text-color;
+
+			&:hover, &:focus {
+				&:before {
+					@include type-icon;
+					position: absolute;
+					top: 3px;
+					left: -1.25em;
+					content: '\1F517';
+					margin-right: .5em;
+					font-size: .75em;
+					text-shadow: 0 1px 1px $white;
+					color: $text-color-light
+				}
+			}
+		}
+	}
+}

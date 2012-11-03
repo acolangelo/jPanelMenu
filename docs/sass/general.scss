@@ -13,11 +13,23 @@ $bg: mix($white, $tan-light);
 $main: $blue;
 
 $text-color: #555;
+$text-color-light: mix($text-color,$tan-light);
+$text-color-medium: mix($text-color,$text-color-light);
 $link-color: $blue;
+
+/* Length Measurements */
+
+$vertical-space: 1em;
+$vertical-space-small: $vertical-space/2;
+$vertical-space-large: $vertical-space*2;
+
+$horizontal-space: 2.5%;
+$horizontal-space-large: $horizontal-space*2;
+$horizontal-space-xl: $horizontal-space*3;
 
 /* Type Styles */
 
-$font-museo: "museo-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-museo: "museo-sans", "Museo Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 @mixin type-default {
 	font-family: $font-museo;
@@ -31,10 +43,12 @@ $font-museo: "museo-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 @mixin type-heading {
 	@include type-heavy;
+	line-height: 1.25em;
 }
 
 @mixin type-body {
 	@include type-default;
+	line-height: 1.75em;
 	color: $text-color;
 }
 

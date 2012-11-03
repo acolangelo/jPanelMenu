@@ -1,0 +1,26 @@
+header.main {
+	margin-top: 0;
+	padding-top: $vertical-space;
+
+	nav {
+		ul {
+			@include clearfix;
+		}
+
+		li {
+			float: left;
+			margin-right: 10%;
+			margin-bottom: $vertical-space-small;
+		}
+
+		a {
+			text-decoration: none;
+			color: $text-color;
+
+			&:hover, &:focus {
+				text-decoration: underline;
+				color: $link-color;
+			}
+		}
+	}
+}

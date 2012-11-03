@@ -8,11 +8,24 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
 	@include type-heading;
-	margin: 0;
+	margin: $vertical-space 0;
 }
 
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.25em; }
+h4 { font-size: 1em; text-transform: uppercase; }
+h5 { font-size: 1em; }
+h6 { font-size: 1em; color: $text-color-light; }
+
 p {
-	margin: 1em 0;
+	margin: $vertical-space 0;
+
+	&.caption {
+		margin-bottom: $vertical-space-large;
+		// padding: 0 $horizontal-space-large;
+		color: $text-color-medium;
+	}
 }
 
 pre, code {
@@ -21,79 +34,35 @@ pre, code {
 
 pre {
 	@include border-radius(10px);
-	padding: 1em;
+	padding: $vertical-space $horizontal-space-large;
 	background: $black;
 	color: $white;
 }
 
+code {
+	@include border-radius(3px);
+	position: relative;
+	top: -1px;
+	margin: 0 3px;
+	padding: 6px 5px 4px;
+	background: #fff;
+	border: 1px solid mix($text-color-light,$white);
+	font-size: .9em;
+	white-space: nowrap;
+}
+
 header.main, div.content, footer.main {
-	width: 85%;
-	padding: 0 7.5%;
+	width: 100% - ($horizontal-space-xl*2);
+	padding: 0 $horizontal-space-xl;
 }
 
 header.main, footer.main {
 	margin: 1em inherit;
 }
 
-header.main {
-	nav {
-		ul {
-			@include clearfix;
-		}
-
-		li {
-			float: left;
-			margin-right: 10%;
-			margin-bottom: .5em;
-		}
-
-		a {
-			text-decoration: none;
-			color: $text-color;
-
-			&:hover, &:focus {
-				text-decoration: underline;
-				color: $link-color;
-			}
-		}
-	}
-}
-
-div.content {
-	section {
-		p:last-child {
-			margin-bottom: 0;
-		}
-	}
-
-	h2 {
-		padding-top: 1em;
-
-		a {
-			position: relative;
-			text-decoration: none;
-			color: $text-color;
-
-			&:hover, &:focus {
-				&:before {
-					@include type-icon;
-					position: absolute;
-					top: 5px;
-					left: -1.25em;
-					content: '\1F517';
-					margin-right: .5em;
-					font-size: .75em;
-					text-shadow: 0 1px 1px $white;
-					color: mix($text-color,$tan-light);
-				}
-			}
-		}
-	}
-}
-
 .logo {
 	$iconPosition: 5px;
-	margin-bottom: .5em;
+	margin-bottom: $vertical-space-small;
 	font-size: 1.4em;
 	text-align: center;
 
@@ -103,6 +72,8 @@ div.content {
 		display: inline;
 		color: $text-color;
 		text-decoration: none;
+
+		&:hover, &:focus { color: $link-color; }
 	}
 
 	a:before {
@@ -111,7 +82,7 @@ div.content {
 		top: 2px;
 		left: -$iconPosition*2;
 		font-size: 80%;
-		color: $link-color;
+		color: $text-color-light;
 	}
 }
 
