@@ -30,3 +30,17 @@
 		}
 	}
 }
+
+.spec {
+	margin: $vertical-space-large 0 $vertical-space-xl;
+
+	.details {
+		@include border-radius(10px);
+		background: $bg-light;
+		border: 1px solid $text-color-lightest;
+		padding: $vertical-space*1.25 $vertical-space*1.25 $vertical-space;
+
+		p:first-child { margin-top: 0; }
+		p:last-child { margin-bottom: 0; }
+	}
+}

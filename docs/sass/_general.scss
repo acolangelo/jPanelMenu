@@ -10,10 +10,12 @@ $white: #f7f7f7;
 $black: #222;
 
 $bg: mix($white, $tan-light);
+$bg-light: lighten(mix($white,$bg),2%);
 $main: $blue;
 
 $text-color: #555;
 $text-color-light: mix($text-color,$tan-light);
+$text-color-lightest: mix($text-color-light,$tan-light);
 $text-color-medium: mix($text-color,$text-color-light);
 $link-color: $blue;
 
@@ -22,6 +24,7 @@ $link-color: $blue;
 $vertical-space: 1em;
 $vertical-space-small: $vertical-space/2;
 $vertical-space-large: $vertical-space*2;
+$vertical-space-xl: $vertical-space*4;
 
 $horizontal-space: 2.5%;
 $horizontal-space-large: $horizontal-space*2;

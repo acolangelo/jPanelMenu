@@ -51,6 +51,10 @@ code {
 	white-space: nowrap;
 }
 
+abbr {
+	cursor: help;
+}
+
 header.main, div.content, footer.main {
 	width: 100% - ($horizontal-space-xl*2);
 	padding: 0 $horizontal-space-xl;
