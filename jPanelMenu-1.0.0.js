@@ -246,6 +246,8 @@
 			},
 
 			openMenu: function(animated) {
+				if ( typeof(animated) == "undefined" || animated == null ) { animated = jP.options.animated };
+				
 				jP.clearTimeouts();
 
 				jP.options.before();
@@ -326,6 +328,8 @@
 			},
 
 			closeMenu: function(animated) {
+				if ( typeof(animated) == "undefined" || animated == null ) { animated = jP.options.animated };
+
 				jP.clearTimeouts();
 
 				jP.options.before();
