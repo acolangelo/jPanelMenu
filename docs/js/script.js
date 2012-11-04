@@ -6,7 +6,7 @@ $(function() {
 	});
 	jPanelMenu.on();
 	$(document).on('click',jPanelMenu.menu + ' li a',function(e){
-		if ( jPanelMenu.isOpen() ) { jPanelMenu.close(); }
+		if ( jPanelMenu.isOpen() && $(e.target).attr('href').substring(0,1) == '#' ) { jPanelMenu.close(); }
 	});
 	// var jR = jRespond([
 	// 	{
