@@ -37,9 +37,11 @@ $menu-color: mix($text-color,$black);
 			position: absolute;
 			top: 0;
 			left: 0;
-			padding: 0 $horizontal-space-xl;
+			padding: 0 $vertical-space*1.5;
 			font-size: 1.2em;
 			line-height: $header-size*1.15;
+
+			&:active { text-shadow: 0 -1px 1px $black, 0 0 50px $white; }
 		}
 
 		nav {
@@ -50,8 +52,8 @@ $menu-color: mix($text-color,$black);
 	.content {
 		padding-top: $vertical-space-xl;
 
-		section:first-child p:first-child {
-			margin-top: 0;
+		section.intro h2 {
+			padding-top: 0;
 		}
 
 		h2 {
@@ -78,6 +80,15 @@ $menu-color: mix($text-color,$black);
 		text-decoration: none;
 		text-shadow: 0 -1px 2px $black;
 		color: $white;
+
+		&:hover, &:focus { @include linear-gradient(lighten($menu-color,5%), darken($menu-color,1%)); }
+		&:active {
+			@include linear-gradient(lighten($menu-color,1%), darken($menu-color,5%));
+			@include box-shadow(0,2px,7px,$black,true);
+			border-top-color: darken($menu-color,10%);
+			padding-top: $vertical-space-small*1.1;
+			padding-bottom: $vertical-space-small*.9;
+		}
 	}
 }
 

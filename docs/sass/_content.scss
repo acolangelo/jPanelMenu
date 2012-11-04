@@ -1,4 +1,6 @@
 .content {
+	padding-bottom: $vertical-space;
+
 	section {
 		p:last-child {
 			margin-bottom: 0;
@@ -29,7 +31,10 @@
 }
 
 .spec {
-	margin: $vertical-space-large 0 $vertical-space-xl;
+	margin: 0;
+	padding-top: $vertical-space-xl;
+
+	&.first { padding-top: 0; }
 
 	.details {
 		@include border-radius(10px);
@@ -42,4 +47,10 @@
 	}
 
 	&:last-child { margin-bottom: 0; }
+}
+
+.param {
+	.details {
+		background: mix($bg,$bg-light);
+	}
 }
