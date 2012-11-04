@@ -63,10 +63,12 @@ $menu-color: mix($text-color,$black);
 			padding-top: $header-size*1.25;
 		}
 
-		.spec {
+		.spec, h3 {
 			margin-top: 0;
 			padding-top: $vertical-space-xl;
 		}
+
+		.spec h3 { padding-top: 0; }
 
 		.jPM-specific {
 			display: block;

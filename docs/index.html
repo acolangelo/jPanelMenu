@@ -82,7 +82,7 @@
 		<section>
 			<h2 id="inner-workings"><a href="#inner-workings">How Does This Thing Work?</a></h2>
 
-			<p>When jPanelMenu is turned on, two <code>&lt;div&gt;</code> elements are created. The menu element (with an ID of <code>jPanelMenu-menu</code>, and the panel element (with a class of <code>jPanelMenu-panel</code>). In addition, a class of <code>jPanelMenu</code> is applied to the <code>&lt;html&gt;</code> tag.</p>
+			<p>When jPanelMenu is <a href="#api-on" title="jPanelMenu | API | on">turned on</a>, two <code>&lt;div&gt;</code> elements are created. The menu element (with an ID of <code>jPanelMenu-menu</code>), and the panel element (with a class of <code>jPanelMenu-panel</code>). In addition, a class of <code>jPanelMenu</code> is applied to the <code>&lt;html&gt;</code> tag.</p>
 
 			<p>The menu, <code>#jPanelMenu-menu</code>, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. The targeted menu element is cloned into <code>#jPanelMenu-menu</code>, and is not removed from its original position in the <abbr title="Document Object Model">DOM</abbr>, it is only hidden (using <code>display: none</code>).</p>
 
@@ -92,7 +92,7 @@
 
 			<p>To style or select the content panel, use the following selector: <code>.jPanelMenu-panel</code>.</p>
 
-			<p>When jPanelMenu is turned off, the two <code>&lt;div&gt;</code> elements are removed, all of the content inside <code>.jPanelMenu-panel</code> is moved back into the <code>&lt;body&gt;</code> element, and the class of <code>jPanelMenu</code> is removed from the <code>&lt;html&gt;</code> tag.</p>
+			<p>When jPanelMenu is <a href="#api-off" title="jPanelMenu | API | off">turned off</a>, the two <code>&lt;div&gt;</code> elements are removed, all of the content inside <code>.jPanelMenu-panel</code> is moved back into the <code>&lt;body&gt;</code> element, and the class of <code>jPanelMenu</code> is removed from the <code>&lt;html&gt;</code> tag.</p>
 		</section>
 
 		<section>
@@ -136,7 +136,7 @@
 
 			<div class="spec" id="options-excludedPanelContent">
 				<h3><a href="#options-excludedPanelContent">excludedPanelContent</a></h3>
-				<p>A selector string specifying which tags within the <code>&lt;body&gt;</code> element should <strong>not</strong> be pushed into <code>.jPanelMenu-panel</code>.</p>
+				<p>A selector string specifying which elements within the <code>&lt;body&gt;</code> element should <strong>not</strong> be pushed into <code>.jPanelMenu-panel</code>. The selector string may contain any selector, not just tags.</p>
 				<p>Generally, <code>&lt;style&gt;</code> and <code>&lt;script&gt;</code> tags should not be moved from their original location, but in certain circumstances (mostly advertising), <code>&lt;script&gt;</code> tags may need to move with the page content.</p>
 				<div class="details">
 					<p><strong>Data Type:</strong> <code>string</code></p>
@@ -352,7 +352,7 @@ jPM.<span class="function">trigger</span>(true);</pre>
 					<p><strong>Parameters:</strong></p>
 					<div class="param">
 						<p><code>animated</code></p>
-						<p>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the action will not be animated.</p>
+						<p>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the value of the <code><a href="#options-animated" title="jPanelMenu | Options | animated">animated</a></code> option will be used.</p>
 						<div class="details">
 							<p><strong>Data Type:</strong> <code>boolean</code></p>
 							<p><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></p>
@@ -371,7 +371,7 @@ jPM.<span class="function">trigger</span>(true);</pre>
 					<p><strong>Parameters:</strong></p>
 					<div class="param">
 						<p><code>animated</code></p>
-						<p>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the action will not be animated.</p>
+						<p>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the value of the <code><a href="#options-animated" title="jPanelMenu | Options | animated">animated</a></code> option will be used.</p>
 						<div class="details">
 							<p><strong>Data Type:</strong> <code>boolean</code></p>
 							<p><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></p>
@@ -390,7 +390,7 @@ jPM.<span class="function">trigger</span>(true);</pre>
 					<p><strong>Parameters:</strong></p>
 					<div class="param">
 						<p><code>animated</code></p>
-						<p>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the action will not be animated.</p>
+						<p>A boolean value that determines whether or not to animate the action. The action will animate if set to <code>true</code>, and will not animate if set to <code>false</code>. If no value is set, the value of the <code><a href="#options-animated" title="jPanelMenu | Options | animated">animated</a></code> option will be used.</p>
 						<div class="details">
 							<p><strong>Data Type:</strong> <code>boolean</code></p>
 							<p><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></p>
@@ -445,11 +445,39 @@ jPM.<span class="function">trigger</span>(true);</pre>
 		<section>
 			<h2 id="tips"><a href="#tips">Tips, Best Practices, and Other Good Ideas</a></h2>
 
-			<h3>Progressive Enhancement</h3>
+			<p>jPanelMenu was built to be very open-ended and allow a lot of customization for each implementation. A lot of the customization of jPanelMenu implementations will start with the easy hooks provided by the plugin.</p>
+
+			<p>When jPanelMenu is <a href="#api-on" title="jPanelMenu | API | on">turned on</a>, the following elements are created (or classes applied, in the case of the <code>&lt;html&gt;</code> tag):</p>
+
+			<pre>&lt;html class="jPanelMenu"&gt;
+	&lt;head&gt;
+		<span class="plain-text">...</span>
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div id="jPanelMenu-menu" /&gt;
+		&lt;div class="jPanelMenu-panel" /&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+			<p class="caption"><strong>Note:</strong> Content abbreviated for simplicity.</p>
+
+			<p>In addition, there are a few helpful things to know that will improve specific implementations, regardless of use case.</p>
+
+			<h3 id="tips-styling"><a href="#tips-styling" title="Styling jPanelMenu">Stylin&rsquo;</a></h3>
+
+			<p>There are no default graphical styles injected into your page by jPanelMenu, because, as a developer who loves complete control over my pages, there is nothing I dislike more than plugins which do that. Therefore, all graphical styling is up to you, and jPanelMenu makes it very easy.</p>
+
+			<p>When jPanelMenu is <a href="#api-on" title="jPanelMenu | API | on">turned on</a>, two <code>&lt;div&gt;</code> elements are created. The menu element (selector: <code>#jPanelMenu-menu</code>), and the panel element (selector: <code>.jPanelMenu-panel</code>). In addition, a class of <code>jPanelMenu</code> is applied to the <code>&lt;html&gt;</code> tag.</p>
+
+			<p>The background color of <code>.jPanelMenu-panel</code> is set by the plugin, and its value is inherited from the <code>&lt;body&gt;</code> element&rsquo;s <code>background-color</code>.</p>
+
+			<p>If the <code>&lt;body&gt;</code> element&rsquo;s <code>background-color</code> is not set, the <code>&lt;html&gt;</code> element&rsquo;s <code>background-color</code> is used. If neither is set, the <code>background-color</code> is set to white.</p>
+
+			<h3 id="tips-progressive-enhancement"><a href="#tips-progressive-enhancement" title="Progressive Enhancement with jPanelMenu">Progressive Enhancement</a></h3>
 
 			<p>Users without JavaScript (whether they have turned it off or are using a device without it) will obviously not get the interactions provided by jPanelMenu. It&rsquo;s a good idea to take a <a href="http://www.alistapart.com/articles/understandingprogressiveenhancement/" title="Progressive Enhancement | A List Apart">&ldquo;progressive enhancement&rdquo;</a> approach, and build your site to work without JavaScript and jPanelMenu.</p>
 
-			<p>A great way to do this is to use the hooks provided to you by jPanelMenu. When jPanelMenu is turned on, the class <code>jPanelMenu</code> is applied to the <code>&lt;html&gt;</code> tag (conversely, when jPanelMenu is turned off, this class is removed).</p>
+			<p>A great way to do this is to use the hooks provided to you by jPanelMenu. When jPanelMenu is <a href="#api-on" title="jPanelMenu | API | on">turned on</a>, the class <code>jPanelMenu</code> is applied to the <code>&lt;html&gt;</code> tag (conversely, when jPanelMenu is <a href="#api-off" title="jPanelMenu | API | off">turned off</a>, this class is removed).</p>
 
 			<p>Build your site as you normally would, without JavaScript and without styles specific to JavaScript interactions or plugins. Restrict all jPanelMenu-specific styles and script actions to elements that are descendents of <code>.jPanelMenu</code>. Styles such as those which hide elements that are unnecessary with jPanelMenu enabled, or scripting actions specific to jPanelMenu functions, should use the <code>.jPanelMenu</code> selector to ensure that their effects only take hold when jPanelMenu is enabled.</p>
 

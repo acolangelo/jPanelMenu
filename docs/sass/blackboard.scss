@@ -16,8 +16,11 @@ pre .subst {
   color: #aeaeae;
 }
 
-pre .function {
-	color: #6a9cc6;
+.html,
+.xml,
+pre .function,
+pre .title {
+	color: #72A0CE;
 }
 
 pre .jQuery-constructor {
@@ -25,7 +28,6 @@ pre .jQuery-constructor {
 }
 
 pre .string,
-pre .title,
 pre .haskell .type,
 pre .ini .title,
 pre .tag .value,
@@ -67,6 +69,10 @@ pre .shebang,
 pre .apache .sqbracket,
 pre .tex .formula {
   color: #aeaeae;
+}
+
+pre .plain-text {
+	color: $white;
 }
 
 pre .keyword,
