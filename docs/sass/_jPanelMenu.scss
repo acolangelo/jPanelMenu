@@ -8,6 +8,7 @@ $menu-color: mix($text-color,$black);
 		position: fixed;
 		top: 0;
 		width: 100% - ($horizontal-space-xl*2);
+		max-width: none;
 		height: $header-size;
 		margin: 0;
 		padding: 0 $horizontal-space-xl;
@@ -24,6 +25,7 @@ $menu-color: mix($text-color,$black);
 
 		.logo {
 			@include type-medium;
+			float: none;
 			margin: 0;
 
 			a {
@@ -59,6 +61,15 @@ $menu-color: mix($text-color,$black);
 		h2 {
 			margin-top: 0;
 			padding-top: $header-size*1.25;
+		}
+
+		.spec {
+			margin-top: 0;
+			padding-top: $vertical-space-xl;
+		}
+
+		.jPM-specific {
+			display: block;
 		}
 	}
 }

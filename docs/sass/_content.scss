@@ -1,13 +1,22 @@
 .content {
-	padding-bottom: $vertical-space;
+	padding-bottom: $vertical-space-xl;
 
 	section {
-		p:last-child {
-			margin-bottom: 0;
-		}
+		p:last-child { margin-bottom: 0; }
+
+		&.intro h2 { margin-top: 0; padding-top: $vertical-space-small; }
 	}
 
 	h2 {
+		margin-top: $vertical-space-large;
+		padding-top: $vertical-space;
+	}
+
+	h3 {
+		margin-top: $vertical-space-large;
+	}
+
+	h2, h3 {
 		a {
 			position: relative;
 			text-decoration: none;
@@ -28,13 +37,39 @@
 			}
 		}
 	}
+
+	@media (min-width: 50em) {
+		section {
+			@include clearfix;
+			clear: both;
+		}
+
+		.text {
+			float: left;
+			width: 50%;
+
+			p:first-child { margin-top: 0; }
+		}
+
+		.download {
+			float: right;
+			width: 40%;
+			margin-top: 0;
+		}
+	}
+
+	@media (min-width: 75em) { clear: both; }
 }
 
 .spec {
-	margin: 0;
-	padding-top: $vertical-space-xl;
+	margin-top: $vertical-space-xl;
+	padding-top: $vertical-space;
 
 	&.first { padding-top: 0; }
+
+	h3 {
+		margin-top: 0;
+	}
 
 	.details {
 		@include border-radius(10px);
@@ -53,4 +88,33 @@
 	.details {
 		background: mix($bg,$bg-light);
 	}
+}
+
+.jPM-specific {
+	display: none;
+}
+
+#trigger-on {
+	@include linear-gradient($blue,mix($blue,$blue-dark));
+	@include box-shadow(0, 1px, 10px, $black);
+	@include type-medium;
+	display: block;
+	position: fixed;
+	top: 0;
+	right: 7.5%;
+	padding: .25em 1em;
+
+	$trigger-border-size: 5px;
+	-moz-border-radius-bottomright: $trigger-border-size;
+	-webkit-border-bottom-right-radius: $trigger-border-size;
+	border-bottom-right-radius: $trigger-border-size;
+	-moz-border-radius-bottomleft: $trigger-border-size;
+	-webkit-border-bottom-left-radius: $trigger-border-size;
+	border-bottom-left-radius: $trigger-border-size;
+	border: 1px solid $blue-dark;
+	border-top: none;
+
+	text-decoration: none;
+	text-shadow: 0 -1px 1px $black;
+	color: $white;
 }

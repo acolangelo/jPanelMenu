@@ -63,18 +63,17 @@ abbr {
 	cursor: help;
 }
 
-header.main, div.content, footer.main {
+header.main, .content, footer.main {
 	width: 100% - ($horizontal-space-xl*2);
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
 	padding: 0 $horizontal-space-xl;
 }
 
 header.main, footer.main {
-	margin: 1em inherit;
-}
-
-div.content, footer.main {
-	max-width: 1000px;
-	margin: 0 auto;
+	margin-top: $vertical-space;
+	margin-bottom: $vertical-space;
 }
 
 .logo {
@@ -103,12 +102,20 @@ div.content, footer.main {
 	}
 }
 
-.cta {
+.download {
 	@include clearfix;
-	text-align: center;
+	@include border-radius(10px);
+	margin-top: $vertical-space-large;
+	padding: $vertical-space $vertical-space*1.25 $vertical-space-large;
+	border: 1px solid $text-color-lightest;
+	background: $bg-light;
+	
+	p {
+		text-align: center;
+	}
 
 	.button {
-		margin-bottom: $vertical-space-small;
+		margin-bottom: $vertical-space-large;
 	}
 }
 

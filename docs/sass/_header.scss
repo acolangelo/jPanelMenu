@@ -27,4 +27,29 @@ header.main {
 			}
 		}
 	}
+
+	@media (min-width: 50em) {
+		nav ul li { margin-right: 4%; }
+	}
+
+	@media (min-width: 75em) {
+		@include clearfix;
+		padding-left: 0;
+		padding-right: 0;
+
+		.logo {
+			float: left;
+
+			a { left: 10px; }
+		}
+
+		nav {
+			float: right;
+			width: 66%;
+
+			ul li {
+				&:last-child { margin-right: 0; margin-bottom: 0; }
+			}
+		}
+	}
 }
