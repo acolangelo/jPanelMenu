@@ -35,7 +35,7 @@ If you want to take things to the next level, keep reading.
 
 #<a id="inner-workings" href="#inner-workings">How Does This Thing Work?</a>
 
-When jPanelMenu is turned on, two `<div>` elements are created. The menu element (with an ID of `jPanelMenu-menu`, and the panel element (with a class of `jPanelMenu-panel`).
+When jPanelMenu is turned on, two `<div>` elements are created. The menu element (with an ID of `jPanelMenu-menu`, and the panel element (with a class of `jPanelMenu-panel`). In addition, a class of `jPanelMenu` is applied to the `<html>` tag.
 
 The menu, `#jPanelMenu-menu`, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. The targeted menu element is cloned into `#jPanelMenu-menu`, and is not removed from its original position in the DOM, it is only hidden (using `display: none`).
 
@@ -45,7 +45,7 @@ To style or select the menu, use the following selector: `#jPanelMenu-menu`.
 
 To style or select the content panel, use the following selector: `.jPanelMenu-panel`.
 
-When jPanelMenu is turned off, the two `<div>` elements are removed, and all of the content inside `.jPanelMenu-panel` is moved back into the `<body>` element. 
+When jPanelMenu is turned off, the two `<div>` elements are removed, all of the content inside `.jPanelMenu-panel` is moved back into the `<body>` element, and the class of `jPanelMenu` is removed from the `<html>` tag.
 
 
 #<a id="animation" href="#animation">Does It Animate?</a>
@@ -434,7 +434,9 @@ Returns a `jQuery Object` containing the created panel object.
 
 ###Progressive Enhancement
 
-Users without JavaScript (whether they have turned it off or are using a device without it) will obviously not get the interactions provided by jPanelMenu. It&rsquo;s a good idea to take a [&ldquo;progressive enhancement&rdquo;](http://www.alistapart.com/articles/understandingprogressiveenhancement/) approach, and build your site&rsquo;s navigation to work without JavaScript running.
+Users without JavaScript (whether they have turned it off, or are using a device without it) will obviously not get the interactions provided by jPanelMenu. It&rsquo;s a good idea to take a [&ldquo;progressive enhancement&rdquo;](http://www.alistapart.com/articles/understandingprogressiveenhancement/) approach, and build your site to work without JavaScript and jPanelMenu.
+
+A great way to do this is to use the hooks provided to you by jPanelMenu.
 
 A good way to do that is to have your site&rsquo;s basic CSS display and style the navigation (or whatever is the content of your jPanelMenu) in an appropriate way, and use JavaScript to apply any styles that are specific to the JavaScript-enabled implementation (maybe have your site&rsquo;s JavaScript write out a `<style>` tag).
 
