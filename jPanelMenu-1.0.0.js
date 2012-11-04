@@ -1,6 +1,6 @@
 /**
   *
-  * jPanelMenu 1.0.0 
+  * jPanelMenu 1.0.0 (http://jpanelmenu.com)
   * By Anthony Colangelo (http://acolangelo.com)
   *
 * */
