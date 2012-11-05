@@ -426,17 +426,11 @@
 
 			initiateContentClickListeners: function() {
 				$(document).on('click',jP.panel,function(e){
-					if ( jP.menuIsOpen() )
-					{
-						if ( !$(e.target).hasClass('menu-trigger') ) { jP.closeMenu(jP.options.animated); }
-					}
+					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
 				});
 				
 				$(document).on('touchend',jP.panel,function(e){
-					if ( jP.menuIsOpen() )
-					{
-						if ( !$(e.target).hasClass('menu-trigger') ) { jP.closeMenu(jP.options.animated); }
-					}
+					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
 				});
 			},
 
