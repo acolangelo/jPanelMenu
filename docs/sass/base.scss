@@ -153,6 +153,17 @@ header.main, footer.main {
 		top: 2px;
 		margin-right: 10px;
 	}
+
+	&.example {
+		margin-top: $vertical-space-large;
+
+		.ss-icon {
+			position: relative;
+			top: 3px;
+			margin-right: 5px;
+			font-size: 1.2em;
+		}
+	}
 }
 
 
