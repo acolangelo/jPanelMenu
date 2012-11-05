@@ -21,7 +21,7 @@ By default, jPanelMenu will look for an element with an ID of `menu` to use as t
 		trigger: '.custom-menu-trigger-selector'
 	});
 
-**Note:** Check out the [options section](#options) for more customizable goodness like the above.
+**Note:** Check out the [options section]($options) for more customizable goodness like the above.
 
 After jPanelMenu has been instantiated (make sure to save the returned object to a variable, as shown above), it&rsquo;s time to turn it on!
 
@@ -35,17 +35,18 @@ If you want to take things to the next level, keep reading.
 
 #<a id="inner-workings" href="#inner-workings">How Does This Thing Work?</a>
 
-When jPanelMenu is turned on, two `<div>` elements are created. The menu element (with an ID of `jPanelMenu-menu`, and the panel element (with a class of `jPanelMenu-panel`). In addition, a class of `jPanelMenu` is applied to the `<html>` tag.
+When jPanelMenu is [turned on](#api-on), two `<div>` elements are created. The menu element (with an ID of `jPanelMenu-menu`), and the panel element (with a class of `jPanelMenu-panel`). In addition, a class of `jPanelMenu` is applied to the `<html>` tag.
 
 The menu, `#jPanelMenu-menu`, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. The targeted menu element is cloned into `#jPanelMenu-menu`, and is not removed from its original position in the DOM, it is only hidden (using `display: none`).
 
-The panel, `.jPanelMenu-panel`, contains all of the content in the `<body>` element (except for the elements specified by the `excludedPanelContent` option). The selected content is moved, not cloned, into `.jPanelMenu-panel`.
+The panel, `.jPanelMenu-panel`, contains all of the content in the `<body>` element (except for the elements specified by the `[excludedPanelContent](#options-excludedPanelContent)` option). The selected content is moved, not cloned, into `.jPanelMenu-panel`.
 
 To style or select the menu, use the following selector: `#jPanelMenu-menu`.
 
 To style or select the content panel, use the following selector: `.jPanelMenu-panel`.
 
-When jPanelMenu is turned off, the two `<div>` elements are removed, all of the content inside `.jPanelMenu-panel` is moved back into the `<body>` element, and the class of `jPanelMenu` is removed from the `<html>` tag.
+When jPanelMenu is [turned off](#api-off), the two `<div>` elements are removed, all of the content inside `.jPanelMenu-panel` is moved back into the `<body>` element, and the class of `jPanelMenu` is removed from the `<html>` tag.
+
 
 
 #<a id="animation" href="#animation">Does It Animate?</a>
@@ -60,52 +61,47 @@ For browsers that do not support CSS transitions, the jQuery animation engine is
 
 #<a id="options" href="#options">Options</a>
 
-The following options can be set via an object passed into the constructor function call.
+The following options are set via an `object` passed into the constructor function call, as shown below.
 
 	var jPM = $.jPanelMenu({
-		// options...
+		menu: '#menu',
+		trigger: '.menu-trigger',
+		duration: 300
 	});
-
 
 ***
 
 
-###menu
+###<a href="#options-menu" id="options-menu">menu</a>
 
 A selector string pointing to the desired menu element.
 
 - **Data Type:** `string`
 - **Default Value:** `#menu`
 
-
 ***
 
-
-###trigger
+###<a href="#options-trigger" id="options-trigger">trigger</a>
 
 A selector string pointing to the menu-triggering element.
 
 - **Data Type:** `string`
 - **Default Value:** `.menu-trigger`
 
-
 ***
 
+###<a href="#options-excludedPanelContent" id="options-excludedPanelContent">excludedPanelContent</a>
 
-###excludedPanelContent
-
-A selector string specifying which tags within the `<body>` element should **not** be pushed into `.jPanelMenu-panel`.
+A selector string specifying which elements within the `<body>` element should **not** be pushed into `.jPanelMenu-panel`. The selector string may contain any selector, not just tags.
 
 Generally, `<style>` and `<script>` tags should not be moved from their original location, but in certain circumstances (mostly advertising), `<script>` tags may need to move with the page content.
 
 - **Data Type:** `string`
 - **Default Value:** `style, script`
 
-
 ***
 
-
-###openPosition
+###<a href="#options-openPosition" id="options-openPosition">openPosition</a>
 
 The measurement value for the open position of the menu. Can be set as a pixel, percentage, or `em` value.
 
@@ -113,193 +109,161 @@ The measurement value for the open position of the menu. Can be set as a pixel, 
 - **Examples:** `250px`, `75%`, `20em`
 - **Default Value:** `250px`
 
-
 ***
 
-
-###animated
+###<a href="#options-animated" id="options-animated">animated</a>
 
 A boolean value specifying whether or not the opening and closing of the menu should be animated.
 
-When using the API functions `open()`, `close()`, and `trigger()`, this setting can be overridden by passing in `true` as the parameter. More info in the [API section](#api).
+When using the API functions [`open( )`](#api-open), [`close()`](#api-close), and [`trigger()`](#api-trigger), this setting can be overridden by passing in `true` as the parameter. More info in the [API section](#api).
 
 - **Data Type:** `boolean`
 - **Accepted Values:** `true` or `false`
 - **Default Value:** `true`
 
-
 ***
 
-
-###keyboardShortcuts
+###<a href="#options-keyboardShortcuts" id="options-keyboardShortcuts">keyboardShortcuts</a>
 
 An option that allows you to control if keyboard shortcuts are enabled, and if they are, which keys do what.
 
 Setting this option to `false` will disable keyboard shortcuts entirely. To enable keyboard shortcuts, pass in an `array` of `objects`. Each enabled key gets its own `object` in the `array` and each object should be structured as follows:
 
 	{
-		code: Keycode of enabled key,
-		open: Boolean value (true or false), specifying whether or not this key should open the menu,
-		close: Boolean value (true or false), specifying whether or not this key should close the menu
+		code: 27, /* Keycode of enabled key */
+		open: true /* Boolean (true or false), specifying whether or not key should open the menu */
+		close: false /* Boolean (true or false), specifying whether or not key should close the menu */
 	}
 
 - **Data Type:** `array` or `boolean`
 - **Accepted Values:** `array` or `false`
 - **Default Value:**
-	
 
-		[
-			{
-				code: 27, /* Escape Key */
-				open: false,
-				close: true 
-			},
-			{
-				code: 37, /* Left Arrow Key */
-				open: false,
-				close: true 
-			},
-			{
-				code: 39, /* Right Arrow Key */
-				open: true,
-				close: true 
-			},
-			{
-				code: 77, /* M Key */
-				open: true,
-				close: true 
-			}
-		]
-
+	[
+		{
+			code: 27, /* Escape Key */
+			open: false,
+			close: true 
+		},{
+			code: 37, /* Left Arrow Key */
+			open: false,
+			close: true 
+		},{
+			code: 39, /* Right Arrow Key */
+			open: true,
+			close: true 
+		},{
+			code: 77, /* M Key */
+			open: true,
+			close: true 
+		}
+	]
 
 ***
 
-
-###duration
+###<a href="#options-duration" id="options-duration">duration</a>
 
 The time, in milliseconds, which it should take to open and close the menu, when animated.
 
 - **Data Type:** `int`
 - **Default Value:** `150`
 
-
 ***
 
-
-###openDuration
+###<a href="#options-openDuration" id="options-openDuration">openDuration</a>
 
 The time, in milliseconds, which it should take to open the menu, when animated. If set, this overrides the duration option.
 
 - **Data Type:** `int`
-- **Default Value:** Inherited from `duration`
-
+- **Default Value:** Inherited from [`duration`](#options-duration)
 
 ***
 
-
-###closeDuration
+###<a href="#options-closeDuration">closeDuration</a>
 
 The time, in milliseconds, which it should take to close the menu, when animated. If set, this overrides the duration option.
 
 - **Data Type:** `int`
-- **Default Value:** Inherited from `duration`
-
+- **Default Value:** Inherited from [`duration`]()
 
 ***
 
-
-###easing
+###<a href="#options-easing" id="options-easing">easing</a>
 
 The easing function to use when animating the opening and closing of the menu.
 
 - **Data Type:** `string`
-- **Accepted Values:** `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out`
+- **Accepted Values:** `linear`, `ease`, `ease-in`, `ease-out`, `ase-in-out`
 - **Default Value:** `ease-in-out`
-
 
 ***
 
-
-###openEasing
+###<a href="#options-openEasing" id="options-openEasing">openEasing</a>
 
 The easing function to use when animating the opening of the menu. If set, this overrides the easing option.
 
 - **Data Type:** `string`
-- **Accepted Values:** `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out`
-- **Default Value:** Inherited from `easing`
-
+- **Accepted Values:** `linear`, `ease`, `ease-in`, `ease-out`, `ase-in-out`
+- **Default Value:** Inherited from [`easing`](#options-easing)
 
 ***
 
-
-###closeEasing
+###<a href="#options-closeEasing" id="options-closeEasing">closeEasing</a>
 
 The easing function to use when animating the closing of the menu. If set, this overrides the easing option.
 
 - **Data Type:** `string`
-- **Accepted Values:** `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out`
-- **Default Value:** Inherited from `easing`
-
+- **Accepted Values:** `linear`, `ease`, `ease-in`, `ease-out`, `ase-in-out`
+- **Default Value:** Inherited from [`easing`](#options-easing)
 
 ***
 
-
-###before
+###<a href="#options-before" id="options-before">before</a>
 
 Called before the menu is opened or closed, regardless of animation state.
 
 - **Data Type:** `function`
 - **Default Value:** `function(){ }`
 
-
 ***
 
-
-###beforeOpen
+###<a href="#options-beforeOpen" id="options-beforeOpen">beforeOpen</a>
 
 Called before the menu is opened, regardless of animation state.
 
 - **Data Type:** `function`
 - **Default Value:** `function(){ }`
 
-
 ***
 
-
-###beforeClose
+###<a href="#options-beforeClose" id="options-beforeClose">beforeClose</a>
 
 Called before the menu is closed, regardless of animation state.
 
 - **Data Type:** `function`
 - **Default Value:** `function(){ }`
 
-
 ***
 
-
-###after
+###<a href="#options-after" id="options-after">after</a>
 
 Called after the menu is opened or closed, regardless of animation state.
 
 - **Data Type:** `function`
 - **Default Value:** `function(){ }`
 
-
 ***
 
-
-###afterOpen
+###<a href="#options-afterOpen" id="options-afterOpen">afterOpen</a>
 
 Called after the menu is opened, regardless of animation state.
 
 - **Data Type:** `function`
 - **Default Value:** `function(){ }`
 
-
 ***
 
-
-###afterClose
+###<a href="#options-afterClose" id="options-afterClose">afterClose</a>
 
 Called after the menu is closed, regardless of animation state.
 
@@ -315,114 +279,97 @@ The following are the methods and properties of the object returned by the jPane
 	var jPM = $.jPanelMenu();
 
 	jPM.on();
-	
+
 	jPM.trigger(true);
 
-###on(&nbsp;)
+###<a href="#api-on" id="api-on">on(&nbsp;)</a>
 
 Initializes a jPanelMenu instance. Sets up the markup, styles, listeners, and interactions, according to the options passed into the constructor function.
 
 - **Returns:** `null`
 
-
 ***
 
-
-###off(&nbsp;)
+###<a href="#api-off" id="api-off">off(&nbsp;)</a>
 
 Destroys a jPanelMenu instance. Resets the markup and styles, removes listeners and interactions.
 
 - **Returns:** `null`
 
-
 ***
 
-
-###trigger(&nbsp;`animated`&nbsp;)
+###<a href="#api-trigger" id="api-trigger">trigger(&nbsp;`animated`&nbsp;)</a>
 
 Triggers the opening or closing of the menu, depending on the current state (open or closed).
 
-- **Parameters**
+- **Parameters:**
 	- `animated`
-		- A boolean value that determines whether or not to animate the action. The action will animate if `animated` is `true`, and will not animate if `animated` is `false`. If no value is passed in, the action will not be animated.
+		- A boolean value that determines whether or not to animate the action. The action will animate if set to `true`, and will not animate if set to `false`. If no value is set, the value of the [`animated`](#options-animated) option will be used.
 		- **Data Type:** `boolean`
-		- **Accepted Values:** `true`, `false`
+		- **Accepted Values:** `true` or `false`
 - **Returns:** `null`
-
 
 ***
 
-
-###open(&nbsp;`animated`&nbsp;)
+###<a href="#api-open" id="api-open">open(&nbsp;`animated`&nbsp;)</a>
 
 Triggers the opening of the menu.
 
-- **Parameters**
+- **Parameters:**
 	- `animated`
-		- A boolean value that determines whether or not to animate the action. The action will animate if `animated` is `true`, and will not animate if `animated` is `false`. If no value is passed in, the action will not be animated.
+		- A boolean value that determines whether or not to animate the action. The action will animate if set to `true`, and will not animate if set to `false`. If no value is set, the value of the [`animated`](#options-animated) option will be used.
 		- **Data Type:** `boolean`
-		- **Accepted Values:** `true`, `false`
+		- **Accepted Values:** `true` or `false`
 - **Returns:** `null`
-
 
 ***
 
-
-###close(&nbsp;`animated`&nbsp;)
+###<a href="#api-close" id="api-close">close(&nbsp;`animated`&nbsp;)</a>
 
 Triggers the closing of the menu.
 
-- **Parameters**
+- **Parameters:**
 	- `animated`
-		- A boolean value that determines whether or not to animate the action. The action will animate if `animated` is `true`, and will not animate if `animated` is `false`. If no value is passed in, the action will not be animated.
+		- A boolean value that determines whether or not to animate the action. The action will animate if set to `true`, and will not animate if set to `false`. If no value is set, the value of the [`animated`](#options-animated) option will be used.
 		- **Data Type:** `boolean`
-		- **Accepted Values:** `true`, `false`
-
+		- **Accepted Values:** `true` or `false`
+- **Returns:** `null`
 
 ***
 
-
-###isOpen(&nbsp;)
+###<a href="#api-isOpen" id="api-isOpen">isOpen(&nbsp;)</a>
 
 Checks the current state of the menu. Returns `true` if the menu is currently open, and `false` if it is closed.
 
 - **Returns:** `boolean`, `true` or `false`
 
-
 ***
 
-
-###menu
+###<a href="#api-menu" id="api-menu">menu</a>
 
 A property equal to the raw selector string of the created menu object.
 
 - **Data Type:** `string`
 
-
 ***
 
-
-###getMenu(&nbsp;)
+###<a href="#api-getMenu" id="api-getMenu">getMenu(&nbsp;)</a>
 
 Returns a `jQuery Object` containing the created menu object.
 
 - **Returns:** `jQuery Object`
 
-
 ***
 
-
-###panel
+###<a href="#api-panel" id="api-panel">panel</a>
 
 A property equal to the raw selector string of the created panel object.
 
 - **Data Type:** `string`
 
-
 ***
 
-
-###getPanel(&nbsp;)
+###<a href="#api-getPanel" id="api-getPanel">getPanel(&nbsp;)</a>
 
 Returns a `jQuery Object` containing the created panel object.
 
@@ -430,25 +377,67 @@ Returns a `jQuery Object` containing the created panel object.
 
 
 
-#<a id="tips" href="#tips">Tips, Best Practices, and Other Good Ideas</a>
+#<a id="tips" href="#tips">Tips, Best Practices, and Other Good Ideas (with Examples)</a>
 
-###Progressive Enhancement
+jPanelMenu was built to be very open-ended and allow a lot of customization for each implementation. A lot of the customization of jPanelMenu implementations will start with the easy hooks provided by the plugin.
 
-Users without JavaScript (whether they have turned it off, or are using a device without it) will obviously not get the interactions provided by jPanelMenu. It&rsquo;s a good idea to take a [&ldquo;progressive enhancement&rdquo;](http://www.alistapart.com/articles/understandingprogressiveenhancement/) approach, and build your site to work without JavaScript and jPanelMenu.
+When jPanelMenu is [turned on](#api-on), the following elements are created (or classes applied, in the case of the `<html>` tag):
 
-A great way to do this is to use the hooks provided to you by jPanelMenu.
 
-A good way to do that is to have your site&rsquo;s basic CSS display and style the navigation (or whatever is the content of your jPanelMenu) in an appropriate way, and use JavaScript to apply any styles that are specific to the JavaScript-enabled implementation (maybe have your site&rsquo;s JavaScript write out a `<style>` tag).
+	<html class="jPanelMenu">
+		<head>
+			...
+		</head>
+		<body>
+			<div id="jPanelMenu-menu" />
+			<div class="jPanelMenu-panel" />
+		</body>
+	</html>
 
-###jPanelMenu and jRespond &mdash; Perfect Together
+**Note:** Content abbreviated for simplicity.
+
+In addition, there are a few helpful things to know that will improve specific implementations, regardless of use case.
+
+
+###<a href="#tips-styling" id="tips-styling">Stylin&rsquo;</a>
+
+There are no default graphical styles injected into your page by jPanelMenu, because, as a developer who loves complete control over my pages, there is nothing I dislike more than plugins which do that. Therefore, all graphical styling is up to you, and jPanelMenu makes it very easy.
+
+When jPanelMenu is [turned on](#api-on), two `<div>` elements are created. The menu element (selector: `#jPanelMenu-menu`), and the panel element (selector: `.jPanelMenu-panel`). In addition, a class of `jPanelMenu` is applied to the `<html>` tag.
+
+The background color of `.jPanelMenu-panel` is set by the plugin, and its value is inherited from the `<body>` element&rsquo;s `background-color`.
+
+If the `<body>` element&rsquo;s `background-color` is not set, the `<html>` element&rsquo;s `background-color` is used. If neither is set, the `background-color` is set to white.
+
+
+###<a href="#tips-progressive-enhancement" id="tips-progressive-enhancement">Progressive Enhancement</a>
+
+Users without JavaScript (whether they have turned it off or are using a device without it) will obviously not get the interactions provided by jPanelMenu. It&rsquo;s a good idea to take a [&ldquo;progressive enhancement&rdquo;](http://www.alistapart.com/articles/understandingprogressiveenhancement/) approach, and build your site to work without JavaScript and jPanelMenu.
+
+A great way to do this is to use the hooks provided to you by jPanelMenu. When jPanelMenu is [turned on](#api-on), the class `jPanelMenu` is applied to the `<html>` tag (conversely, when jPanelMenu is [turned off](#api-off), this class is removed).
+
+Build your site as you normally would, without JavaScript and without styles specific to JavaScript interactions or plugins. Restrict all jPanelMenu-specific styles and script actions to elements that are descendents of `.jPanelMenu`. Styles such as those which hide elements that are unnecessary with jPanelMenu enabled, or scripting actions specific to jPanelMenu functions, should use the `.jPanelMenu` selector to ensure that their effects only take hold when jPanelMenu is enabled.
+
+That idea was used to create [the demo/documentation page](http://jpanelmenu.com#tips-progressive-enhancement).
+
+
+###<a href="#tips-jrespond" id="tips-jrespond">jPanelMenu and jRespond &mdash; Perfect Together</a>
 
 I'm a **huge** fan of [jRespond](https://github.com/ten1seven/jRespond), which is &ldquo;a simple way to globally manage JavaScript on responsive websites.&rdquo;
 
-jRespond and jPanelMenu are the perfect couple &mdash; use jRespond to enable and disable jPanelMenu at the appropriate breakpoints, creating a truly great experience. That&rsquo;s how I almost always use jPanelMenu (that&rsquo;s how the [documentation/demo site](http://jpanelmenu.com) works), and I suggest you give it a shot, too.
+jRespond and jPanelMenu are the perfect couple &mdash; use jRespond to enable and disable jPanelMenu at the appropriate breakpoints, creating a truly great experience. That&rsquo;s how I almost always use jPanelMenu, and I suggest you give it a shot, too.
 
 Responsive design is awesome on its own, but add responsive behavior to the mix, and you&rsquo;ve made something incredible.
 
+Check out the [example](http://jpanelmenu.com/examples/jrespond) of how to use jRespond with jPanelMenu, which includes a basic how-to, code snippets, and helpful tips.
 
-#<a id="contact" href="#contact">Questions, Comments, Insults, or Other Feedback?</a>
 
-[Send me a message](http://acolangelo.com/contact), let&rsquo;s talk.
+#<a href="#about" id="#about">Who Made This Wonderful Little Plugin?</a>
+
+jPanelMenu was created, and is maintained, by [Anthony Colangelo](http://acolangelo.com), a developer at [Happy Cog](http://happycog.com).
+
+You can find him ([@acolangelo](https://twitter.com/acolangelo)) on [Twitter](https://twitter.com/acolangelo) and [Github](https://github.com/acolangelo).
+
+Have a question about how jPanelMenu works that is not answered here? Have feedback for new features, options, or API functions that I should add? Anything else you want to talk about?
+
+Talk to me on [Twitter](https://twitter.com/acolangelo), where I am [@acolangelo](https://twitter.com/acolangelo), or [send me a message](http://acolangelo.com/contact), and let&rsquo;s talk!.
