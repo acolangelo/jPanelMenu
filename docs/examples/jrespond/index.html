@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>jPanelMenu | Using jPanelMenu with jRespond</title>
+	<meta name="viewport" content="initial-scale=1">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+
+	<link rel="apple-touch-icon" href="/docs/apple-touch-icon.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/docs/apple-touch-icon-144x144-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/docs/apple-touch-icon-114x114-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/docs/apple-touch-icon-72x72-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/docs/apple-touch-icon-57x57-precomposed.png" />
+
+	<link rel="stylesheet" href="/docs/css/style.css">
+</head>
+<body>
+	<header class="main">
+		<h1 class="logo"><a href="/" class="ss-list">jPanelMenu</a></h1>
+		<a href="#menu" class="menu-trigger ss-icon">&#xED50;</a>
+		<nav>
+			<ul>
+				<li><a href="/docs/">Documentation</a></li>
+				<li><a href="">Overview</a></li>
+				<li><a href="#setup">Setting It Up</a></li>
+				<li><a href="#functionality">Adding Functionality</a></li>
+				<li><a href="#about">About</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div class="content">
+		<section class="intro">
+			<h2 id="overview"><a href="#">Using jRespond with jPanelMenu</a></h2>
+
+			<p><a href="http://www.abookapart.com/products/responsive-web-design">Responsive design</a> is an amazing revolution in our industry. It&rsquo;s changing every part of our process &mdash; definition, planning, design, development, and beyond. But, as we all know, design is only one part of the equation.</p>
+
+			<p>Responsive behavior is a big thing that no one is talking about, but everyone needs to be. I&rsquo;ve tried a few different things to accomplish this, but the best thing I&rsquo;ve found is <a href="https://github.com/ten1seven/jRespond" title="jRespond | Github">jRespond</a>.</p>
+
+			<p>jRespond is &ldquo;a simple way to globally manage JavaScript on responsive websites.&rdquo; It&rsquo;s really straightforward to use, and it makes a world of difference in your JavaScript on responsive sites.</p>
+
+			<p>jPanelMenu and jRespond are the perfect couple. Many people want the functionality that jPanelMenu provides, but only at smaller sizes (this page, for example). jRespond is there to help accomplish that task, and it couldn&rsquo;t be easier to do.</p>
+		</section>
+
+		<section>
+			<h2 id="setup"><a href="#setup">Setting It Up</a></h2>
+
+			<p>First, get <a href="//jpanelmenu.com" title="jPanelMenu | A jQuery Plugin">jPanelMenu</a> and <a href="https://github.com/ten1seven/jRespond" title="Github | jRespond">jRespond</a>!</p>
+
+			<p>For <a href="https://github.com/ten1seven/jRespond#jrespond" title="jRespond Documentation">detailed documentation</a> on jRespond, please visit the <a href="https://github.com/ten1seven/jRespond#jrespond" title="jRespond Documentation">jRespond Github page</a>. I won&rsquo;t go very in-depth on the ins and outs of jRespond here, but I will at least cover enough to get started using it in conjunction with jPanelMenu.</p>
+
+			<p class="caption"><strong>Note:</strong> The following example is pulled directly from this page. Resize your browser window and you&rsquo;ll see the example outlined below in action.</p>
+
+			<p>Start off by setting up jPanelMenu, referring to the <a href="/" title="jPanelMenu | Documentation">documentation</a> for specifics on <a href="/#options" title="jPanelMenu | Options">options</a> and <a href="/#api" title="jPanelMenu | API">API</a> functions.</p>
+
+			<pre>var jPM = $.<span class="jQuery-constructor">jPanelMenu</span>({
+    menu: '#menu-selector'
+});</pre>
+			
+			<p>Once jPanelMenu is ready to go, set up jRespond. Refer to the <a href="https://github.com/ten1seven/jRespond#jrespond" title="jRespond Documentation">jRespond documentation</a> for detailed instructions on this step. All it takes is an <code>array</code> of <code>objects</code> &mdash; each <code>object</code> specifies breakpoint names and sizes (enter and exit widths, in pixels).</p>
+
+			<pre>var jRes = jRespond([
+    {
+        label: 'small',
+        enter: 0,
+        exit: 800
+    },{
+        label: 'large',
+        enter: 800,
+        exit: 10000
+    }
+]);</pre>
+			
+			<p class="caption"><strong>Note:</strong> This is a very simple setup with only two breakpoints, small and large.</p>
+
+		</section>
+
+		<section>
+			<h2 id="functionality"><a href="#functionality">Adding Functionality</a></h2>
+
+			<p>After your breakpoints have been registered with jRespond, you need to add some functionality hooks to those breakpoints.</p>
+
+			<p>This is done by calling <code>addFunc()</code> (on the saved jRespond instance), and passing in an <code>object</code> containing the following: the breakpoint (by name) that these actions apply to, a <code>function</code> to call upon entering that breakpoint, and a <code>function</code> to call when exiting that breakpoint.</p>
+
+			<p>In this example (this page), we want to turn jPanelMenu on, by calling <code>jPM.on()</code>, when entering the <code>&lsquo;small&rsquo;</code> breakpoint (&lt; 800 pixels), and turn it off, by calling <code>jPM.off()</code>, when exiting the <code>&lsquo;small&rsquo;</code> breakpoint (> 800 pixels).</p>
+
+			<pre>jRes.addFunc({
+    breakpoint: 'small',
+    enter: function() {
+        jPM.on();
+    },
+    exit: function() {
+        jPM.off();
+    }
+});</pre>
+			
+			<p>That&rsquo;s it! Enjoy your awesomely responsive navigation!</p>
+		</section>
+
+		<section>
+			<h2 id="about"><a href="#about">Who Made This Wonderful Little Plugin?</a></h2>
+
+			<p>jPanelMenu was created, and is maintained, by <a href="http://acolangelo.com" title="Anthony Colangelo | Web Design &amp; Development">Anthony Colangelo</a>, a developer at <a href="http://happycog.com">Happy Cog</a>.</p>
+
+			<p>You can find him (<a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">@acolangelo</a>) on <a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">Twitter</a> and <a href="https://github.com/acolangelo" title="Github | Anthony Colangelo (@acolangelo)">Github</a>.</p>
+
+			<p>Have a question about how jPanelMenu works that is not answered here? Have feedback for new features, options, or API functions that I should add? Anything else you want to talk about?</p>
+
+			<p>Talk to me on <a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">Twitter</a>, where I am <a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">@acolangelo</a>, or <a href="http://acolangelo.com/contact" title="Anthony Colangelo | Web Design &amp; Development | Contact">send me a message</a>, and let&rsquo;s talk!.</p>
+		</section>
+	</div>
+
+	<footer class="main">
+		<small>&copy; 2012 <a href="//acolangelo.com">Anthony Colangelo</a></small>
+	</footer>
+
+	<script src="//use.typekit.net/koc4rlq.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/docs/js/lib/jquery-1.8.2.min.js"><\/script>')</script>
+
+	<!--
+
+	This is a concatenated and minifed file containing all scripts necessary to run this page.
+
+	View my uncompressed script for this page at http://jpanelmenu.com/js/script.js
+
+	Other Included Files:
+		http://jpanelmenu.com/js/lib/modernizr-2.6.1.min.js
+		http://jpanelmenu.com/js/lib/respond-1.1.0.min.js
+		http://jpanelmenu.com/js/lib/jRespond-0.7.2.min.js
+		http://jpanelmenu.com/js/lib/jPanelMenu-1.0.0.min.js
+		http://jpanelmenu.com/js/lib/highlight.min.js
+		http://jpanelmenu.com/js/lib/plugins.js
+		
+	-->
+
+	<script src="/docs/js/example-jRespond.min.js"></script>
+</body>
+</html>
