@@ -22,22 +22,22 @@
 					{
 						code: 27,
 						open: false,
-						close: true 
+						close: true
 					},
 					{
 						code: 37,
 						open: false,
-						close: true 
+						close: true
 					},
 					{
 						code: 39,
 						open: true,
-						close: true 
+						close: true
 					},
 					{
 						code: 77,
 						open: true,
-						close: true 
+						close: true
 					}
 				],
 
@@ -112,7 +112,7 @@
 				$(jP.panel).find('> *').each(function(){
 					if ( $(this).css('position') == 'fixed' && $(this).css('left') == 'auto' ) { jP.fixedChildren.push(this); }
 				});
-				
+
 				if ( jP.fixedChildren.length > 0 )
 				{
 					jP.setPanelStyle({
@@ -130,6 +130,7 @@
 				var bgColor = '#fff';
 				var htmlBG = $('html').css('background-color');
 				var bodyBG = $('body').css('background-color');
+				var vpHeight = $(window).height();
 
 				if ( bodyBG != 'transparent' && bodyBG != "rgba(0, 0, 0, 0)") { bgColor = bodyBG; }
 				else if ( htmlBG != 'transparent' && htmlBG != "rgba(0, 0, 0, 0)") { bgColor = htmlBG; }
@@ -137,7 +138,7 @@
 
 				if ( $('#jPanelMenu-style-master').length == 0 )
 				{
-					$('body').append('<style id="jPanelMenu-style-master">body{width:100%}.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;left:0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;left:0;top:0;z-index:2;width:100%;min-height:100%;background:' + bgColor + '}</style>');
+					$('body').append('<style id="jPanelMenu-style-master">body{width:100%}.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;left:0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;left:0;top:0;z-index:2;width:100%;min-height:' + vpHeight + 'px;background:' + bgColor + '}</style>');
 				}
 			},
 
@@ -247,7 +248,7 @@
 
 			openMenu: function(animated) {
 				if ( typeof(animated) == "undefined" || animated == null ) { animated = jP.options.animated };
-				
+
 				jP.clearTimeouts();
 
 				jP.options.before();
@@ -256,7 +257,7 @@
 				jP.setMenuState(true);
 
 				jP.setPanelStyle({ position: 'relative' });
-				
+
 				jP.showMenu();
 
 				var animationChecks = {
@@ -428,7 +429,7 @@
 				$(document).on('click',jP.panel,function(e){
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
 				});
-				
+
 				$(document).on('touchend',jP.panel,function(e){
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
 				});
