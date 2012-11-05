@@ -32,8 +32,8 @@
 				<li><a href="#animation">Animation</a></li>
 				<li><a href="#options">Options</a></li>
 				<li><a href="#api">API</a></li>
-				<li><a href="#tips">Tips</a></li>
-				<li><a href="#contact">Contact</a></li>
+				<li><a href="#tips">Tips &amp; Examples</a></li>
+				<li><a href="#about">About</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -111,9 +111,9 @@
 			<p>The following options are set via an <code>object</code> passed into the constructor function call, as shown below.</p>
 
 			<pre>var jPM = $.<span class="jQuery-constructor">jPanelMenu</span>({
-	menu: '#menu',
-	trigger: '.menu-trigger',
-	duration: 300
+    menu: '#menu',
+    trigger: '.menu-trigger',
+    duration: 300
 });</pre>
 
 			<div class="spec first" id="options-menu">
@@ -185,18 +185,15 @@
         code: 27, /* Escape Key */
         open: false,
         close: true 
-    },
-    {
+    },{
         code: 37, /* Left Arrow Key */
         open: false,
         close: true 
-    },
-    {
+    },{
         code: 39, /* Right Arrow Key */
         open: true,
         close: true 
-    },
-    {
+    },{
         code: 77, /* M Key */
         open: true,
         close: true 
@@ -443,20 +440,20 @@ jPM.<span class="function">trigger</span>(true);</pre>
 		</section>
 
 		<section>
-			<h2 id="tips"><a href="#tips">Tips, Best Practices, and Other Good Ideas</a></h2>
+			<h2 id="tips"><a href="#tips">Tips, Best Practices, and Other Good Ideas (with Examples)</a></h2>
 
 			<p>jPanelMenu was built to be very open-ended and allow a lot of customization for each implementation. A lot of the customization of jPanelMenu implementations will start with the easy hooks provided by the plugin.</p>
 
 			<p>When jPanelMenu is <a href="#api-on" title="jPanelMenu | API | on">turned on</a>, the following elements are created (or classes applied, in the case of the <code>&lt;html&gt;</code> tag):</p>
 
 			<pre>&lt;html class="jPanelMenu"&gt;
-	&lt;head&gt;
-		<span class="plain-text">...</span>
-	&lt;/head&gt;
-	&lt;body&gt;
-		&lt;div id="jPanelMenu-menu" /&gt;
-		&lt;div class="jPanelMenu-panel" /&gt;
-	&lt;/body&gt;
+    &lt;head&gt;
+        <span class="plain-text">...</span>
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id="jPanelMenu-menu" /&gt;
+        &lt;div class="jPanelMenu-panel" /&gt;
+    &lt;/body&gt;
 &lt;/html&gt;</pre>
 
 			<p class="caption"><strong>Note:</strong> Content abbreviated for simplicity.</p>
@@ -483,19 +480,29 @@ jPM.<span class="function">trigger</span>(true);</pre>
 
 			<p class="jPM-specific">That idea was used to create this page. Take a look at what this page looks like <a href="" title="Disable jPanelMenu" id="trigger-off">with jPanelMenu turned off</a> (particularly the navigation) to see this principle in action. Notice how all of the navigation is accessible in the <a href="#" title="jPanelMenu">header of the page</a>, and no content is lost.</p>
 
-			<h3>jPanelMenu and jRespond &mdash; Perfect Together</h3>
+			<h3 id="tips-jrespond"><a href="#tips-jrespond" title="jPanelMenu and jRespond &mdash; Perfect Together">jPanelMenu and jRespond &mdash; Perfect Together</a></h3>
 
 			<p>I'm a <strong>huge</strong> fan of <a href="https://github.com/ten1seven/jRespond" title="jRespond | Github">jRespond</a>, which is &ldquo;a simple way to globally manage JavaScript on responsive websites.&rdquo;</p>
 
-			<p>jRespond and jPanelMenu are the perfect couple &mdash; use jRespond to enable and disable jPanelMenu at the appropriate breakpoints, creating a truly great experience. That&rsquo;s how I almost always use jPanelMenu (that&rsquo;s how this site works), and I suggest you give it a shot, too.</p>
+			<p>jRespond and jPanelMenu are the perfect couple &mdash; use jRespond to enable and disable jPanelMenu at the appropriate breakpoints, creating a truly great experience. That&rsquo;s how I almost always use jPanelMenu, and I suggest you give it a shot, too.</p>
 
 			<p>Responsive design is awesome on its own, but add responsive behavior to the mix, and you&rsquo;ve made something incredible.</p>
+
+			<p>Check out the <a href="examples/jrespond" title="jPanelMenu Example | jPanelMenu with jRespond">example</a> of how to use jRespond with jPanelMenu, which includes a basic how-to, code snippets, and helpful tips.</p>
+
+			<p><a href="examples/jrespond" title="jPanelMenu Example | jPanelMenu with jRespond" class="button example"><span class="ss-icon">&#x1F440;</span> View Example</a></p>
 		</section>
 
 		<section>
-			<h2 id="contact"><a href="#contact">Questions, Comments, Insults, or Other Feedback?</a></h2>
+			<h2 id="about"><a href="#about">Who Made This Wonderful Little Plugin?</a></h2>
 
-			<p><a href="http://acolangelo.com/contact" title="Anthony Colangelo | Web Design &amp; Development | Contact">Send me a message</a>, let&rsquo;s talk.</p>
+			<p>jPanelMenu was created, and is maintained, by <a href="http://acolangelo.com" title="Anthony Colangelo | Web Design &amp; Development">Anthony Colangelo</a>, a developer at <a href="http://happycog.com">Happy Cog</a>.</p>
+
+			<p>You can find him (<a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">@acolangelo</a>) on <a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">Twitter</a> and <a href="https://github.com/acolangelo" title="Github | Anthony Colangelo (@acolangelo)">Github</a>.</p>
+
+			<p>Have a question about how jPanelMenu works that is not answered here? Have feedback for new features, options, or API functions that I should add? Anything else you want to talk about?</p>
+
+			<p>Talk to me on <a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">Twitter</a>, where I am <a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">@acolangelo</a>, or <a href="http://acolangelo.com/contact" title="Anthony Colangelo | Web Design &amp; Development | Contact">send me a message</a>, and let&rsquo;s talk!.</p>
 		</section>
 	</div>
 
@@ -507,6 +514,22 @@ jPM.<span class="function">trigger</span>(true);</pre>
 	<script>try{Typekit.load();}catch(e){}</script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="js/lib/jquery-1.8.2.min.js"><\/script>')</script>
+
+	<!--
+
+	This is a concatenated and minifed file containing all scripts necessary to run this page.
+
+	View my uncompressed script for this page at http://jpanelmenu.com/js/script.js
+
+	Other Included Files:
+		http://jpanelmenu.com/js/lib/modernizr-2.6.1.min.js
+		http://jpanelmenu.com/js/lib/respond-1.1.0.min.js
+		http://jpanelmenu.com/js/lib/jPanelMenu-1.0.0.min.js
+		http://jpanelmenu.com/js/lib/highlight.min.js
+		http://jpanelmenu.com/js/lib/plugins.js
+
+	-->
+
 	<script src="js/script.min.js"></script>
 </body>
 </html>
