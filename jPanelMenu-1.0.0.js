@@ -22,22 +22,22 @@
 					{
 						code: 27,
 						open: false,
-						close: true 
+						close: true
 					},
 					{
 						code: 37,
 						open: false,
-						close: true 
+						close: true
 					},
 					{
 						code: 39,
 						open: true,
-						close: true 
+						close: true
 					},
 					{
 						code: 77,
 						open: true,
-						close: true 
+						close: true
 					}
 				],
 
@@ -112,7 +112,7 @@
 				$(jP.panel).find('> *').each(function(){
 					if ( $(this).css('position') == 'fixed' && $(this).css('left') == 'auto' ) { jP.fixedChildren.push(this); }
 				});
-				
+
 				if ( jP.fixedChildren.length > 0 )
 				{
 					jP.setPanelStyle({
@@ -247,7 +247,7 @@
 
 			openMenu: function(animated) {
 				if ( typeof(animated) == "undefined" || animated == null ) { animated = jP.options.animated };
-				
+
 				jP.clearTimeouts();
 
 				jP.options.before();
@@ -256,7 +256,7 @@
 				jP.setMenuState(true);
 
 				jP.setPanelStyle({ position: 'relative' });
-				
+
 				jP.showMenu();
 
 				var animationChecks = {
@@ -302,6 +302,7 @@
 
 						jP.options.after();
 						jP.options.afterOpen();
+						jP.initiateContentTouchListeners();
 						jP.initiateContentClickListeners();
 					}, jP.options.openDuration);
 				}
@@ -313,6 +314,7 @@
 					}, jP.options.openDuration, formattedEasing, function(){
 						jP.options.after();
 						jP.options.afterOpen();
+						jP.initiateContentTouchListeners();
 						jP.initiateContentClickListeners();
 					});
 
@@ -383,6 +385,7 @@
 						jP.hideMenu();
 						jP.options.after();
 						jP.options.afterClose();
+						jP.destroyContentTouchListeners();
 						jP.destroyContentClickListeners();
 					}, jP.options.closeDuration);
 				}
@@ -397,6 +400,7 @@
 						jP.hideMenu();
 						jP.options.after();
 						jP.options.afterClose();
+						jP.destroyContentTouchListeners();
 						jP.destroyContentClickListeners();
 					});
 
@@ -431,18 +435,10 @@
 						if ( !$(e.target).hasClass('menu-trigger') ) { jP.closeMenu(jP.options.animated); }
 					}
 				});
-				
-				$(document).on('touchend',jP.panel,function(e){
-					if ( jP.menuIsOpen() )
-					{
-						if ( !$(e.target).hasClass('menu-trigger') ) { jP.closeMenu(jP.options.animated); }
-					}
-				});
 			},
 
 			destroyContentClickListeners: function() {
 				$(document).off('click',jP.panel,null);
-				$(document).off('touchend',jP.panel,null);
 			},
 
 			initiateKeyboardListeners: function() {
@@ -466,6 +462,119 @@
 				$(document).off('keydown',null);
 			},
 
+			initiateTouchListeners: function() {
+
+				$(document).on('touchstart',jP.options.trigger,function(e){
+					var touch = event.touches[0];
+					xOrg = touch.pageX;
+					xCur = xOrg;
+
+					e.preventDefault();
+
+				});
+
+				$(document).on('touchmove',jP.options.trigger,function(e){
+					jP.showMenu();
+
+					var touch = event.touches[0];
+					xCur = touch.pageX;
+					xDif = (xCur - xOrg);
+					offSet = parseInt(jP.options.openPosition);
+					half = offSet * '.5';
+					if(xDif > 0) xDis = xDif;
+					else xDis = (xDif * -1);
+
+					if( xCur < offSet && xDif > 0 )
+					{
+						jP.setPanelStyle({ left: xDis });
+					 }
+					else if( xDif < 0 && (offSet - xDis) > 0 && jP.menuIsOpen() )
+					{
+						jP.setPanelStyle({ left: (offSet - xDis) });
+					}
+
+				});
+
+				$(document).on('touchend',jP.options.trigger,function(e){
+					xEnd = xCur;
+
+					if ( xEnd === xOrg )
+					{
+						jP.triggerMenu(jP.options.animated); return false;
+					}
+					else if ( jP.menuIsOpen() )
+					{
+						if (xDis > half) jP.closeMenu();
+						else jP.openMenu();
+					}
+					else
+					{
+						if (xDis > half) jP.openMenu();
+						else jP.closeMenu();
+					}
+				});
+			},
+
+			destroyTouchListeners: function() {
+				$(document).off('touchstart',jP.options.trigger,null);
+				$(document).off('touchmove',jP.options.trigger,null);
+				$(document).off('touchend',jP.options.trigger,null);
+			},
+
+			initiateContentTouchListeners: function() {
+
+				$(document).on('touchstart',jP.panel,function(e){
+					var touch = event.touches[0];
+					xOrg = touch.pageX;
+					xCur = xOrg;
+
+					if( jP.menuIsOpen() ){ e.preventDefault(); }
+
+				});
+
+				$(document).on('touchmove',jP.panel,function(e){
+
+					var touch = event.touches[0];
+					xCur = touch.pageX;
+					xDif = (xCur - xOrg);
+					offSet = parseInt(jP.options.openPosition);
+					half = offSet * '.5';
+					if(xDif > 0) xDis = xDif;
+					else xDis = (xDif * -1);
+
+					if( xDif < 0 && (offSet - xDis) > 0 && jP.menuIsOpen() )
+					{
+						jP.setPanelStyle({ left: (offSet - xDis) });
+					}
+
+				});
+
+				$(document).on('touchend',jP.panel,function(e){
+					xEnd = xCur;
+
+					if ( jP.menuIsOpen() )
+					{
+
+						if ( xEnd === xOrg )
+						{
+							jP.closeMenu(jP.options.animated);
+						}
+						else
+						{
+							if (xDis > half) jP.closeMenu();
+							else jP.openMenu();
+						}
+					}
+				});
+
+			},
+
+			destroyContentTouchListeners: function() {
+				$(document).off('touchstart',jP.panel,null);
+				$(document).off('touchmove',jP.panel,null);
+				$(document).off('touchend',jP.panel,null);
+			},
+
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
 				$('body > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
@@ -479,6 +588,7 @@
 			},
 
 			init: function() {
+				jP.initiateTouchListeners();
 				jP.initiateClickListeners();
 				if ( Object.prototype.toString.call(jP.options.keyboardShortcuts) === '[object Array]' ) { jP.initiateKeyboardListeners(); }
 
@@ -498,6 +608,7 @@
 
 			destroy: function() {
 				jP.closeMenu();
+				jP.destroyTouchListeners();
 				jP.destroyClickListeners();
 				if ( Object.prototype.toString.call(jP.options.keyboardShortcuts) === '[object Array]' ) { jP.destroyKeyboardListeners(); }
 
