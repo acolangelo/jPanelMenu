@@ -182,11 +182,28 @@
 				});
 			},
 
+			getPrefix: function(prop) {
+				var prefixes = ['Moz','Webkit','Khtml','0','ms'],
+					elem     = document.createElement('div'),
+					upper      = prop.charAt(0).toUpperCase() + prop.slice(1),
+					pref     = "";
+				for(var len = prefixes.length; len--;){
+					if((prefixes[len] + upper) in elem.style){
+						pref = (prefixes[len]);
+					}
+				}
+				if(prop in elem.style){
+					pref = (prop);
+				}
+				return '-' + pref.toLowerCase() + '-';
+			},
+
 			enableTransitions: function(duration, easing) {
 				var formattedDuration = duration/1000;
 				var formattedEasing = jP.getCSSEasingFunction(easing);
+				var formattedTransition = jP.getPrefix('transition') + 'transition';
 				jP.disableTransitions();
-				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
+				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{' + formattedTransition + ': all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableTransitions: function() {
@@ -196,8 +213,9 @@
 			enableFixedTransitions: function(selector, id, duration, easing) {
 				var formattedDuration = duration/1000;
 				var formattedEasing = jP.getCSSEasingFunction(easing);
+				var formattedTransition = jP.getPrefix('transition') + 'transition';
 				jP.disableFixedTransitions(id);
-				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
+				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{' + formattedTransition + ': all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableFixedTransitions: function(id) {
@@ -246,6 +264,32 @@
 				}
 			},
 
+			testTransform: function() {
+				var el = document.createElement('p'),
+				has3d,
+				transforms = {
+					'WebkitTransform':'-webkit-transform',
+					'OTransform':'-o-transform',
+					'MSTransform':'-ms-transform',
+					'MozTransform':'-moz-transform',
+					'Transform':'transform'
+				};
+
+				document.body.insertBefore(el, null);
+
+				for(var t in transforms){
+					if( el.style[t] !== undefined ){
+						el.style[t] = 'translate3d(1px,1px,1px)';
+						has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
+					}
+				}
+
+				document.body.removeChild(el);
+
+				if (has3d !== undefined && has3d.length > 0 && has3d !== "none") return true;
+				else return false;
+			},
+
 			openMenu: function(animated) {
 				if ( typeof(animated) == "undefined" || animated == null ) { animated = jP.options.animated };
 
@@ -269,23 +313,30 @@
 					if ( animationChecks.none ) jP.disableTransitions();
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.openDuration, jP.options.openEasing);
 
-					jP.setPanelStyle({ left: jP.options.openPosition });
+					if(jP.testTransform) {
+                        var transform = jP.getPrefix('transform') + 'transform';
+                        $(jP.panel).css(transform,'translate3d(' + jP.options.openPosition + ',0,0)');
+                    }
+                    else {
 
-					if ( jP.settings.shiftFixedChildren )
-					{
-						$(jP.fixedChildren).each(function(){
-							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
-								selector = id.replace(' ','.'),
-								id = id.replace(' ','-')
-							;
+						jP.setPanelStyle({ left: jP.options.openPosition });
 
-							if ( animationChecks.none ) jP.disableFixedTransitions(id);
-							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.openDuration, jP.options.openEasing);
+						if ( jP.settings.shiftFixedChildren )
+						{
+							$(jP.fixedChildren).each(function(){
+								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
+									selector = id.replace(' ','.'),
+									id = id.replace(' ','-')
+								;
 
-							$(this).css({
-								left: jP.options.openPosition
+								if ( animationChecks.none ) jP.disableFixedTransitions(id);
+								if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.openDuration, jP.options.openEasing);
+
+								$(this).css({
+									left: jP.options.openPosition
+								});
 							});
-						});
+						}
 					}
 
 					jP.timeouts.afterOpen = setTimeout(function(){
@@ -349,23 +400,29 @@
 					if ( animationChecks.none ) jP.disableTransitions();
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.closeDuration, jP.options.closeEasing);
 
-					jP.setPanelStyle({ left: 0 + jP.settings.positionUnits });
+					if(jP.testTransform) {
+                        transform = jP.getPrefix('transform') + 'transform';
+                        $(jP.panel).css(transform,'translate3d(0,0,0)');
+                    }
+                    else {
+						jP.setPanelStyle({ left: 0 + jP.settings.positionUnits });
 
-					if ( jP.settings.shiftFixedChildren )
-					{
-						$(jP.fixedChildren).each(function(){
-							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
-								selector = id.replace(' ','.'),
-								id = id.replace(' ','-')
-							;
+						if ( jP.settings.shiftFixedChildren )
+						{
+							$(jP.fixedChildren).each(function(){
+								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
+									selector = id.replace(' ','.'),
+									id = id.replace(' ','-')
+								;
 
-							if ( animationChecks.none ) jP.disableFixedTransitions(id);
-							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.closeDuration, jP.options.closeEasing);
+								if ( animationChecks.none ) jP.disableFixedTransitions(id);
+								if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.closeDuration, jP.options.closeEasing);
 
-							$(this).css({
-								left: 0 + jP.settings.positionUnits
+								$(this).css({
+									left: 0 + jP.settings.positionUnits
+								});
 							});
-						});
+						}
 					}
 
 					jP.timeouts.afterClose = setTimeout(function(){
@@ -487,11 +544,23 @@
 
 					if( xCur < offSet && xDif > 0 )
 					{
-						jP.setPanelStyle({ left: xDis });
+						if(jP.testTransform) {
+                            transform = jP.getPrefix('transform') + 'transform';
+                            $(jP.panel).css(transform, transDis);
+                        }
+                        else {
+                            jP.setPanelStyle({ left : xDis +'px'});
+                        }
 					 }
 					else if( xDif < 0 && (offSet - xDis) > 0 && jP.menuIsOpen() )
 					{
-						jP.setPanelStyle({ left: (offSet - xDis) });
+						if(jP.testTransform) {
+                            transform = jP.getPrefix('transform') + 'transform';
+                            $(jP.panel).css(transform, transDis);
+                        }
+                        else {
+                            jP.setPanelStyle({ left : (offSet - xDis) + 'px' });
+                        }
 					}
 
 				});
@@ -545,7 +614,13 @@
 
 					if( xDif < 0 && (offSet - xDis) > 0 && jP.menuIsOpen() )
 					{
-						jP.setPanelStyle({ left: (offSet - xDis) });
+						if(jP.testTransform) {
+                            transform = jP.getPrefix('transform') + 'transform';
+                            $(jP.panel).css(transform, transDis);
+                        }
+                        else {
+                            jP.setPanelStyle({ left : (offSet - xDis) + 'px' });
+                        }
 					}
 
 				});
