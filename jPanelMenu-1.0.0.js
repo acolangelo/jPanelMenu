@@ -183,21 +183,21 @@
 			},
 
 			getPrefix: function () {
-                if('result' in arguments.callee) return arguments.callee.result;
-                var regex = /^(Moz|Webkit|Khtml|O|ms|Icab)(?=[A-Z])/;
-                var someScript = document.getElementsByTagName('script')[0];
-                for(var prop in someScript.style)
-                {
-                    if(regex.test(prop))
-                    {
-                       var prefix = prop.match(regex)[0];
-                       return arguments.callee.result = '-' + prefix.toLowerCase() + '-';
-                    }
-                }
-                if('WebkitOpacity' in someScript.style) return arguments.callee.result = '-webkit-';
-                if('KhtmlOpacity' in someScript.style) return arguments.callee.result = '-khtml-';
-                return arguments.callee.result = '';
-            },
+				if('result' in arguments.callee) return arguments.callee.result;
+				var regex = /^(Moz|Webkit|Khtml|O|ms|Icab)(?=[A-Z])/;
+				var someScript = document.getElementsByTagName('script')[0];
+				for(var prop in someScript.style)
+				{
+					if(regex.test(prop))
+					{
+					   var prefix = prop.match(regex)[0];
+					   return arguments.callee.result = '-' + prefix.toLowerCase() + '-';
+					}
+				}
+				if('WebkitOpacity' in someScript.style) return arguments.callee.result = '-webkit-';
+				if('KhtmlOpacity' in someScript.style) return arguments.callee.result = '-khtml-';
+				return arguments.callee.result = '';
+			},
 
 			enableTransitions: function(duration, easing) {
 				var formattedDuration = duration/1000;
@@ -315,10 +315,10 @@
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.openDuration, jP.options.openEasing);
 
 					if(jP.testTransform) {
-                        var transform = jP.getPrefix('transform') + 'transform';
-                        $(jP.panel).css(transform,'translate3d(' + jP.options.openPosition + ',0,0)');
-                    }
-                    else {
+						var transform = jP.getPrefix('transform') + 'transform';
+						$(jP.panel).css(transform,'translate3d(' + jP.options.openPosition + ',0,0)');
+					}
+					else {
 
 						jP.setPanelStyle({ left: jP.options.openPosition });
 
@@ -402,10 +402,10 @@
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.closeDuration, jP.options.closeEasing);
 
 					if(jP.testTransform) {
-                        transform = jP.getPrefix('transform') + 'transform';
-                        $(jP.panel).css(transform,'translate3d(0,0,0)');
-                    }
-                    else {
+						transform = jP.getPrefix('transform') + 'transform';
+						$(jP.panel).css(transform,'translate3d(0,0,0)');
+					}
+					else {
 						jP.setPanelStyle({ left: 0 + jP.settings.positionUnits });
 
 						if ( jP.settings.shiftFixedChildren )
@@ -540,28 +540,34 @@
 					xDif = (xCur - xOrg);
 					offSet = parseInt(jP.options.openPosition);
 					half = offSet * '.5';
-					if(xDif > 0) xDis = xDif;
-					else xDis = (xDif * -1);
+					if(xDif > 0) {
+						xDis = xDif;
+						transDis = 'translate3d(' + xDis + 'px,0,0)';
+					}
+					else {
+						xDis = (xDif * -1);
+						transDis = 'translate3d(' + (offSet - xDis) + 'px,0,0)';
+					}
 
 					if( xCur < offSet && xDif > 0 )
 					{
 						if(jP.testTransform) {
-                            transform = jP.getPrefix('transform') + 'transform';
-                            $(jP.panel).css(transform, transDis);
-                        }
-                        else {
-                            jP.setPanelStyle({ left : xDis +'px'});
-                        }
+							transform = jP.getPrefix('transform') + 'transform';
+							$(jP.panel).css(transform, transDis);
+						}
+						else {
+							jP.setPanelStyle({ left : xDis +'px'});
+						}
 					 }
 					else if( xDif < 0 && (offSet - xDis) > 0 && jP.menuIsOpen() )
 					{
 						if(jP.testTransform) {
-                            transform = jP.getPrefix('transform') + 'transform';
-                            $(jP.panel).css(transform, transDis);
-                        }
-                        else {
-                            jP.setPanelStyle({ left : (offSet - xDis) + 'px' });
-                        }
+							transform = jP.getPrefix('transform') + 'transform';
+							$(jP.panel).css(transform, transDis);
+						}
+						else {
+							jP.setPanelStyle({ left : (offSet - xDis) + 'px' });
+						}
 					}
 
 				});
@@ -610,18 +616,24 @@
 					xDif = (xCur - xOrg);
 					offSet = parseInt(jP.options.openPosition);
 					half = offSet * '.5';
-					if(xDif > 0) xDis = xDif;
-					else xDis = (xDif * -1);
+					if(xDif > 0) {
+						xDis = xDif;
+						transDis = 'translate3d(' + xDis + 'px,0,0)';
+					}
+					else {
+						xDis = (xDif * -1);
+						transDis = 'translate3d(' + (offSet - xDis) + 'px,0,0)';
+					}
 
 					if( xDif < 0 && (offSet - xDis) > 0 && jP.menuIsOpen() )
 					{
 						if(jP.testTransform) {
-                            transform = jP.getPrefix('transform') + 'transform';
-                            $(jP.panel).css(transform, transDis);
-                        }
-                        else {
-                            jP.setPanelStyle({ left : (offSet - xDis) + 'px' });
-                        }
+							transform = jP.getPrefix('transform') + 'transform';
+							$(jP.panel).css(transform, transDis);
+						}
+						else {
+							jP.setPanelStyle({ left : (offSet - xDis) + 'px' });
+						}
 					}
 
 				});
