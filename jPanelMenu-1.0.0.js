@@ -182,28 +182,29 @@
 				});
 			},
 
-			getPrefix: function(prop) {
-				var prefixes = ['Moz','Webkit','Khtml','0','ms'],
-					elem     = document.createElement('div'),
-					upper      = prop.charAt(0).toUpperCase() + prop.slice(1),
-					pref     = "";
-				for(var len = prefixes.length; len--;){
-					if((prefixes[len] + upper) in elem.style){
-						pref = (prefixes[len]);
-					}
-				}
-				if(prop in elem.style){
-					pref = (prop);
-				}
-				return '-' + pref.toLowerCase() + '-';
-			},
+			getPrefix: function () {
+                if('result' in arguments.callee) return arguments.callee.result;
+                var regex = /^(Moz|Webkit|Khtml|O|ms|Icab)(?=[A-Z])/;
+                var someScript = document.getElementsByTagName('script')[0];
+                for(var prop in someScript.style)
+                {
+                    if(regex.test(prop))
+                    {
+                       var prefix = prop.match(regex)[0];
+                       return arguments.callee.result = '-' + prefix.toLowerCase() + '-';
+                    }
+                }
+                if('WebkitOpacity' in someScript.style) return arguments.callee.result = '-webkit-';
+                if('KhtmlOpacity' in someScript.style) return arguments.callee.result = '-khtml-';
+                return arguments.callee.result = '';
+            },
 
 			enableTransitions: function(duration, easing) {
 				var formattedDuration = duration/1000;
 				var formattedEasing = jP.getCSSEasingFunction(easing);
 				var formattedTransition = jP.getPrefix('transition') + 'transition';
 				jP.disableTransitions();
-				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{' + formattedTransition + ': all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
+				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{' + formattedTransition + ': all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableTransitions: function() {
@@ -215,7 +216,7 @@
 				var formattedEasing = jP.getCSSEasingFunction(easing);
 				var formattedTransition = jP.getPrefix('transition') + 'transition';
 				jP.disableFixedTransitions(id);
-				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{' + formattedTransition + ': all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
+				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{' + formattedTransition + ': all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableFixedTransitions: function(id) {
