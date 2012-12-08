@@ -26,7 +26,8 @@ $menu-color: mix($text-color,$black);
 		.logo {
 			@include type-medium;
 			float: none;
-			margin: 0;
+			width: 60%;
+			margin: 0 auto;
 
 			a {
 				position: static;
