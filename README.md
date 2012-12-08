@@ -444,6 +444,13 @@ Responsive design is awesome on its own, but add responsive behavior to the mix,
 Check out the [example](http://jpanelmenu.com/examples/jrespond) of how to use jRespond with jPanelMenu, which includes a basic how-to, code snippets, and helpful tips.
 
 
+#<a href="#license" id="#license">License</a>
+
+jPanelMenu is distributed freely under the [MIT License](http://opensource.org/licenses/MIT), so you&rsquo;re free to use this plugin on any and all projects.
+
+And please, [let me know](http://acolangelo.com/contact) when you launch something using jPanelMenu. I&rsquo;d love to see examples of it being used in the wild!
+
+
 #<a href="#about" id="#about">Who Made This Wonderful Little Plugin?</a>
 
 jPanelMenu was created, and is maintained, by [Anthony Colangelo](http://acolangelo.com), a developer at [Happy Cog](http://happycog.com).
@@ -452,4 +459,4 @@ You can find him ([@acolangelo](https://twitter.com/acolangelo)) on [Twitter](ht
 
 Have a question about how jPanelMenu works that is not answered here? Have feedback for new features, options, or API functions that I should add? Anything else you want to talk about?
 
-Talk to me on [Twitter](https://twitter.com/acolangelo), where I am [@acolangelo](https://twitter.com/acolangelo), or [send me a message](http://acolangelo.com/contact), and let&rsquo;s talk!.
+Talk to me on [Twitter](https://twitter.com/acolangelo), where I am [@acolangelo](https://twitter.com/acolangelo), or , and let&rsquo;s talk!
