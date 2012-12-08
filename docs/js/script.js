@@ -3,7 +3,8 @@ $(function() {
 	$('pre').each(function(i, e) {hljs.highlightBlock(e)});
 	
 	jPanelMenu = $.jPanelMenu({
-		menu: 'header.main nav'
+		menu: 'header.main nav',
+		animated: false
 	});
 	jPanelMenu.on();
 
