@@ -443,7 +443,18 @@
 			},
 
 			initiateKeyboardListeners: function() {
+				var preventKeyListeners = ['input', 'textarea'];
 				$(document).on('keydown',function(e){
+					var $target = $(e.target),
+					prevent = false;
+					$.each(preventKeyListeners, function(){
+						if ($target.is(this.toString())) { // no shurtcuts in form fields
+							prevent = true;
+						}
+					});
+					if (prevent) {
+						return true;
+					}
 					for ( mapping in jP.options.keyboardShortcuts ) {
 						if ( e.which == jP.options.keyboardShortcuts[mapping].code )
 						{
