@@ -38,6 +38,10 @@
 		}
 	}
 
+	dt { margin-bottom: $vertical-space-small; }
+
+	dd p:first-child { margin: 0 0 $vertical-space-small; }
+
 	@media (min-width: 50em) {
 		section {
 			@include clearfix;

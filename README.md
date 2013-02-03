@@ -455,15 +455,21 @@ And please, [let me know](http://acolangelo.com/contact) when you launch somethi
 
 ###<a href="#changelog-1.1.1" id="changelog-1.1.1">1.1.1</a>
 
+February 3rd, 2013
+
 - Fixed a conflict between keyboard shortcuts and text inputs. (Thanks to [stoeffel](https://github.com/stoeffel).)
 - Renamed JavaScript resources to be more friendly for future development.
 
 ###<a href="#changelog-1.1.0" id="changelog-1.1.0">1.1.0</a>
 
+December 7th, 2012
+
 - Added directional control. Panel can now slide left or right.
 - Removed unnecessary trigger check condition. (Thanks to [James Wilson](https://twitter.com/jimmynotjim)!)
 
 ###<a href="#changelog-1.0.0" id="changelog-1.0.0">1.0.0</a>
+
+November 4th, 2012
 
 - First release of jPanelMenu.
 
