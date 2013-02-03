@@ -1,6 +1,6 @@
 #<a id="docs" href="#docs">jPanelMenu</a>
 
-###Version 1.1
+###Version 1.1.1
 
 jPanelMenu is a [jQuery](http://jquery.com) plugin that creates a paneled-style menu (like the type seen in the mobile versions of [Facebook](http://m.facebook.com) and [Google](http://google.com), as well as in many native iPhone applications).
 
