@@ -284,6 +284,42 @@ Called after the menu is closed, regardless of animation state.
 - **Data Type:** `function`
 - **Default Value:** `function(){ }`
 
+***
+
+###<a href="#options-beforeOn" id="options-beforeOn">beforeOn</a>
+
+Called before the plugin is turned on (when [`on( )`](#api-on) is called).
+
+- **Data Type:** `function`
+- **Default Value:** `function(){ }`
+
+***
+
+###<a href="#options-afterOn" id="options-afterOn">afterOn</a>
+
+Called after the plugin is turned on (when [`on( )`](#api-on) is called).
+
+- **Data Type:** `function`
+- **Default Value:** `function(){ }`
+
+***
+
+###<a href="#options-beforeOff" id="options-beforeOff">beforeOff</a>
+
+Called before the plugin is turned off (when [`off( )`](#api-off) is called).
+
+- **Data Type:** `function`
+- **Default Value:** `function(){ }`
+
+***
+
+###<a href="#options-afterOff" id="options-afterOff">afterOff</a>
+
+Called after the plugin is turned off (when [`off( )`](#api-off) is called).
+
+- **Data Type:** `function`
+- **Default Value:** `function(){ }`
+
 
 
 #<a id="api" href="#api">API</a>
@@ -455,18 +491,24 @@ And please, [let me know](http://acolangelo.com/contact) when you launch somethi
 
 #<a href="#changelog" id="#changelog">Changelog</a>
 
+###<a href="#changelog-1.2.0" id="changelog-1.2.0">1.2.0</a>
+
+February 3rd, 2013
+
+- Added new callback options: [`beforeOn`](#options-beforeOn), [`afterOn`](#options-afterOn), [`beforeOff`](#options-beforeOff), [`afterOff`](#options-afterOff)
+
 ###<a href="#changelog-1.1.1" id="changelog-1.1.1">1.1.1</a>
 
 February 3rd, 2013
 
-- Fixed a conflict between keyboard shortcuts and text inputs. (Thanks to [stoeffel](https://github.com/stoeffel).)
+- Fixed a conflict between [keyboard shortcuts](#options-keyboardShortcuts) and text inputs. (Thanks to [stoeffel](https://github.com/stoeffel).)
 - Renamed JavaScript resources to be more friendly for future development.
 
 ###<a href="#changelog-1.1.0" id="changelog-1.1.0">1.1.0</a>
 
 December 7th, 2012
 
-- Added directional control. Panel can now slide left or right.
+- Added [directional control](#options-direction). Panel can now slide left or right.
 - Removed unnecessary trigger check condition. (Thanks to [James Wilson](https://twitter.com/jimmynotjim)!)
 
 ###<a href="#changelog-1.0.0" id="changelog-1.0.0">1.0.0</a>
