@@ -6,6 +6,8 @@ jPanelMenu is a [jQuery](http://jquery.com) plugin that creates a paneled-style 
 
 Check out the [demo (and documentation) site](http://jpanelmenu.com) to see it in action.
 
+Check out the [changelog](#changelog) to see what&rsquo;s new.
+
 
 
 #<a id="usage" href="#usage">How Do I Use This Thing?</a>
