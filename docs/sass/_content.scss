@@ -12,11 +12,11 @@
 		padding-top: $vertical-space;
 	}
 
-	h3 {
+	h3, dt {
 		margin-top: $vertical-space-large;
 	}
 
-	h2, h3 {
+	h2, h3, dt {
 		a {
 			position: relative;
 			text-decoration: none;

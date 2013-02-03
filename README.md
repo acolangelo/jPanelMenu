@@ -451,6 +451,23 @@ jPanelMenu is distributed freely under the [MIT License](http://opensource.org/l
 And please, [let me know](http://acolangelo.com/contact) when you launch something using jPanelMenu. I&rsquo;d love to see examples of it being used in the wild!
 
 
+#<a href="#changelog" id="#changelog">Changelog</a>
+
+###<a href="#changelog-1.1.1" id="changelog-1.1.1">1.1.1</a>
+
+- Fixed a conflict between keyboard shortcuts and text inputs. (Thanks to [stoeffel](https://github.com/stoeffel).)
+- Renamed JavaScript resources to be more friendly for future development.
+
+###<a href="#changelog-1.1.0" id="changelog-1.1.0">1.1.0</a>
+
+- Added directional control. Panel can now slide left or right.
+- Removed unnecessary trigger check condition. (Thanks to [James Wilson](https://twitter.com/jimmynotjim)!)
+
+###<a href="#changelog-1.0.0" id="changelog-1.0.0">1.0.0</a>
+
+- First release of jPanelMenu.
+
+
 #<a href="#about" id="#about">Who Made This Wonderful Little Plugin?</a>
 
 jPanelMenu was created, and is maintained, by [Anthony Colangelo](http://acolangelo.com), a developer at [Happy Cog](http://happycog.com).
