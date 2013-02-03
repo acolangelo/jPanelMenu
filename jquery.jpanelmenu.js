@@ -1,6 +1,6 @@
 /**
   *
-  * jPanelMenu 1.1.1 (http://jpanelmenu.com)
+  * jPanelMenu 1.2.0 (http://jpanelmenu.com)
   * By Anthony Colangelo (http://acolangelo.com)
   *
 * */
@@ -56,7 +56,13 @@
 
 				after: function(){ },
 				afterOpen: function(){ },
-				afterClose: function(){ }
+				afterClose: function(){ },
+
+				beforeOn: function(){ },
+				afterOn: function(){ },
+
+				beforeOff: function(){ },
+				afterOff: function(){ }
 			},options),
 
 			settings: {
@@ -484,6 +490,8 @@
 			},
 
 			init: function() {
+				jP.options.beforeOn();
+
 				jP.initiateClickListeners();
 				if ( Object.prototype.toString.call(jP.options.keyboardShortcuts) === '[object Array]' ) { jP.initiateKeyboardListeners(); }
 
@@ -499,9 +507,13 @@
 				jP.setPositionUnits();
 
 				jP.closeMenu(false);
+
+				jP.options.afterOn();
 			},
 
 			destroy: function() {
+				jP.options.beforeOff();
+
 				jP.closeMenu();
 				jP.destroyClickListeners();
 				if ( Object.prototype.toString.call(jP.options.keyboardShortcuts) === '[object Array]' ) { jP.destroyKeyboardListeners(); }
@@ -511,6 +523,8 @@
 				childrenStyles[jP.options.direction] = 'auto';
 				$(jP.fixedChildren).each(function(){ $(this).css(childrenStyles); });
 				jP.fixedChildren = [];
+
+				jP.options.afterOff();
 			}
 		};
 

@@ -325,6 +325,42 @@
 					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
 				</div>
 			</div>
+
+			<div class="spec" id="options-beforeOn">
+				<h3><a href="#options-beforeOn">beforeOn</a></h3>
+				<p>Called before the plugin is turned on (when <code><a href="#api-on" title="jPanelMenu | API | on">on( )</a></code> is called).</p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>function</code></p>
+					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				</div>
+			</div>
+
+			<div class="spec" id="options-afterOn">
+				<h3><a href="#options-afterOn">afterOn</a></h3>
+				<p>Called after the plugin is turned on (when <code><a href="#api-on" title="jPanelMenu | API | on">on( )</a></code> is called).</p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>function</code></p>
+					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				</div>
+			</div>
+
+			<div class="spec" id="options-beforeOff">
+				<h3><a href="#options-beforeOff">beforeOff</a></h3>
+				<p>Called before the plugin is turned off (when <code><a href="#api-off" title="jPanelMenu | API | off">off( )</a></code> is called).</p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>function</code></p>
+					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				</div>
+			</div>
+
+			<div class="spec" id="options-afterOff">
+				<h3><a href="#options-afterOff">afterOff</a></h3>
+				<p>Called after the plugin is turned off (when <code><a href="#api-off" title="jPanelMenu | API | off">off( )</a></code> is called).</p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>function</code></p>
+					<p><strong>Default Value:</strong> <code>function(){ }</code></p>
+				</div>
+			</div>
 		</section>
 
 		<section>
@@ -518,11 +554,19 @@ jPM.<span class="function">trigger</span>(true);</pre>
 			<h2 id="changelog"><a href="#changelog">Changelog</a></h2>
 
 			<dl>
+				<dt id="changelog-1.2.0"><a href="#changelog-1.2.0">1.2.0</a></dt>
+				<dd>
+					<p><time>February 3rd, 2013</time></p>
+					<ul>
+						<li>Added new callback options: <code><a href="#options-beforeOn" title="jPanelMenu | Options | beforeOn">beforeOn</a></code>, <code><a href="#options-afterOn" title="jPanelMenu | Options | afterOn">afterOn</a></code>, <code><a href="#options-beforeOff" title="jPanelMenu | Options | beforeOff">beforeOff</a></code>, <code><a href="#options-afterOff" title="jPanelMenu | Options | afterOff">afterOff</a></code></li>
+					</ul>
+				</dd>
+
 				<dt id="changelog-1.1.1"><a href="#changelog-1.1.1">1.1.1</a></dt>
 				<dd>
 					<p><time>February 3rd, 2013</time></p>
 					<ul>
-						<li>Fixed a conflict between keyboard shortcuts and text inputs. (Thanks to <a href="https://github.com/stoeffel">stoeffel</a>.)</li>
+						<li>Fixed a conflict between <a href="#options-keyboardShortcuts">keyboard shortcuts</a> and text inputs. (Thanks to <a href="https://github.com/stoeffel">stoeffel</a>.)</li>
 						<li>Renamed JavaScript resources to be more friendly for future development.</li>
 					</ul>
 				</dd>
@@ -531,7 +575,7 @@ jPM.<span class="function">trigger</span>(true);</pre>
 				<dd>
 					<p><time>December 7th, 2012</time></p>
 					<ul>
-						<li>Added directional control. Panel can now slide left or right.</li>
+						<li>Added <a href="#options-direction">directional control</a>. Panel can now slide left or right.</li>
 						<li>Removed unnecessary trigger check condition. (Thanks to <a href="https://twitter.com/jimmynotjim">James Wilson</a>!)</li>
 					</ul>
 				</dd>
