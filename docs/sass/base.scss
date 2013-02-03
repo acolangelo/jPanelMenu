@@ -6,14 +6,14 @@ body {
 	@include type-body;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, dt {
 	@include type-heading;
 	margin: $vertical-space 0;
 }
 
 h1 { font-size: 2em; }
 h2 { font-size: 1.5em; }
-h3 { font-size: 1.25em; }
+h3, dt { font-size: 1.25em; }
 h4 { font-size: 1em; text-transform: uppercase; }
 h5 { font-size: 1em; }
 h6 { font-size: 1em; color: $text-color-light; }
@@ -25,6 +25,10 @@ p {
 		margin-bottom: $vertical-space-large;
 		color: $text-color-medium;
 	}
+}
+
+ul, ol {
+	list-style-position: inside;
 }
 
 strong {
@@ -165,17 +169,3 @@ header.main, footer.main {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
