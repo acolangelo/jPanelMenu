@@ -1,6 +1,6 @@
 #<a id="docs" href="#docs">jPanelMenu</a>
 
-###Version 1.2.0
+###Version 1.3.0
 
 jPanelMenu is a [jQuery](http://jquery.com) plugin that creates a paneled-style menu (like the type seen in the mobile versions of [Facebook](http://m.facebook.com) and [Google](http://google.com), as well as in many native iPhone applications).
 
@@ -130,6 +130,16 @@ The measurement value for the open position of the menu. Can be set as a pixel, 
 A boolean value specifying whether or not the opening and closing of the menu should be animated.
 
 When using the API functions [`open( )`](#api-open), [`close()`](#api-close), and [`trigger()`](#api-trigger), this setting can be overridden by passing in `true` as the parameter. More info in the [API section](#api).
+
+- **Data Type:** `boolean`
+- **Accepted Values:** `true` or `false`
+- **Default Value:** `true`
+
+***
+
+###<a href="#options-closeOnContentClick" id="options-closeOnContentClick">closeOnContentClick</a>
+
+A boolean value specifying whether or not the menu should be closed when clicking on the panel content.
 
 - **Data Type:** `boolean`
 - **Accepted Values:** `true` or `false`
@@ -490,6 +500,12 @@ And please, [let me know](http://acolangelo.com/contact) when you launch somethi
 
 
 #<a href="#changelog" id="#changelog">Changelog</a>
+
+###<a href="#changelog-1.3.0" id="changelog-1.3.0">1.3.0</a>
+
+February 4th, 2013
+
+- Added new option: [`closeOnContentClick`](#options-closeOnContentClick)
 
 ###<a href="#changelog-1.2.0" id="changelog-1.2.0">1.2.0</a>
 

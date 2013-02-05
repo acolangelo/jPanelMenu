@@ -1,6 +1,6 @@
 /**
   *
-  * jPanelMenu 1.2.0 (http://jpanelmenu.com)
+  * jPanelMenu 1.3.0 (http://jpanelmenu.com)
   * By Anthony Colangelo (http://acolangelo.com)
   *
 * */
@@ -18,6 +18,7 @@
 				direction: 'left',
 				openPosition: '250px',
 				animated: true,
+				closeOnContentClick: true,
 
 				keyboardShortcuts: [
 					{
@@ -434,6 +435,8 @@
 			},
 
 			initiateContentClickListeners: function() {
+				if ( !jP.options.closeOnContentClick ) return false;
+
 				$(document).on('click',jP.panel,function(e){
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
 				});
@@ -444,6 +447,8 @@
 			},
 
 			destroyContentClickListeners: function() {
+				if ( !jP.options.closeOnContentClick ) return false;
+
 				$(document).off('click',jP.panel,null);
 				$(document).off('touchend',jP.panel,null);
 			},
@@ -499,9 +504,7 @@
 				jP.setMenuState(false);
 				jP.setupMarkup();
 
-				jP.setMenuStyle({
-					width: jP.options.openPosition
-				});
+				jP.setMenuStyle({ width: jP.options.openPosition });
 
 				jP.checkFixedChildren();
 				jP.setPositionUnits();
