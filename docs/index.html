@@ -42,14 +42,14 @@
 
 	<div class="content">
 		<section class="intro">
-			<h2 id="overview"><a href="#">Version 1.2.0</a></h2>
+			<h2 id="overview"><a href="#">Version 1.3.0</a></h2>
 			<div class="text">
 				<p>jPanelMenu is a <a href="http://jquery.com">jQuery</a> plugin that creates a paneled-style menu (like the type seen in the mobile versions of <a href="http://m.facebook.com">Facebook</a> and <a href="http://google.com">Google</a>, as well as in many native iPhone applications).</p>
 				<p class="jPM-specific">Just click on the menu button (the top left of this page) to see it in action.</p>
-				<p>Check out the <a href="#changelog">changelog</a> to see what&rsquo;s new in version 1.2.0.</p>
+				<p>Check out the <a href="#changelog">changelog</a> to see what&rsquo;s new in version 1.3.0.</p>
 			</div>
 			<div class="download">
-				<p><a href="../jquery.jpanelmenu.min.js" title="jPanelMenu 1.2.0 (Minifed)" class="button ss-download">Download jPanelMenu</a></p>
+				<p><a href="../jquery.jpanelmenu.min.js" title="jPanelMenu 1.3.0 (Minifed)" class="button ss-download">Download jPanelMenu</a></p>
 				<p>Download the <a href="../jquery.jpanelmenu.js" title="">unminifed version</a>.</p>
 				<p>Or <a href="https://github.com/acolangelo/jPanelMenu" title="Github | jPanelMenu">view the project on Github</a></p>
 			</div>
@@ -171,6 +171,16 @@
 				<h3><a href="#options-animated">animated</a></h3>
 				<p>A boolean value specifying whether or not the opening and closing of the menu should be animated.</p>
 				<p>When using the <abbr title="Application Programming Interface">API</abbr> functions <code><a href="#api-open" title="jPanelMenu | API | open()">open()</a></code>, <code><a href="#api-close" title="jPanelMenu | API | close()">close()</a></code>, and <code><a href="#api-trigger" title="jPanelMenu | API | trigger()">trigger()</a></code>, this setting can be overridden by passing in <code>true</code> as the parameter. More info in the <a href="#api" title="jPanelMenu | API">API section</a>.</p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>boolean</code></p>
+					<p><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></p>
+					<p><strong>Default Value:</strong> <code>true</code></p>
+				</div>
+			</div>
+
+			<div class="spec" id="options-closeOnContentClick">
+				<h3><a href="#options-closeOnContentClick">closeOnContentClick</a></h3>
+				<p>A boolean value specifying whether or not the menu should be closed when clicking on the panel content.</p>
 				<div class="details">
 					<p><strong>Data Type:</strong> <code>boolean</code></p>
 					<p><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></p>
@@ -554,6 +564,14 @@ jPM.<span class="function">trigger</span>(true);</pre>
 			<h2 id="changelog"><a href="#changelog">Changelog</a></h2>
 
 			<dl>
+				<dt id="changelog-1.3.0"><a href="#changelog-1.3.0">1.3.0</a></dt>
+				<dd>
+					<p><time>February 4th, 2013</time></p>
+					<ul>
+						<li>Added new option: <code><a href="#options-closeOnContentClick" title="jPanelMenu | Options | closeOnContentClick">closeOnContentClick</a></code></li>
+					</ul>
+				</dd>
+
 				<dt id="changelog-1.2.0"><a href="#changelog-1.2.0">1.2.0</a></dt>
 				<dd>
 					<p><time>February 3rd, 2013</time></p>
