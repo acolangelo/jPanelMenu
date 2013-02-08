@@ -74,7 +74,7 @@
 										'Transition' in document.body.style
 				,
 				shiftFixedChildren: false,
-				panelPosition: 'relative',
+				panelPosition: 'static',
 				positionUnits: 'px'
 			},
 
