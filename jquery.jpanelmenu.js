@@ -427,7 +427,7 @@
 			},
 
 			initiateClickListeners: function() {
-				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(jP.options.animated); return false; });
+				$(document).on('click',jP.options.trigger,function(e){ jP.triggerMenu(jP.options.animated); e.preventDefault(); });
 			},
 
 			destroyClickListeners: function() {
