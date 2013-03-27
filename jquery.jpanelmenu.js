@@ -442,6 +442,7 @@
 				});
 				
 				$(document).on('touchend',jP.panel,function(e){
+          e.preventDefault();
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
 				});
 			},
