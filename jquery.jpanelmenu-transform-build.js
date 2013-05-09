@@ -558,7 +558,7 @@
 			},
 
 			init: function() {
-				if ( !!$('body').attr('data-menu-position') ) return jP; 
+				if ( $('html').hasClass('jPanelMenu') ) return jP; 
 				
 				jP.options.beforeOn();
 
