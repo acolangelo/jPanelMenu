@@ -171,17 +171,23 @@
 			},
 
 			setjPanelMenuStyles: function() {
-				var bgColor = '#fff';
+				var bgStyle = 'background:#fff';
 				var htmlBG = $('html').css('background-color');
 				var bodyBG = $('body').css('background-color');
+				var backgroundGenerator = function(el){
+					var bgs = [];
+					$.each(['background-color','background-image','background-position','background-repeat','background-attachment','background-size','background-clip'], function(i,value){
+						if( el.css(value) > '' ) { bgs.push(value+':'+el.css(value)); }
+					});
+					return bgs.join(';');
+				};
 
-				if ( bodyBG != 'transparent' && bodyBG != "rgba(0, 0, 0, 0)") { bgColor = bodyBG; }
-				else if ( htmlBG != 'transparent' && htmlBG != "rgba(0, 0, 0, 0)") { bgColor = htmlBG; }
-				else { bgColor = '#fff'; }
-
+				if ( bodyBG != 'transparent' && bodyBG != "rgba(0, 0, 0, 0)") { bgStyle = backgroundGenerator($('body')); }
+				else if ( htmlBG != 'transparent' && htmlBG != "rgba(0, 0, 0, 0)") { bgStyle = backgroundGenerator($('html')); }
+				
 				if ( $('#jPanelMenu-style-master').length == 0 )
 				{
-					$('body').append('<style id="jPanelMenu-style-master">body{width:100%}.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;'+jP.options.direction+':0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;'+jP.computePositionStyle(false,true)+'z-index:2;width:100%;min-height:100%;background:' + bgColor + '}</style>');
+					$('body').append('<style id="jPanelMenu-style-master">body{width:100%}.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;'+jP.options.direction+':0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;'+jP.computePositionStyle(false,true)+'z-index:2;width:100%;min-height:100%;' + bgStyle + ';}</style>');
 				}
 			},
 
