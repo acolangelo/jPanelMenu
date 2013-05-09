@@ -558,6 +558,8 @@
 			},
 
 			init: function() {
+				if ( !!$('body').attr('data-menu-position') ) return jP; 
+				
 				jP.options.beforeOn();
 
 				jP.setPositionUnits();
