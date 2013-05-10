@@ -97,7 +97,7 @@
 					allowedUnits = ['%','px','em']
 				;
 
-				for ( unitID in allowedUnits ) {
+        for (var unitID = 0; unitID < allowedUnits.length; unitID++) {
 					var unit = allowedUnits[unitID];
 					if ( jP.options.openPosition.toString().substr(-unit.length) == unit )
 					{
