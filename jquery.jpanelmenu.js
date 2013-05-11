@@ -14,6 +14,7 @@
 				menu: '#menu',
 				trigger: '.menu-trigger',
 				excludedPanelContent: 'style, script',
+        moveMenu: false,
 
 				direction: 'left',
 				openPosition: '250px',
@@ -485,7 +486,8 @@
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
 				$('body > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
-				$(jP.options.menu).clone().attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
+        var menu = jP.options.moveMenu ? $(jP.options.menu) : $(jP.options.menu).clone();
+				menu.attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
 			},
 
 			resetMarkup: function() {
