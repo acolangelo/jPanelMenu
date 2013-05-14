@@ -14,6 +14,7 @@
 				menu: '#menu',
 				trigger: '.menu-trigger',
 				excludedPanelContent: 'style, script',
+				alwaysShowFirstMenu: false,
 
 				direction: 'left',
 				openPosition: '250px',
@@ -214,6 +215,7 @@
 				jP.setMenuStyle({
 					'z-index': '1'
 				});
+				!jP.options.alwaysShowFirstMenu && $('.jPanel__slidesPanels').css({marginLeft: 0});
 			},
 
 			hideMenu: function() {
@@ -548,7 +550,60 @@
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
 				$('body > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
-				$(jP.options.menu).clone().attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
+				var jPM = $(jP.options.menu).clone();
+			
+				/* ICI SERA LA NOUVEAUTE... */				
+				/* TEMP */
+				var willGoIn 		= {},
+					generic_id 		=  0,
+					offset_zIndex 	= 10,
+					maxAncestor 	=  0;
+
+				var controlsList = '<ul class="jPanel_controls"><li data-action="prev"><a href="javascript:void(0);"><< Back</a></li></ul>';
+			
+				jPM.find('ul').each(function(i, e) {
+					var this_ul = $(e), parent = this_ul.parent('li');
+
+					/* Give an ID in elements don't have one */
+					"undefined" == typeof this_ul.attr("id") && this_ul.attr("id", "jPanel-ul-" + generic_id);
+					"undefined" == typeof parent.attr("id") && parent.attr("id", "jPanel-li-" + generic_id++);
+
+					// Count how many li parent the ul does have, and push their id into the correct array position */
+					if (typeof $(parent).get(0) != 'undefined' && $(parent).get(0).tagName == 'LI') {
+						var len = this_ul.parents('li').length; 
+
+						var jPanel_N = 'jPanel__'+len;
+						( len > maxAncestor ) && ( maxAncestor = len );  
+
+						parent.addClass('jPanel_has_subnav').attr('data-jPanel-target', this_ul.attr('id'));
+						
+						if ( typeof willGoIn[jPanel_N] == 'undefined' )
+							willGoIn[jPanel_N] = [];
+						willGoIn[jPanel_N].push(this_ul);
+					} 
+				})
+
+				var zIndex = offset_zIndex + maxAncestor;
+				jPM
+					.attr('id', jP.menu.replace('#',''))
+					.insertAfter('body > ' + jP.panel)
+					.children()
+						.wrapAll('<div class="jPanel__slide_menu" id="jPanel__0" style="z-index:'+ zIndex-- +'" />');
+		
+				$.map( willGoIn, function(e, i) {
+					$('<div class="jPanel__slide_menu" id="'+i+'" />')
+						.appendTo($(jP.menu))
+						.prepend(controlsList)
+						.append(e)
+						.css({zIndex: zIndex-- });
+				});
+
+				$('.jPanel__slide_menu').wrapAll('<div class="jPanel__slidesPanels" />')
+
+				var nbPanels = $('.jPanel__slide_menu').length;
+			 	$('.jPanel__slidesPanels').css({width: nbPanels * 100 + '%'});
+			 	$('.jPanel__slide_menu').css({width: jP.options.openPosition, float: 'left'})
+
 			},
 
 			resetMarkup: function() {
@@ -557,7 +612,48 @@
 				$(jP.menu).remove();
 			},
 
+			movePanels: function(direction) {
+				var dir = ( void 0 == typeof direction ) ? 1 : ( direction == 'back' ) ? 1 : -1,
+					sPnls = $('.jPanel__slidesPanels'),
+					cssMarginLeft = parseInt(sPnls.css('margin-left'), 10);
+				console.log(cssMarginLeft + dir * parseInt(jP.options.openPosition, 10));
+				$(sPnls).animate({marginLeft: cssMarginLeft + dir * parseInt(jP.options.openPosition, 10)});
+			},
+
+			setTriggers: function() {
+
+				$(jP.menu).find('.jPanel_controls li').click(function() {
+					var action = $(this).data('action');
+					switch(action) {
+						case 'prev' :
+							jP.movePanels('back');
+						break;
+					}
+				})
+
+				$(jP.menu).find('li[data-jPanel-target]').click(function() {
+					event.preventDefault();
+					var jPsm = $(this).parents('.jPanel__slide_menu');
+
+					console.log($(this).attr('data-jPanel-target'));
+
+					nextULs = $(jPsm).next().find('ul').not('.jPanel_controls');
+					if ( nextULs.length > 1 ) 
+							nextULs
+								.hide()
+								.siblings('#' + $(this).attr('data-jPanel-target')).show();
+					else nextULs.show();
+
+					// On va au panneau suivant.
+					jP.movePanels();
+
+					return false;
+				});
+			},
+
 			init: function() {
+				if ( $('html').hasClass('jPanelMenu') ) return jP; 
+				
 				jP.options.beforeOn();
 
 				jP.setPositionUnits();
@@ -570,6 +666,8 @@
 				jP.setupMarkup();
 
 				jP.setMenuStyle({ width: jP.options.openPosition });
+
+				jP.setTriggers();
 
 				if ( !jP.settings.transformsSupported ) { jP.checkFixedChildren(); }
 
