@@ -574,7 +574,7 @@
 						var jPanel_N = 'jPanel__'+len;
 						( len > maxAncestor ) && ( maxAncestor = len );  
 
-						parent.attr('data-jPanel-target', this_ul.attr('id'));
+						parent.addClass('jPanel_has_subnav').attr('data-jPanel-target', this_ul.attr('id'));
 						
 						if ( typeof willGoIn[jPanel_N] == 'undefined' )
 							willGoIn[jPanel_N] = [];
