@@ -583,11 +583,17 @@
 				})
 
 				var zIndex = offset_zIndex + maxAncestor;
-				
-				jPM.attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel).children().wrapAll('<div class="jPanel__slide_menu" id="jPanel__0" style="z-index:'+ zIndex-- +'" />');
+				jPM
+					.attr('id', jP.menu.replace('#',''))
+					.insertAfter('body > ' + jP.panel)$
+					.children()
+						.wrapAll('<div class="jPanel__slide_menu" id="jPanel__0" style="z-index:'+ zIndex-- +'" />');
 		
 				$.map( willGoIn, function(e, i) {
-					$('<div class="jPanel__slide_menu" id="'+i+'"></div>').appendTo($(jP.menu)).append(e).css({zIndex: zIndex-- });
+					$('<div class="jPanel__slide_menu" id="'+i+'"></div>')
+						.appendTo($(jP.menu))
+						.append(e)
+						.css({zIndex: zIndex-- });
 				});
 
 			},
