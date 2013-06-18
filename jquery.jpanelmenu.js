@@ -24,22 +24,22 @@
 					{
 						code: 27,
 						open: false,
-						close: true 
+						close: true
 					},
 					{
 						code: 37,
 						open: false,
-						close: true 
+						close: true
 					},
 					{
 						code: 39,
 						open: true,
-						close: true 
+						close: true
 					},
 					{
 						code: 77,
 						open: true,
-						close: true 
+						close: true
 					}
 				],
 
@@ -119,7 +119,7 @@
 				$(jP.panel).find('> *').each(function(){
 					if ( $(this).css('position') == 'fixed' && $(this).css(jP.options.direction) == 'auto' ) { jP.fixedChildren.push(this); }
 				});
-				
+
 				if ( jP.fixedChildren.length > 0 )
 				{
 					var newPanelStyle = { position: 'relative' };
@@ -253,7 +253,7 @@
 
 			openMenu: function(animated) {
 				if ( typeof(animated) == "undefined" || animated == null ) { animated = jP.options.animated };
-				
+
 				jP.clearTimeouts();
 
 				jP.options.before();
@@ -262,7 +262,7 @@
 				jP.setMenuState(true);
 
 				jP.setPanelStyle({ position: 'relative' });
-				
+
 				jP.showMenu();
 
 				var animationChecks = {
@@ -440,7 +440,7 @@
 				$(document).on('click',jP.panel,function(e){
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
 				});
-				
+
 				$(document).on('touchend',jP.panel,function(e){
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
 				});
@@ -528,7 +528,13 @@
 				jP.fixedChildren = [];
 
 				jP.options.afterOff();
-			}
+			},
+
+      setPosition: function(newPosition) {
+        if ( typeof(newPosition) == "undefined" || newPosition == null ) { newPosition = jP.options.openPosition };
+        jP.options.openPosition = newPosition;
+        jP.setMenuStyle({ width: jP.options.openPosition });
+      }
 		};
 
 		return {
@@ -541,7 +547,8 @@
 			menu: jP.menu,
 			getMenu: function() { return $(jP.menu); },
 			panel: jP.panel,
-			getPanel: function() { return $(jP.panel); }
+			getPanel: function() { return $(jP.panel); },
+      position: jP.setPosition
 		};
 	};
 })(jQuery);
