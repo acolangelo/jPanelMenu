@@ -528,7 +528,13 @@
 				jP.fixedChildren = [];
 
 				jP.options.afterOff();
-			}
+			},
+
+      setPosition: function(newPosition) {
+        if ( typeof(newPosition) == "undefined" || newPosition == null ) { newPosition = jP.options.openPosition };
+        jP.options.openPosition = newPosition;
+        jP.setMenuStyle({ width: jP.options.openPosition });
+      }
 		};
 
 		return {
@@ -541,7 +547,8 @@
 			menu: jP.menu,
 			getMenu: function() { return $(jP.menu); },
 			panel: jP.panel,
-			getPanel: function() { return $(jP.panel); }
+			getPanel: function() { return $(jP.panel); },
+      position: jP.setPosition
 		};
 	};
 })(jQuery);
