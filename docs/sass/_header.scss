@@ -29,6 +29,7 @@ header.main {
 	}
 
 	@media (min-width: 50em) {
+		h1 a:before { display: none !important; }
 		nav ul li { margin-right: 4%; }
 	}
 

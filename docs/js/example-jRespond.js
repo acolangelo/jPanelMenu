@@ -14,6 +14,8 @@ $(function() {
 		menu: 'header.main nav'
 	});
 
+	console.log(jPanelMenu);
+
 	var jR = jRespond([
 		{
 			label: 'small',
