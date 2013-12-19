@@ -185,6 +185,15 @@ Setting this option to `false` will disable keyboard shortcuts entirely. To enab
 
 ***
 
+###<a href="#options-contentPanel" id="options-contentPanel">contentPanel</a>
+
+The content container wrapping element used to clone the content for the `jPanelMenu-panel`.  If set, this overrides the content panel to be something other then body, useful when working with ASP.Net webforms and the single form wrapper.
+
+- **Data Type:** `string`
+- **Default Value:** `body`
+
+***
+
 ###<a href="#options-duration" id="options-duration">duration</a>
 
 The time, in milliseconds, which it should take to open and close the menu, when animated.
@@ -329,8 +338,6 @@ Called after the plugin is turned off (when [`off( )`](#api-off) is called).
 
 - **Data Type:** `function`
 - **Default Value:** `function(){ }`
-
-
 
 #<a id="api" href="#api">API</a>
 
