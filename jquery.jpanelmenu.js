@@ -12,7 +12,7 @@
 		var jP = {
 			options: $.extend({
 				menu: '#menu',
-				openTrigger: '.menu-trigger',
+				trigger: '.menu-trigger',
 				closeTrigger: false,
 				excludedPanelContent: 'style, script',
 				keepEventHandlers: false,
@@ -431,11 +431,11 @@
 			},
 
 			initiateClickListeners: function() {
-				$(document).on('click',jP.options.openTrigger,function(){ jP.triggerMenu(jP.options.animated); return false; });
+				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(jP.options.animated); return false; });
 			},
 
 			destroyClickListeners: function() {
-				$(document).off('click',jP.options.openTrigger,null);
+				$(document).off('click',jP.options.trigger,null);
 			},
 
 			initiateCloseClickListeners: function() {
