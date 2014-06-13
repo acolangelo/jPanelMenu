@@ -13,6 +13,7 @@
 			options: $.extend({
 				menu: '#menu',
 				trigger: '.menu-trigger',
+				closeTrigger: false,
 				excludedPanelContent: 'style, script',
 				keepEventHandlers: false,
 
@@ -311,6 +312,7 @@
 
 						jP.options.after();
 						jP.options.afterOpen();
+						jP.initiateCloseClickListeners();
 						jP.initiateContentClickListeners();
 					}, jP.options.openDuration);
 				}
@@ -322,6 +324,7 @@
 					$(jP.panel).stop().animate(animationOptions, jP.options.openDuration, formattedEasing, function(){
 						jP.options.after();
 						jP.options.afterOpen();
+						jP.initiateCloseClickListeners();
 						jP.initiateContentClickListeners();
 					});
 
@@ -433,6 +436,25 @@
 
 			destroyClickListeners: function() {
 				$(document).off('click',jP.options.trigger,null);
+			},
+
+			initiateCloseClickListeners: function() {
+				if ( !jP.options.closeTrigger ) return false;
+
+				$(document).on('click',jP.options.closeTrigger,function(e){
+					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
+				});
+				
+				$(document).on('touchend',jP.options.closeTrigger,function(e){
+					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
+				});
+			},
+
+			destroyCloseClickListeners: function() {
+				if ( !jP.options.closeTrigger ) return false;
+
+				$(document).off('click',jP.options.closeTrigger,null);
+				$(document).off('touchend',jP.options.closeTrigger,null);
 			},
 
 			initiateContentClickListeners: function() {
