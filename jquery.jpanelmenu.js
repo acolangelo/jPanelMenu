@@ -12,7 +12,8 @@
 		var jP = {
 			options: $.extend({
 				menu: '#menu',
-				trigger: '.menu-trigger',
+				openTrigger: '.menu-trigger',
+				closeTrigger: false,
 				excludedPanelContent: 'style, script',
 				keepEventHandlers: false,
 
@@ -311,6 +312,7 @@
 
 						jP.options.after();
 						jP.options.afterOpen();
+						jP.initiateCloseClickListeners();
 						jP.initiateContentClickListeners();
 					}, jP.options.openDuration);
 				}
@@ -322,6 +324,7 @@
 					$(jP.panel).stop().animate(animationOptions, jP.options.openDuration, formattedEasing, function(){
 						jP.options.after();
 						jP.options.afterOpen();
+						jP.initiateCloseClickListeners();
 						jP.initiateContentClickListeners();
 					});
 
@@ -428,11 +431,30 @@
 			},
 
 			initiateClickListeners: function() {
-				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(jP.options.animated); return false; });
+				$(document).on('click',jP.options.openTrigger,function(){ jP.triggerMenu(jP.options.animated); return false; });
 			},
 
 			destroyClickListeners: function() {
-				$(document).off('click',jP.options.trigger,null);
+				$(document).off('click',jP.options.openTrigger,null);
+			},
+
+			initiateCloseClickListeners: function() {
+				if ( !jP.options.closeTrigger ) return false;
+
+				$(document).on('click',jP.options.closeTrigger,function(e){
+					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
+				});
+				
+				$(document).on('touchend',jP.options.closeTrigger,function(e){
+					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
+				});
+			},
+
+			destroyCloseClickListeners: function() {
+				if ( !jP.options.closeTrigger ) return false;
+
+				$(document).off('click',jP.options.closeTrigger,null);
+				$(document).off('touchend',jP.options.closeTrigger,null);
 			},
 
 			initiateContentClickListeners: function() {
