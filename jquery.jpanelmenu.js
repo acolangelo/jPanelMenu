@@ -1,6 +1,6 @@
 /**
   *
-  * jPanelMenu 1.3.0 (http://jpanelmenu.com)
+  * jPanelMenu 1.3.0 CSS Transform Build (http://jpanelmenu.com)
   * By Anthony Colangelo (http://acolangelo.com)
   *
 * */
@@ -74,6 +74,13 @@
 										'OTransition' in document.body.style ||
 										'Transition' in document.body.style
 				,
+				transformsSupported:	'WebkitTransform' in document.body.style ||
+										'MozTransform' in document.body.style ||
+										'msTransform' in document.body.style ||
+										'OTransform' in document.body.style ||
+										'Transform' in document.body.style
+				,
+				cssPrefix: '',
 				shiftFixedChildren: false,
 				panelPosition: 'relative',
 				positionUnits: 'px'
@@ -110,6 +117,37 @@
 				if ( !foundUnit ) { jP.options.openPosition = parseInt(jP.options.openPosition) + jP.settings.positionUnits }
 			},
 
+			computePositionStyle: function(open, string) {
+				var position = (open)?jP.options.openPosition:'0' + jP.settings.positionUnits;
+				var property = {};
+				if ( jP.settings.transformsSupported ) {
+					var direction = (open && jP.options.direction == 'right')?'-':'';
+					var translate = 'translate3d(' + direction + position + ',0,0)';
+					var transform = 'transform';
+
+					if ( string ) {
+						property = '';
+						if ( jP.settings.cssPrefix != '' ) { property = jP.settings.cssPrefix + transform + ':' + translate + ';' }
+						property += transform + ':' + translate + ';';
+					} else {
+						if ( jP.settings.cssPrefix != '' ) {  property[jP.settings.cssPrefix + transform] = translate; }
+						property[transform] = translate;
+					}
+				} else {
+					if ( string ) {
+						property = '';
+						property = jP.options.direction + ': ' + position + ';';
+					} else {
+						property[jP.options.direction] = position;
+					}
+				}
+				return property;
+			},
+
+			setCSSPrefix: function() {
+				jP.settings.cssPrefix = jP.getCSSPrefix();
+			},
+
 			checkFixedChildren: function() {
 				jP.disableTransitions();
 
@@ -144,7 +182,7 @@
 
 				if ( $('#jPanelMenu-style-master').length == 0 )
 				{
-					$('body').append('<style id="jPanelMenu-style-master">body{width:100%}.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;'+jP.options.direction+':0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;'+jP.options.direction+':0;top:0;z-index:2;width:100%;min-height:100%;background:' + bgColor + '}</style>');
+					$('body').append('<style id="jPanelMenu-style-master">body{width:100%}.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;'+jP.options.direction+':0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;'+jP.computePositionStyle(false,true)+'z-index:2;width:100%;min-height:100%;background:' + bgColor + '}</style>');
 				}
 			},
 
@@ -192,7 +230,7 @@
 				var formattedDuration = duration/1000;
 				var formattedEasing = jP.getCSSEasingFunction(easing);
 				jP.disableTransitions();
-				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
+				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{' + jP.settings.cssPrefix + 'transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableTransitions: function() {
@@ -203,7 +241,7 @@
 				var formattedDuration = duration/1000;
 				var formattedEasing = jP.getCSSEasingFunction(easing);
 				jP.disableFixedTransitions(id);
-				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
+				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{' + jP.settings.cssPrefix + 'transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableFixedTransitions: function(id) {
@@ -252,6 +290,40 @@
 				}
 			},
 
+			getVendorPrefix: function() {
+				// Thanks to Lea Verou for this beautiful function. (http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser)
+				if('result' in arguments.callee) return arguments.callee.result;
+
+				var regex = /^(Moz|Webkit|Khtml|O|ms|Icab)(?=[A-Z])/;
+
+				var someScript = document.getElementsByTagName('script')[0];
+
+				for(var prop in someScript.style)
+				{
+					if(regex.test(prop))
+					{
+						// test is faster than match, so it's better to perform
+						// that on the lot and match only when necessary
+						return arguments.callee.result = prop.match(regex)[0];
+					}
+
+				}
+
+				// Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+				// However (prop in style) returns the correct value, so we'll have to test for
+				// the precence of a specific property
+				if('WebkitOpacity' in someScript.style) return arguments.callee.result = 'Webkit';
+				if('KhtmlOpacity' in someScript.style) return arguments.callee.result = 'Khtml';
+
+				return arguments.callee.result = '';
+			},
+
+			getCSSPrefix: function() {
+				var prefix = jP.getVendorPrefix();
+				if ( prefix != '' ) { return '-' + prefix.toLowerCase() + '-'; }
+				return '';
+			},
+
 			openMenu: function(animated) {
 				if ( typeof(animated) == "undefined" || animated == null ) { animated = jP.options.animated };
 				
@@ -275,12 +347,10 @@
 					if ( animationChecks.none ) jP.disableTransitions();
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.openDuration, jP.options.openEasing);
 
-					var newPanelStyle = {};
-					newPanelStyle[jP.options.direction] = jP.options.openPosition;
+					var newPanelStyle = jP.computePositionStyle(true);
 					jP.setPanelStyle(newPanelStyle);
 
-					if ( jP.settings.shiftFixedChildren )
-					{
+					if ( jP.settings.shiftFixedChildren ) {
 						$(jP.fixedChildren).each(function(){
 							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
 								selector = id.replace(' ','.'),
@@ -298,8 +368,7 @@
 
 					jP.timeouts.afterOpen = setTimeout(function(){
 						jP.disableTransitions();
-						if ( jP.settings.shiftFixedChildren )
-						{
+						if ( jP.settings.shiftFixedChildren ) {
 							$(jP.fixedChildren).each(function(){
 								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
 									id = id.replace(' ','-')
@@ -325,8 +394,7 @@
 						jP.initiateContentClickListeners();
 					});
 
-					if ( jP.settings.shiftFixedChildren )
-					{
+					if ( jP.settings.shiftFixedChildren ) {
 						$(jP.fixedChildren).each(function(){
 							var childrenAnimationOptions = {};
 							childrenAnimationOptions[jP.options.direction] = jP.options.openPosition;
@@ -355,12 +423,10 @@
 					if ( animationChecks.none ) jP.disableTransitions();
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.closeDuration, jP.options.closeEasing);
 
-					var newPanelStyle = {};
-					newPanelStyle[jP.options.direction] = 0 + jP.settings.positionUnits;
+					var newPanelStyle = jP.computePositionStyle();
 					jP.setPanelStyle(newPanelStyle);
 
-					if ( jP.settings.shiftFixedChildren )
-					{
+					if ( jP.settings.shiftFixedChildren ) {
 						$(jP.fixedChildren).each(function(){
 							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
 								selector = id.replace(' ','.'),
@@ -380,8 +446,7 @@
 						jP.setPanelStyle({ position: jP.settings.panelPosition });
 
 						jP.disableTransitions();
-						if ( jP.settings.shiftFixedChildren )
-						{
+						if ( jP.settings.shiftFixedChildren ) {
 							$(jP.fixedChildren).each(function(){
 								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
 									id = id.replace(' ','-')
@@ -411,8 +476,7 @@
 						jP.destroyContentClickListeners();
 					});
 
-					if ( jP.settings.shiftFixedChildren )
-					{
+					if ( jP.settings.shiftFixedChildren ) {
 						$(jP.fixedChildren).each(function(){
 							var childrenAnimationOptions = {};
 							childrenAnimationOptions[jP.options.direction] = 0 + jP.settings.positionUnits;
@@ -465,8 +529,7 @@
 					if ( prevent ) { return true; }
 
 					for ( mapping in jP.options.keyboardShortcuts ) {
-						if ( e.which == jP.options.keyboardShortcuts[mapping].code )
-						{
+						if ( e.which == jP.options.keyboardShortcuts[mapping].code ) {
 							var key = jP.options.keyboardShortcuts[mapping];
 
 							if ( key.open && key.close ) { jP.triggerMenu(jP.options.animated); }
@@ -498,6 +561,8 @@
 			init: function() {
 				jP.options.beforeOn();
 
+				jP.setPositionUnits();
+				jP.setCSSPrefix();
 				jP.initiateClickListeners();
 				if ( Object.prototype.toString.call(jP.options.keyboardShortcuts) === '[object Array]' ) { jP.initiateKeyboardListeners(); }
 
@@ -507,8 +572,7 @@
 
 				jP.setMenuStyle({ width: jP.options.openPosition });
 
-				jP.checkFixedChildren();
-				jP.setPositionUnits();
+				if ( !jP.settings.transformsSupported ) { jP.checkFixedChildren(); }
 
 				jP.closeMenu(false);
 

@@ -1,11 +1,3 @@
-// @codekit-prepend lib/modernizr-2.6.1.min.js
-// @codekit-prepend lib/respond.js
-// @codekit-prepend lib/jRespond.js
-// @codekit-prepend lib/highlight.min.js
-// @codekit-prepend lib/jquery-1.9.0.js
-// @codekit-prepend lib/jquery.jpanelmenu.min.js
-// @codekit-prepend lib/plugins.js
-
 var jPanelMenu = {};
 $(function() {
 	$('pre').each(function(i, e) {hljs.highlightBlock(e)});
@@ -13,8 +5,6 @@ $(function() {
 	jPanelMenu = $.jPanelMenu({
 		menu: 'header.main nav'
 	});
-
-	console.log(jPanelMenu);
 
 	var jR = jRespond([
 		{

@@ -1,0 +1,22 @@
+{
+  "name": "jPanelMenu-docs",
+  "version": "0.0.0",
+  "description": "Documentation for jPanelMenu.",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-sass": "~0.7.3",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.0",
+    "grunt-contrib-concat": "^0.3.0",
+    "matchdep": "^0.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/acolangelo/jPanelMenu.git"
+  },
+  "author": "Anthony Colangelo",
+  "bugs": {
+    "url": "https://github.com/acolangelo/jPanelMenu/issues"
+  },
+  "homepage": "http://jpanelmenu.com/"
+}
