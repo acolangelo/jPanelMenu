@@ -1,15 +1,9 @@
 .content {
 	padding-bottom: $vertical-space-xl;
 
-	section {
-		p:last-child { margin-bottom: 0; }
-
-		&.intro h2 { margin-top: 0; padding-top: $vertical-space-small; }
-	}
-
 	h2 {
-		margin-top: $vertical-space-large;
-		padding-top: $vertical-space;
+		margin-top: 0;
+		padding-top: $vertical-space-large;
 	}
 
 	h3, dt {
@@ -37,6 +31,8 @@
 			}
 		}
 	}
+
+	p:last-child { margin-bottom: 0; }
 
 	dt { margin-bottom: $vertical-space-small; }
 

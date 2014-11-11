@@ -5,8 +5,6 @@ $menu-color: mix($text-color,$black);
 	header.main {
 		@include linear-gradient($blue, mix($blue, $blue-dark, 25%));
 		@include box-shadow(0,1px,5px,rgba($black,.5));
-		position: fixed;
-		top: 0;
 		width: 100% - ($horizontal-space-xl*2);
 		max-width: none;
 		height: $header-size;
@@ -17,7 +15,7 @@ $menu-color: mix($text-color,$black);
 
 		.logo a, .menu-trigger {
 			display: block;
-			height: 100%;
+			max-height: 100%;
 			text-shadow: 0 -1px 1px $black;
 			line-height: $header-size;
 			color: $white;
@@ -53,17 +51,6 @@ $menu-color: mix($text-color,$black);
 	}
 
 	.content {
-		padding-top: $vertical-space-xl;
-
-		section.intro h2 {
-			padding-top: 0;
-		}
-
-		h2 {
-			margin-top: 0;
-			padding-top: $header-size*1.25;
-		}
-
 		.spec, h3 {
 			margin-top: 0;
 			padding-top: $vertical-space-xl;

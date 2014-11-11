@@ -1,6 +1,6 @@
 /**
   *
-  * jPanelMenu 1.3.0 (http://jpanelmenu.com)
+  * jPanelMenu 1.4.0 (http://jpanelmenu.com)
   * By Anthony Colangelo (http://acolangelo.com)
   *
 * */
@@ -12,8 +12,11 @@
 		var jP = {
 			options: $.extend({
 				menu: '#menu',
+				panel: 'body',
 				trigger: '.menu-trigger',
-				excludedPanelContent: 'style, script',
+				excludedPanelContent: 'style, scfript',
+				clone: true,
+				keepEventHandlers: false,
 
 				direction: 'left',
 				openPosition: '250px',
@@ -73,16 +76,20 @@
 										'OTransition' in document.body.style ||
 										'Transition' in document.body.style
 				,
-				shiftFixedChildren: false,
-				panelPosition: 'relative',
+				transformsSupported:	'WebkitTransform' in document.body.style ||
+										'MozTransform' in document.body.style ||
+										'msTransform' in document.body.style ||
+										'OTransform' in document.body.style ||
+										'Transform' in document.body.style
+				,
+				cssPrefix: '',
+				panelPosition: 'static',
 				positionUnits: 'px'
 			},
 
 			menu: '#jPanelMenu-menu',
 
 			panel: '.jPanelMenu-panel',
-
-			fixedChildren: [],
 
 			timeouts: {},
 
@@ -97,7 +104,7 @@
 					allowedUnits = ['%','px','em']
 				;
 
-				for ( unitID in allowedUnits ) {
+				for (var unitID = 0; unitID < allowedUnits.length; unitID++) {
 					var unit = allowedUnits[unitID];
 					if ( jP.options.openPosition.toString().substr(-unit.length) == unit )
 					{
@@ -109,51 +116,70 @@
 				if ( !foundUnit ) { jP.options.openPosition = parseInt(jP.options.openPosition) + jP.settings.positionUnits }
 			},
 
-			checkFixedChildren: function() {
-				jP.disableTransitions();
+			computePositionStyle: function(open, string) {
+				var position = (open)?jP.options.openPosition:'0' + jP.settings.positionUnits;
+				var property = {};
+				if ( jP.settings.transformsSupported ) {
+					var direction = (open && jP.options.direction == 'right')?'-':'';
+					var translate = 'translate3d(' + direction + position + ',0,0)';
+					var transform = 'transform';
 
-				var defaultPanelStyle = { position: $(jP.panel).css('position') };
-
-				defaultPanelStyle[jP.options.direction] = ($(jP.panel).css(jP.options.direction) == 'auto')?0:$(jP.panel).css(jP.options.direction);
-
-				$(jP.panel).find('> *').each(function(){
-					if ( $(this).css('position') == 'fixed' && $(this).css(jP.options.direction) == 'auto' ) { jP.fixedChildren.push(this); }
-				});
-				
-				if ( jP.fixedChildren.length > 0 )
-				{
-					var newPanelStyle = { position: 'relative' };
-					newPanelStyle[jP.options.direction] = '1px';
-					jP.setPanelStyle(newPanelStyle);
-
-					if ( parseInt($(jP.fixedChildren[0]).offset().left) == 0 ) { jP.settings.shiftFixedChildren = true; }
+					if ( string ) {
+						property = '';
+						if ( jP.settings.cssPrefix != '' ) { property = jP.settings.cssPrefix + transform + ':' + translate + ';' }
+						property += transform + ':' + translate + ';';
+					} else {
+						if ( jP.settings.cssPrefix != '' ) {  property[jP.settings.cssPrefix + transform] = translate; }
+						property[transform] = translate;
+					}
+				} else {
+					if ( string ) {
+						property = '';
+						property = jP.options.direction + ': ' + position + ';';
+					} else {
+						property[jP.options.direction] = position;
+					}
 				}
+				return property;
+			},
 
-				jP.setPanelStyle(defaultPanelStyle);
+			setCSSPrefix: function() {
+				jP.settings.cssPrefix = jP.getCSSPrefix();
 			},
 
 			setjPanelMenuStyles: function() {
-				var bgColor = '#fff';
-				var htmlBG = $('html').css('background-color');
-				var bodyBG = $('body').css('background-color');
+				var bg = 'background:#fff',
+					htmlBG = $('html').css('background-color'),
+					bodyBG = $('body').css('background-color');
 
-				if ( bodyBG != 'transparent' && bodyBG != "rgba(0, 0, 0, 0)") { bgColor = bodyBG; }
-				else if ( htmlBG != 'transparent' && htmlBG != "rgba(0, 0, 0, 0)") { bgColor = htmlBG; }
-				else { bgColor = '#fff'; }
+				var backgroundGenerator = function(element){
+					var bgs = [];
+					$.each(['background-color','background-image','background-position','background-repeat','background-attachment','background-size','background-clip'], function(i,value){
+						if( element.css(value) !== '' ) {
+							bgs.push(value+':'+element.css(value));
+						}
+					});
+					return bgs.join(';');
+				};
 
-				if ( $('#jPanelMenu-style-master').length == 0 )
-				{
-					$('body').append('<style id="jPanelMenu-style-master">body{width:100%}.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;'+jP.options.direction+':0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;'+jP.options.direction+':0;top:0;z-index:2;width:100%;min-height:100%;background:' + bgColor + '}</style>');
+				if ( bodyBG !== 'transparent' && bodyBG !== "rgba(0, 0, 0, 0)") {
+					bg = backgroundGenerator($('body'));
+				} else if ( htmlBG !== 'transparent' && htmlBG !== "rgba(0, 0, 0, 0)") {
+					bg = backgroundGenerator($('html'));
+				}
+				
+				if ( $('#jPanelMenu-style-master').length == 0 ) {
+					$('body').append('<style id="jPanelMenu-style-master">body{width:100%}.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;'+jP.options.direction+':0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;'+jP.options.direction+':0;top:0;z-index:2;width:100%;min-height:100%;' + bg + ';}</style>');
 				}
 			},
 
 			setMenuState: function(open) {
 				var position = (open)?'open':'closed';
-				$('body').attr('data-menu-position', position);
+				$(jP.options.panel).attr('data-menu-position', position);
 			},
 
 			getMenuState: function() {
-				return $('body').attr('data-menu-position');
+				return $(jP.options.panel).attr('data-menu-position');
 			},
 
 			menuIsOpen: function() {
@@ -191,22 +217,11 @@
 				var formattedDuration = duration/1000;
 				var formattedEasing = jP.getCSSEasingFunction(easing);
 				jP.disableTransitions();
-				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
+				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{' + jP.settings.cssPrefix + 'transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
 			},
 
 			disableTransitions: function() {
 				$('#jPanelMenu-style-transitions').remove();
-			},
-
-			enableFixedTransitions: function(selector, id, duration, easing) {
-				var formattedDuration = duration/1000;
-				var formattedEasing = jP.getCSSEasingFunction(easing);
-				jP.disableFixedTransitions(id);
-				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
-			},
-
-			disableFixedTransitions: function(id) {
-				$('#jPanelMenu-style-fixed-' + id).remove();
 			},
 
 			getCSSEasingFunction: function(name) {
@@ -251,6 +266,40 @@
 				}
 			},
 
+			getVendorPrefix: function() {
+				// Thanks to Lea Verou for this beautiful function. (http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser)
+				if('result' in arguments.callee) return arguments.callee.result;
+
+				var regex = /^(Moz|Webkit|Khtml|O|ms|Icab)(?=[A-Z])/;
+
+				var someScript = document.getElementsByTagName('script')[0];
+
+				for(var prop in someScript.style)
+				{
+					if(regex.test(prop))
+					{
+						// test is faster than match, so it's better to perform
+						// that on the lot and match only when necessary
+						return arguments.callee.result = prop.match(regex)[0];
+					}
+
+				}
+
+				// Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+				// However (prop in style) returns the correct value, so we'll have to test for
+				// the precence of a specific property
+				if('WebkitOpacity' in someScript.style) return arguments.callee.result = 'Webkit';
+				if('KhtmlOpacity' in someScript.style) return arguments.callee.result = 'Khtml';
+
+				return arguments.callee.result = '';
+			},
+
+			getCSSPrefix: function() {
+				var prefix = jP.getVendorPrefix();
+				if ( prefix != '' ) { return '-' + prefix.toLowerCase() + '-'; }
+				return '';
+			},
+
 			openMenu: function(animated) {
 				if ( typeof(animated) == "undefined" || animated == null ) { animated = jP.options.animated };
 				
@@ -260,8 +309,6 @@
 				jP.options.beforeOpen();
 
 				jP.setMenuState(true);
-
-				jP.setPanelStyle({ position: 'relative' });
 				
 				jP.showMenu();
 
@@ -274,40 +321,10 @@
 					if ( animationChecks.none ) jP.disableTransitions();
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.openDuration, jP.options.openEasing);
 
-					var newPanelStyle = {};
-					newPanelStyle[jP.options.direction] = jP.options.openPosition;
+					var newPanelStyle = jP.computePositionStyle(true);
 					jP.setPanelStyle(newPanelStyle);
 
-					if ( jP.settings.shiftFixedChildren )
-					{
-						$(jP.fixedChildren).each(function(){
-							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
-								selector = id.replace(' ','.'),
-								id = id.replace(' ','-')
-							;
-
-							if ( animationChecks.none ) jP.disableFixedTransitions(id);
-							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.openDuration, jP.options.openEasing);
-
-							var newChildrenStyle = {};
-							newChildrenStyle[jP.options.direction] = jP.options.openPosition;
-							$(this).css(newChildrenStyle);
-						});
-					}
-
 					jP.timeouts.afterOpen = setTimeout(function(){
-						jP.disableTransitions();
-						if ( jP.settings.shiftFixedChildren )
-						{
-							$(jP.fixedChildren).each(function(){
-								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
-									id = id.replace(' ','-')
-								;
-
-								jP.disableFixedTransitions(id);
-							});
-						}
-
 						jP.options.after();
 						jP.options.afterOpen();
 						jP.initiateContentClickListeners();
@@ -323,15 +340,6 @@
 						jP.options.afterOpen();
 						jP.initiateContentClickListeners();
 					});
-
-					if ( jP.settings.shiftFixedChildren )
-					{
-						$(jP.fixedChildren).each(function(){
-							var childrenAnimationOptions = {};
-							childrenAnimationOptions[jP.options.direction] = jP.options.openPosition;
-							$(this).stop().animate(childrenAnimationOptions, jP.options.openDuration, formattedEasing);
-						});
-					}
 				}
 			},
 
@@ -354,41 +362,11 @@
 					if ( animationChecks.none ) jP.disableTransitions();
 					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.closeDuration, jP.options.closeEasing);
 
-					var newPanelStyle = {};
-					newPanelStyle[jP.options.direction] = 0 + jP.settings.positionUnits;
+					var newPanelStyle = jP.computePositionStyle();
 					jP.setPanelStyle(newPanelStyle);
 
-					if ( jP.settings.shiftFixedChildren )
-					{
-						$(jP.fixedChildren).each(function(){
-							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
-								selector = id.replace(' ','.'),
-								id = id.replace(' ','-')
-							;
-
-							if ( animationChecks.none ) jP.disableFixedTransitions(id);
-							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.closeDuration, jP.options.closeEasing);
-
-							var newChildrenStyle = {};
-							newChildrenStyle[jP.options.direction] = 0 + jP.settings.positionUnits;
-							$(this).css(newChildrenStyle);
-						});
-					}
-
 					jP.timeouts.afterClose = setTimeout(function(){
-						jP.setPanelStyle({ position: jP.settings.panelPosition });
-
 						jP.disableTransitions();
-						if ( jP.settings.shiftFixedChildren )
-						{
-							$(jP.fixedChildren).each(function(){
-								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
-									id = id.replace(' ','-')
-								;
-
-								jP.disableFixedTransitions(id);
-							});
-						}
 
 						jP.hideMenu();
 						jP.options.after();
@@ -402,22 +380,11 @@
 					var animationOptions = {};
 					animationOptions[jP.options.direction] = 0 + jP.settings.positionUnits;
 					$(jP.panel).stop().animate(animationOptions, jP.options.closeDuration, formattedEasing, function(){
-						jP.setPanelStyle({ position: jP.settings.panelPosition });
-
 						jP.hideMenu();
 						jP.options.after();
 						jP.options.afterClose();
 						jP.destroyContentClickListeners();
 					});
-
-					if ( jP.settings.shiftFixedChildren )
-					{
-						$(jP.fixedChildren).each(function(){
-							var childrenAnimationOptions = {};
-							childrenAnimationOptions[jP.options.direction] = 0 + jP.settings.positionUnits;
-							$(this).stop().animate(childrenAnimationOptions, jP.options.closeDuration, formattedEasing);
-						});
-					}
 				}
 			},
 
@@ -427,7 +394,9 @@
 			},
 
 			initiateClickListeners: function() {
-				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(jP.options.animated); return false; });
+				$(document).on('click',jP.options.trigger,function(e){
+					jP.triggerMenu(jP.options.animated); e.preventDefault();
+				});
 			},
 
 			destroyClickListeners: function() {
@@ -439,10 +408,12 @@
 
 				$(document).on('click',jP.panel,function(e){
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
+					e.preventDefault();
 				});
 				
 				$(document).on('touchend',jP.panel,function(e){
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
+					e.preventDefault();
 				});
 			},
 
@@ -454,25 +425,28 @@
 			},
 
 			initiateKeyboardListeners: function() {
-				var preventKeyListeners = ['input', 'textarea'];
+				var preventKeyListeners = ['input', 'textarea', 'select'];
 				$(document).on('keydown',function(e){
 					var target = $(e.target),
-					prevent = false;
+						prevent = false;
+
 					$.each(preventKeyListeners, function(){
-						if (target.is(this.toString())) { prevent = true; }
+						if (target.is(this.toString())) {
+							prevent = true;
+						}
 					});
-					if ( prevent ) { return true; }
+
+					if ( prevent ) return true;
 
 					for ( mapping in jP.options.keyboardShortcuts ) {
-						if ( e.which == jP.options.keyboardShortcuts[mapping].code )
-						{
+						if ( e.which == jP.options.keyboardShortcuts[mapping].code ) {
 							var key = jP.options.keyboardShortcuts[mapping];
 
 							if ( key.open && key.close ) { jP.triggerMenu(jP.options.animated); }
 							else if ( (key.open && !key.close) && !jP.menuIsOpen() ) { jP.openMenu(jP.options.animated); }
 							else if ( (!key.open && key.close) && jP.menuIsOpen() ) { jP.closeMenu(jP.options.animated); }
 
-							return false;
+							e.preventDefault();
 						}
 					}
 				});
@@ -484,19 +458,22 @@
 
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
-				$('body > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
-				$(jP.options.menu).clone().attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
+				$(jP.options.panel + ' > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
+				var menu = ( jP.options.clone )?$(jP.options.menu).clone(jP.options.keepEventHandlers):$(jP.options.menu);
+				menu.attr('id', jP.menu.replace('#','')).insertAfter(jP.options.panel + ' > ' + jP.panel);
 			},
 
 			resetMarkup: function() {
 				$('html').removeClass('jPanelMenu');
-				$('body > ' + jP.panel + ' > *').unwrap();
+				$(jP.options.panel + ' > ' + jP.panel + ' > *').unwrap();
 				$(jP.menu).remove();
 			},
 
 			init: function() {
 				jP.options.beforeOn();
 
+				jP.setPositionUnits();
+				jP.setCSSPrefix();
 				jP.initiateClickListeners();
 				if ( Object.prototype.toString.call(jP.options.keyboardShortcuts) === '[object Array]' ) { jP.initiateKeyboardListeners(); }
 
@@ -504,10 +481,8 @@
 				jP.setMenuState(false);
 				jP.setupMarkup();
 
+				jP.setPanelStyle({ position: (( jP.options.animated && jP.settings.panelPosition === 'static' )?'relative':jP.settings.panelPosition) });
 				jP.setMenuStyle({ width: jP.options.openPosition });
-
-				jP.checkFixedChildren();
-				jP.setPositionUnits();
 
 				jP.closeMenu(false);
 
@@ -524,8 +499,6 @@
 				jP.resetMarkup();
 				var childrenStyles = {};
 				childrenStyles[jP.options.direction] = 'auto';
-				$(jP.fixedChildren).each(function(){ $(this).css(childrenStyles); });
-				jP.fixedChildren = [];
 
 				jP.options.afterOff();
 			}
@@ -541,7 +514,14 @@
 			menu: jP.menu,
 			getMenu: function() { return $(jP.menu); },
 			panel: jP.panel,
-			getPanel: function() { return $(jP.panel); }
+			getPanel: function() { return $(jP.panel); },
+			setPosition: function(position) {
+				if ( typeof(position) == "undefined" || position == null ) {
+					position = jP.options.openPosition
+				}
+				jP.options.openPosition = position;
+				jP.setMenuStyle({ width: jP.options.openPosition });
+			}
 		};
 	};
 })(jQuery);
