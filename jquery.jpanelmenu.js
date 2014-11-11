@@ -14,7 +14,7 @@
 				menu: '#menu',
 				panel: 'body',
 				trigger: '.menu-trigger',
-				excludedPanelContent: 'style, scfript',
+				excludedPanelContent: 'style, script',
 				clone: true,
 				keepEventHandlers: false,
 
