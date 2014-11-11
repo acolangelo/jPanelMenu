@@ -81,7 +81,7 @@
 										'Transform' in document.body.style
 				,
 				cssPrefix: '',
-				panelPosition: 'relative',
+				panelPosition: 'static',
 				positionUnits: 'px'
 			},
 
