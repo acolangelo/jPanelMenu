@@ -15,6 +15,7 @@
 				trigger: '.menu-trigger',
 				excludedPanelContent: 'style, script',
 				keepEventHandlers: false,
+				contentPanel: 'body',
 
 				direction: 'left',
 				openPosition: '250px',
@@ -437,13 +438,13 @@
 
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
-				$('body > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
-				$(jP.options.menu).clone(jP.options.keepEventHandlers).attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
+				$(jP.options.contentPanel + ' > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
+				$(jP.options.menu).clone(jP.options.keepEventHandlers).attr('id', jP.menu.replace('#','')).insertAfter(jP.options.contentPanel + ' > ' + jP.panel);
 			},
 
 			resetMarkup: function() {
 				$('html').removeClass('jPanelMenu');
-				$('body > ' + jP.panel + ' > *').unwrap();
+				$(jP.options.contentPanel + ' > ' + jP.panel + ' > *').unwrap();
 				$(jP.menu).remove();
 			},
 
