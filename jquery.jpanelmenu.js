@@ -81,7 +81,6 @@
 										'Transform' in document.body.style
 				,
 				cssPrefix: '',
-				shiftFixedChildren: false,
 				panelPosition: 'relative',
 				positionUnits: 'px'
 			},
@@ -89,8 +88,6 @@
 			menu: '#jPanelMenu-menu',
 
 			panel: '.jPanelMenu-panel',
-
-			fixedChildren: [],
 
 			timeouts: {},
 
@@ -146,29 +143,6 @@
 
 			setCSSPrefix: function() {
 				jP.settings.cssPrefix = jP.getCSSPrefix();
-			},
-
-			checkFixedChildren: function() {
-				jP.disableTransitions();
-
-				var defaultPanelStyle = { position: $(jP.panel).css('position') };
-
-				defaultPanelStyle[jP.options.direction] = ($(jP.panel).css(jP.options.direction) == 'auto')?0:$(jP.panel).css(jP.options.direction);
-
-				$(jP.panel).find('> *').each(function(){
-					if ( $(this).css('position') == 'fixed' && $(this).css(jP.options.direction) == 'auto' ) { jP.fixedChildren.push(this); }
-				});
-				
-				if ( jP.fixedChildren.length > 0 )
-				{
-					var newPanelStyle = { position: 'relative' };
-					newPanelStyle[jP.options.direction] = '1px';
-					jP.setPanelStyle(newPanelStyle);
-
-					if ( parseInt($(jP.fixedChildren[0]).offset().left) == 0 ) { jP.settings.shiftFixedChildren = true; }
-				}
-
-				jP.setPanelStyle(defaultPanelStyle);
 			},
 
 			setjPanelMenuStyles: function() {
@@ -235,17 +209,6 @@
 
 			disableTransitions: function() {
 				$('#jPanelMenu-style-transitions').remove();
-			},
-
-			enableFixedTransitions: function(selector, id, duration, easing) {
-				var formattedDuration = duration/1000;
-				var formattedEasing = jP.getCSSEasingFunction(easing);
-				jP.disableFixedTransitions(id);
-				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{' + jP.settings.cssPrefix + 'transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
-			},
-
-			disableFixedTransitions: function(id) {
-				$('#jPanelMenu-style-fixed-' + id).remove();
 			},
 
 			getCSSEasingFunction: function(name) {
@@ -333,8 +296,6 @@
 				jP.options.beforeOpen();
 
 				jP.setMenuState(true);
-
-				jP.setPanelStyle({ position: 'relative' });
 				
 				jP.showMenu();
 
@@ -350,34 +311,7 @@
 					var newPanelStyle = jP.computePositionStyle(true);
 					jP.setPanelStyle(newPanelStyle);
 
-					if ( jP.settings.shiftFixedChildren ) {
-						$(jP.fixedChildren).each(function(){
-							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
-								selector = id.replace(' ','.'),
-								id = id.replace(' ','-')
-							;
-
-							if ( animationChecks.none ) jP.disableFixedTransitions(id);
-							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.openDuration, jP.options.openEasing);
-
-							var newChildrenStyle = {};
-							newChildrenStyle[jP.options.direction] = jP.options.openPosition;
-							$(this).css(newChildrenStyle);
-						});
-					}
-
 					jP.timeouts.afterOpen = setTimeout(function(){
-						jP.disableTransitions();
-						if ( jP.settings.shiftFixedChildren ) {
-							$(jP.fixedChildren).each(function(){
-								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
-									id = id.replace(' ','-')
-								;
-
-								jP.disableFixedTransitions(id);
-							});
-						}
-
 						jP.options.after();
 						jP.options.afterOpen();
 						jP.initiateContentClickListeners();
@@ -393,14 +327,6 @@
 						jP.options.afterOpen();
 						jP.initiateContentClickListeners();
 					});
-
-					if ( jP.settings.shiftFixedChildren ) {
-						$(jP.fixedChildren).each(function(){
-							var childrenAnimationOptions = {};
-							childrenAnimationOptions[jP.options.direction] = jP.options.openPosition;
-							$(this).stop().animate(childrenAnimationOptions, jP.options.openDuration, formattedEasing);
-						});
-					}
 				}
 			},
 
@@ -426,35 +352,8 @@
 					var newPanelStyle = jP.computePositionStyle();
 					jP.setPanelStyle(newPanelStyle);
 
-					if ( jP.settings.shiftFixedChildren ) {
-						$(jP.fixedChildren).each(function(){
-							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
-								selector = id.replace(' ','.'),
-								id = id.replace(' ','-')
-							;
-
-							if ( animationChecks.none ) jP.disableFixedTransitions(id);
-							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.closeDuration, jP.options.closeEasing);
-
-							var newChildrenStyle = {};
-							newChildrenStyle[jP.options.direction] = 0 + jP.settings.positionUnits;
-							$(this).css(newChildrenStyle);
-						});
-					}
-
 					jP.timeouts.afterClose = setTimeout(function(){
-						jP.setPanelStyle({ position: jP.settings.panelPosition });
-
 						jP.disableTransitions();
-						if ( jP.settings.shiftFixedChildren ) {
-							$(jP.fixedChildren).each(function(){
-								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
-									id = id.replace(' ','-')
-								;
-
-								jP.disableFixedTransitions(id);
-							});
-						}
 
 						jP.hideMenu();
 						jP.options.after();
@@ -468,21 +367,11 @@
 					var animationOptions = {};
 					animationOptions[jP.options.direction] = 0 + jP.settings.positionUnits;
 					$(jP.panel).stop().animate(animationOptions, jP.options.closeDuration, formattedEasing, function(){
-						jP.setPanelStyle({ position: jP.settings.panelPosition });
-
 						jP.hideMenu();
 						jP.options.after();
 						jP.options.afterClose();
 						jP.destroyContentClickListeners();
 					});
-
-					if ( jP.settings.shiftFixedChildren ) {
-						$(jP.fixedChildren).each(function(){
-							var childrenAnimationOptions = {};
-							childrenAnimationOptions[jP.options.direction] = 0 + jP.settings.positionUnits;
-							$(this).stop().animate(childrenAnimationOptions, jP.options.closeDuration, formattedEasing);
-						});
-					}
 				}
 			},
 
@@ -570,9 +459,8 @@
 				jP.setMenuState(false);
 				jP.setupMarkup();
 
+				jP.setPanelStyle({ position: (( jP.options.animated && jP.settings.panelPosition === 'static' )?'relative':jP.settings.panelPosition) });
 				jP.setMenuStyle({ width: jP.options.openPosition });
-
-				if ( !jP.settings.transformsSupported ) { jP.checkFixedChildren(); }
 
 				jP.closeMenu(false);
 
@@ -589,8 +477,6 @@
 				jP.resetMarkup();
 				var childrenStyles = {};
 				childrenStyles[jP.options.direction] = 'auto';
-				$(jP.fixedChildren).each(function(){ $(this).css(childrenStyles); });
-				jP.fixedChildren = [];
 
 				jP.options.afterOff();
 			}
