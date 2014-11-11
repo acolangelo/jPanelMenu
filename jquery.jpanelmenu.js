@@ -381,7 +381,9 @@
 			},
 
 			initiateClickListeners: function() {
-				$(document).on('click',jP.options.trigger,function(e){ jP.triggerMenu(jP.options.animated); e.preventDefault(); });
+				$(document).on('click',jP.options.trigger,function(e){
+					jP.triggerMenu(jP.options.animated); e.preventDefault();
+				});
 			},
 
 			destroyClickListeners: function() {
@@ -411,11 +413,15 @@
 				var preventKeyListeners = ['input', 'textarea'];
 				$(document).on('keydown',function(e){
 					var target = $(e.target),
-					prevent = false;
+						prevent = false;
+
 					$.each(preventKeyListeners, function(){
-						if (target.is(this.toString())) { prevent = true; }
+						if (target.is(this.toString())) {
+							prevent = true;
+						}
 					});
-					if ( prevent ) { return true; }
+
+					if ( prevent ) return true;
 
 					for ( mapping in jP.options.keyboardShortcuts ) {
 						if ( e.which == jP.options.keyboardShortcuts[mapping].code ) {
@@ -425,7 +431,7 @@
 							else if ( (key.open && !key.close) && !jP.menuIsOpen() ) { jP.openMenu(jP.options.animated); }
 							else if ( (!key.open && key.close) && jP.menuIsOpen() ) { jP.closeMenu(jP.options.animated); }
 
-							return false;
+							e.preventDefault();
 						}
 					}
 				});
