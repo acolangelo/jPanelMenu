@@ -148,17 +148,28 @@
 			},
 
 			setjPanelMenuStyles: function() {
-				var bgColor = '#fff';
-				var htmlBG = $('html').css('background-color');
-				var bodyBG = $('body').css('background-color');
+				var bg = 'background:#fff',
+					htmlBG = $('html').css('background-color'),
+					bodyBG = $('body').css('background-color');
 
-				if ( bodyBG != 'transparent' && bodyBG != "rgba(0, 0, 0, 0)") { bgColor = bodyBG; }
-				else if ( htmlBG != 'transparent' && htmlBG != "rgba(0, 0, 0, 0)") { bgColor = htmlBG; }
-				else { bgColor = '#fff'; }
+				var backgroundGenerator = function(element){
+					var bgs = [];
+					$.each(['background-color','background-image','background-position','background-repeat','background-attachment','background-size','background-clip'], function(i,value){
+						if( element.css(value) !== '' ) {
+							bgs.push(value+':'+element.css(value));
+						}
+					});
+					return bgs.join(';');
+				};
 
-				if ( $('#jPanelMenu-style-master').length == 0 )
-				{
-					$('body').append('<style id="jPanelMenu-style-master">.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;'+jP.options.direction+':0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;'+jP.computePositionStyle(false,true)+'z-index:2;width:100%;min-height:100%;background:' + bgColor + '}</style>');
+				if ( bodyBG !== 'transparent' && bodyBG !== "rgba(0, 0, 0, 0)") {
+					bg = backgroundGenerator($('body'));
+				} else if ( htmlBG !== 'transparent' && htmlBG !== "rgba(0, 0, 0, 0)") {
+					bg = backgroundGenerator($('html'));
+				}
+				
+				if ( $('#jPanelMenu-style-master').length == 0 ) {
+					$('body').append('<style id="jPanelMenu-style-master">body{width:100%}.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;'+jP.options.direction+':0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;'+jP.options.direction+':0;top:0;z-index:2;width:100%;min-height:100%;' + bg + ';}</style>');
 				}
 			},
 
