@@ -435,6 +435,19 @@ Returns a `jQuery Object` containing the created panel object.
 
 - **Returns:** `jQuery Object`
 
+***
+
+###<a href="#api-setPosition" id="api-setPosition">setPosition(&nbsp;`position`&nbsp;)</a>
+
+Sets the measurement value for the open position of the menu. Can be set as a pixel, percentage, or em value.
+
+- **Parameters:**
+	- `position`
+		- A measurement value, set as a pixel, percentage, or em value.
+		- **Data Type:** `string`
+		- **Examples:** `250px`, `75%`, `20em`
+- **Returns:** `null`
+
 
 
 #<a id="tips" href="#tips">Tips, Best Practices, and Other Good Ideas (with Examples)</a>

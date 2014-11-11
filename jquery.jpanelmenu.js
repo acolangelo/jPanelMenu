@@ -500,7 +500,14 @@
 			menu: jP.menu,
 			getMenu: function() { return $(jP.menu); },
 			panel: jP.panel,
-			getPanel: function() { return $(jP.panel); }
+			getPanel: function() { return $(jP.panel); },
+			setPosition: function(position) {
+				if ( typeof(position) == "undefined" || position == null ) {
+					position = jP.options.openPosition
+				}
+				jP.options.openPosition = position;
+				jP.setMenuStyle({ width: jP.options.openPosition });
+			}
 		};
 	};
 })(jQuery);
