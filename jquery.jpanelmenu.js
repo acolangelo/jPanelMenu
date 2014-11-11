@@ -395,11 +395,12 @@
 
 				$(document).on('click',jP.panel,function(e){
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
+					e.preventDefault();
 				});
 				
 				$(document).on('touchend',jP.panel,function(e){
-          e.preventDefault();
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
+					e.preventDefault();
 				});
 			},
 
