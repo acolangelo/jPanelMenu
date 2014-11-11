@@ -82,7 +82,7 @@
 				,
 				cssPrefix: '',
 				shiftFixedChildren: false,
-				panelPosition: 'relative',
+				panelPosition: 'static',
 				positionUnits: 'px'
 			},
 
