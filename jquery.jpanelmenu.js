@@ -425,7 +425,7 @@
 			},
 
 			initiateKeyboardListeners: function() {
-				var preventKeyListeners = ['input', 'textarea'];
+				var preventKeyListeners = ['input', 'textarea', 'select'];
 				$(document).on('keydown',function(e){
 					var target = $(e.target),
 						prevent = false;
