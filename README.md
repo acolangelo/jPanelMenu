@@ -75,13 +75,21 @@ The following options are set via an `object` passed into the constructor functi
 
 ***
 
-
 ###<a href="#options-menu" id="options-menu">menu</a>
 
 A selector string pointing to the desired menu element.
 
 - **Data Type:** `string`
 - **Default Value:** `#menu`
+
+***
+
+###<a href="#options-panel" id="options-panel">panel</a>
+
+A selector string pointing to the desired root panel element. Point this to the element containing all content that should go into the panel.
+
+- **Data Type:** `string`
+- **Default Value:** `body`
 
 ***
 

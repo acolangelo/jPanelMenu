@@ -12,6 +12,7 @@
 		var jP = {
 			options: $.extend({
 				menu: '#menu',
+				panel: 'body',
 				trigger: '.menu-trigger',
 				excludedPanelContent: 'style, scfript',
 				clone: true,
@@ -163,11 +164,11 @@
 
 			setMenuState: function(open) {
 				var position = (open)?'open':'closed';
-				$('body').attr('data-menu-position', position);
+				$(jP.options.panel).attr('data-menu-position', position);
 			},
 
 			getMenuState: function() {
-				return $('body').attr('data-menu-position');
+				return $(jP.options.panel).attr('data-menu-position');
 			},
 
 			menuIsOpen: function() {
@@ -446,14 +447,14 @@
 
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
-				$('body > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
+				$(jP.options.panel + ' > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
 				var menu = ( jP.options.clone )?$(jP.options.menu).clone(jP.options.keepEventHandlers):$(jP.options.menu);
-				menu.attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
+				menu.attr('id', jP.menu.replace('#','')).insertAfter(jP.options.panel + ' > ' + jP.panel);
 			},
 
 			resetMarkup: function() {
 				$('html').removeClass('jPanelMenu');
-				$('body > ' + jP.panel + ' > *').unwrap();
+				$(jP.options.panel + ' > ' + jP.panel + ' > *').unwrap();
 				$(jP.menu).remove();
 			},
 
