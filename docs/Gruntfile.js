@@ -66,7 +66,7 @@ module.exports = function(grunt){
         tasks: ['sass:dev']
       },
       js: {
-        files: ['js/*.js', '!js/script.min.js'],
+        files: ['js/*.js', '../jquery.jpanelmenu.js', '!js/script.min.js', '!js/example-jRespond.min.js'],
         tasks: ['uglify:dev']
       }
     }
