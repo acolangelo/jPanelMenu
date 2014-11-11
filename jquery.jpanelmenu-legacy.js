@@ -3,6 +3,12 @@
   * jPanelMenu 1.3.0 (http://jpanelmenu.com)
   * By Anthony Colangelo (http://acolangelo.com)
   *
+  * Legacy Build
+  * This is the old, original jPanelMenu build that relies on jQuery animation.
+  * The official build uses CSS transforms instead of jQuery animation, which makes
+  * fixed positioning go crazy. If you need fixed positioning, use this legacy
+  * build. Otherwise, use the current version.
+  *
 * */
 
 (function($){
