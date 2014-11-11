@@ -45,6 +45,7 @@ module.exports = function(grunt){
             // Include:
             'js/lib/modernizr-2.6.1.min.js',
             'js/lib/respond.js',
+            'js/lib/jRespond.js',
             'js/lib/highlight.min.js',
             'js/lib/jquery-1.9.0.js',
             '../jquery.jpanelmenu.js',

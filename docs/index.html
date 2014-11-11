@@ -42,15 +42,14 @@
 
 	<div class="content">
 		<section class="intro">
-			<h2 id="overview"><a href="#">Version 1.3.0</a></h2>
+			<h2 id="overview"><a href="#">Version 1.4.0</a></h2>
 			<div class="text">
-				<p>jPanelMenu is a <a href="http://jquery.com">jQuery</a> plugin that creates a paneled-style menu (like the type seen in the mobile versions of <a href="http://m.facebook.com">Facebook</a> and <a href="http://google.com">Google</a>, as well as in many native iPhone applications).</p>
+				<p>jPanelMenu is a <a href="http://jquery.com">jQuery</a> plugin for easily creating and managing off-canvas content.</p>
 				<p class="jPM-specific">Just click on the menu button (the top left of this page) to see it in action.</p>
-				<p>Check out the <a href="#changelog">changelog</a> to see what&rsquo;s new in version 1.3.0.</p>
+				<p>Check out the <a href="#changelog">changelog</a> to see what&rsquo;s new.</p>
 			</div>
 			<div class="download">
-				<p><a href="../jquery.jpanelmenu.min.js" title="jPanelMenu 1.3.0 (Minifed)" class="button ss-download">Download jPanelMenu</a></p>
-				<p>Download the <a href="../jquery.jpanelmenu.js" title="">unminifed version</a>.</p>
+				<p><a href="jquery.jpanelmenu.js" title="jPanelMenu 1.4.0" class="button ss-download">Download jPanelMenu</a></p>
 				<p>Or <a href="https://github.com/acolangelo/jPanelMenu" title="Github | jPanelMenu">view the project on Github</a></p>
 			</div>
 		</section>
@@ -89,7 +88,7 @@
 			
 			<p>The menu, <code>#jPanelMenu-menu</code>, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. By default, the targeted menu element is cloned into <code>#jPanelMenu-menu</code>, and is not removed from its original position in the <abbr title="Document Object Model">DOM</abbr>. This action can be overridden with the <code><a href="#options-clone" title="jPanelMenu | Options| clone">clone</a></code> option.</p>
 
-			<p>The panel, <code>.jPanelMenu-panel</code>, contains all of the content in the <code>&lt;body&gt;</code> element (except for the elements specified by the <code><a href="#options-excludedPanelContent" title="jPanelMenu | Options| excludedPanelContent">excludedPanelContent</a></code> option). The selected content is moved, not cloned, into <code>.jPanelMenu-panel</code>.</p>
+			<p>The panel, <code>.jPanelMenu-panel</code>, contains all of the content in the element specified by the <code><a href="#options-panel" title="jPanelMenu | Options| panel">panel</a></code> option (except for the elements specified by the <code><a href="#options-excludedPanelContent" title="jPanelMenu | Options| excludedPanelContent">excludedPanelContent</a></code> option). The selected content is moved, not cloned, into <code>.jPanelMenu-panel</code>.</p>
 
 			<p>To style or select the menu, use the following selector: <code>#jPanelMenu-menu</code>.</p>
 
@@ -585,14 +584,31 @@ jPM.<span class="function">trigger</span>(true);</pre>
 			<h2 id="license"><a href="#license">License</a></h2>
 
 			<p>jPanelMenu is distributed freely under the <a href="http://opensource.org/licenses/MIT" title="Open Source Initiative OSI &dash; The MIT License">MIT License</a>, so you&rsquo;re free to use this plugin on any and all projects.</p>
-
-			<p>And please, <a href="http://acolangelo.com/contact" title="Anthony Colangelo | Web Design &amp; Development | Contact">let me know</a> when you launch something using jPanelMenu. I&rsquo;d love to see examples of it being used in the wild!</p>
 		</section>
 
 		<section>
 			<h2 id="changelog"><a href="#changelog">Changelog</a></h2>
 
 			<dl>
+				<dt id="changelog-1.4.0"><a href="#changelog-1.4.0">1.4.0</a></dt>
+				<dd>
+					<p><time>November 11th, 2014</time></p>
+					<ul>
+						<li>Added new option: <code><a href="#options-closeOnContentClick" title="jPanelMenu | Options | closeOnContentClick">closeOnContentClick</a></code></li>
+
+						<li>Added <code><a href="#options-panel" title="jPanelMenu | Options | panel">panel</a></code> option.</li>
+						<li>Added <code><a href="#options-clone" title="jPanelMenu | Options | clone">clone</a></code> option.</li>
+						<li>Added <code><a href="#options-clone" title="jPanelMenu | API | setPosition">setPosition(&nbsp;)</a></code> API method.</li>
+						<li>Removed support for fixed positioning within the panel. CSS transforms and fixed positioning <a href="http://meyerweb.com/eric/thoughts/2011/09/12/un-fixing-fixed-elements-with-css-transforms/">do not get along well, per the spec</a>. If fixed positioning is needed, use <a href="https://github.com/acolangelo/jPanelMenu/blob/master/jquery.jpanelmenu-legacy.js">the legacy build</a> in the jPanelMenu repository.</li>
+						<li>Updated <code>.jPanelMenu-panel</code> to be positioned statically.</li>
+						<li>Updated background handling so that all properties are transferred to the <code>.jPanelMenu-panel</code> appropriately.</li>
+						<li>Updated key press preventers to include typing within a <code>&lt;select&gt;</code> field.</li>
+						<li>Fixed event propagation up to the document.</li>
+						<li>Fixed an issue causing links under the menu button to be triggered inadvertently.</li>
+						<li>Fixed an issue with loop styles and the Ember.js framework.</li>
+					</ul>
+				</dd>
+
 				<dt id="changelog-1.3.0"><a href="#changelog-1.3.0">1.3.0</a></dt>
 				<dd>
 					<p><time>February 4th, 2013</time></p>
@@ -641,13 +657,9 @@ jPM.<span class="function">trigger</span>(true);</pre>
 		<section>
 			<h2 id="about"><a href="#about">Who Made This Wonderful Little Plugin?</a></h2>
 
-			<p>jPanelMenu was created, and is maintained, by <a href="http://acolangelo.com" title="Anthony Colangelo | Web Design &amp; Development">Anthony Colangelo</a>, a developer at <a href="http://happycog.com">Happy Cog</a>.</p>
+			<p>jPanelMenu was created, and is maintained, by <a href="http://acolangelo.com" title="Anthony Colangelo | Web Design &amp; Development">Anthony Colangelo</a>.</p>
 
 			<p>You can find him (<a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">@acolangelo</a>) on <a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">Twitter</a> and <a href="https://github.com/acolangelo" title="Github | Anthony Colangelo (@acolangelo)">Github</a>.</p>
-
-			<p>Have a question about how jPanelMenu works that is not answered here? Have feedback for new features, options, or API functions that I should add? Anything else you want to talk about?</p>
-
-			<p>Talk to me on <a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">Twitter</a>, where I am <a href="https://twitter.com/acolangelo" title="Twitter | Anthony Colangelo (@acolangelo)">@acolangelo</a>, or <a href="http://acolangelo.com/contact" title="Anthony Colangelo | Web Design &amp; Development | Contact">send me a message</a>, and let&rsquo;s talk!</p>
 		</section>
 	</div>
 

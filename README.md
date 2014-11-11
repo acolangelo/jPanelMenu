@@ -1,8 +1,8 @@
 #<a id="docs" href="#docs">jPanelMenu</a>
 
-###Version 1.3.0
+###Version 1.4.0
 
-jPanelMenu is a [jQuery](http://jquery.com) plugin that creates a paneled-style menu (like the type seen in the mobile versions of [Facebook](http://m.facebook.com) and [Google](http://google.com), as well as in many native iPhone applications).
+jPanelMenu is a [jQuery](http://jquery.com) plugin for easily creating and managing off-canvas content.
 
 Check out the [demo (and documentation) site](http://jpanelmenu.com) to see it in action.
 
@@ -43,7 +43,7 @@ When jPanelMenu is [turned on](#api-on), two `<div>` elements are created. The m
 
 The menu, `#jPanelMenu-menu`, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. By default, the targeted menu element is cloned into `#jPanelMenu-menu`, and is not removed from its original position in the DOM. This action can be overridden with the [`clone`](#options-clone) option.
 
-The panel, `.jPanelMenu-panel`, contains all of the content in the `<body>` element (except for the elements specified by the [`excludedPanelContent`](#options-excludedPanelContent) option). The selected content is moved, not cloned, into `.jPanelMenu-panel`.
+The panel, `.jPanelMenu-panel`, contains all of the content in the element specified by the [`panel`](#options-panel) option (except for the elements specified by the [`excludedPanelContent`](#options-excludedPanelContent) option). The selected content is moved, not cloned, into `.jPanelMenu-panel`.
 
 To style or select the menu, use the following selector: `#jPanelMenu-menu`.
 
@@ -348,8 +348,6 @@ Called after the plugin is turned off (when [`off( )`](#api-off) is called).
 - **Data Type:** `function`
 - **Default Value:** `function(){ }`
 
-
-
 #<a id="api" href="#api">API</a>
 
 The following are the methods and properties of the object returned by the jPanelMenu constructor function call. In the following example, these would be the methods and properties of `jPM`.
@@ -527,16 +525,28 @@ Check out the [example](http://jpanelmenu.com/examples/jrespond) of how to use j
 
 jPanelMenu is distributed freely under the [MIT License](http://opensource.org/licenses/MIT), so you&rsquo;re free to use this plugin on any and all projects.
 
-And please, [let me know](http://acolangelo.com/contact) when you launch something using jPanelMenu. I&rsquo;d love to see examples of it being used in the wild!
-
-
 #<a href="#changelog" id="#changelog">Changelog</a>
+
+###<a href="#changelog-1.4.0" id="changelog-1.4.0">1.4.0</a>
+
+November 11th, 2014
+
+- Added [`panel`](#options-panel) option.
+- Added [`clone`](#options-clone) option.
+- Added [`setPosition(&nbsp;)`](#api-setPosition) API method.
+- Removed support for fixed positioning within the panel. CSS transforms and fixed positioning [do not get along well, per the spec](http://meyerweb.com/eric/thoughts/2011/09/12/un-fixing-fixed-elements-with-css-transforms/). If fixed positioning is needed, use [the legacy build](https://github.com/acolangelo/jPanelMenu/blob/master/jquery.jpanelmenu-legacy.js) in the jPanelMenu repository.
+- Updated `.jPanelMenu-panel` to be positioned statically.
+- Updated background handling so that all properties are transferred to the `.jPanelMenu-panel` appropriately.
+- Updated key press preventers to include typing within a `<select>` field.
+- Fixed event propagation up to the document.
+- Fixed an issue causing links under the menu button to be triggered inadvertently.
+- Fixed an issue with loop styles and the Ember.js framework.
 
 ###<a href="#changelog-1.3.0" id="changelog-1.3.0">1.3.0</a>
 
 February 4th, 2013
 
-- Added new option: [`closeOnContentClick`](#options-closeOnContentClick)
+- Added [`closeOnContentClick`](#options-closeOnContentClick) option.
 
 ###<a href="#changelog-1.2.0" id="changelog-1.2.0">1.2.0</a>
 
@@ -567,10 +577,10 @@ November 4th, 2012
 
 #<a href="#about" id="#about">Who Made This Wonderful Little Plugin?</a>
 
-jPanelMenu was created, and is maintained, by [Anthony Colangelo](http://acolangelo.com), a developer at [Happy Cog](http://happycog.com).
+jPanelMenu was created, and is maintained, by [Anthony Colangelo](http://acolangelo.com).
 
 You can find him ([@acolangelo](https://twitter.com/acolangelo)) on [Twitter](https://twitter.com/acolangelo) and [Github](https://github.com/acolangelo).
 
 Have a question about how jPanelMenu works that is not answered here? Have feedback for new features, options, or API functions that I should add? Anything else you want to talk about?
 
-Talk to me on [Twitter](https://twitter.com/acolangelo), where I am [@acolangelo](https://twitter.com/acolangelo), or , and let&rsquo;s talk!
+Talk to me on [Twitter](https://twitter.com/acolangelo), where I am [@acolangelo](https://twitter.com/acolangelo), and let&rsquo;s talk!
