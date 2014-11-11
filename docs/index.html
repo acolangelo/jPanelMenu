@@ -86,8 +86,8 @@
 			<h2 id="inner-workings"><a href="#inner-workings">How Does This Thing Work?</a></h2>
 
 			<p>When jPanelMenu is <a href="#api-on" title="jPanelMenu | API | on">turned on</a>, two <code>&lt;div&gt;</code> elements are created. The menu element (with an ID of <code>jPanelMenu-menu</code>), and the panel element (with a class of <code>jPanelMenu-panel</code>). In addition, a class of <code>jPanelMenu</code> is applied to the <code>&lt;html&gt;</code> tag.</p>
-
-			<p>The menu, <code>#jPanelMenu-menu</code>, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. The targeted menu element is cloned into <code>#jPanelMenu-menu</code>, and is not removed from its original position in the <abbr title="Document Object Model">DOM</abbr>, it is only hidden (using <code>display: none</code>).</p>
+			
+			<p>The menu, <code>#jPanelMenu-menu</code>, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. By default, the targeted menu element is cloned into <code>#jPanelMenu-menu</code>, and is not removed from its original position in the <abbr title="Document Object Model">DOM</abbr>. This action can be overridden with the <code><a href="#options-clone" title="jPanelMenu | Options| clone">clone</a></code> option.</p>
 
 			<p>The panel, <code>.jPanelMenu-panel</code>, contains all of the content in the <code>&lt;body&gt;</code> element (except for the elements specified by the <code><a href="#options-excludedPanelContent" title="jPanelMenu | Options| excludedPanelContent">excludedPanelContent</a></code> option). The selected content is moved, not cloned, into <code>.jPanelMenu-panel</code>.</p>
 
@@ -144,6 +144,16 @@
 				<div class="details">
 					<p><strong>Data Type:</strong> <code>string</code></p>
 					<p><strong>Default Value:</strong> <code>style, script</code></p>
+				</div>
+			</div>
+
+			<div class="spec" id="options-clone">
+				<h3><a href="#options-clone">clone</a></h3>
+				<p>A boolean value specifying whether or not the targeted menu element should be cloned to create <code>#jPanelMenu-menu</code>, or simply moved in the <abbr title="Document Object Model">DOM</abbr>.</p>
+				<div class="details">
+					<p><strong>Data Type:</strong> <code>boolean</code></p>
+					<p><strong>Accepted Values:</strong> <code>true</code> or <code>false</code></p>
+					<p><strong>Default Value:</strong> <code>true</code></p>
 				</div>
 			</div>
 

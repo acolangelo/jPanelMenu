@@ -41,9 +41,9 @@ If you want to take things to the next level, keep reading.
 
 When jPanelMenu is [turned on](#api-on), two `<div>` elements are created. The menu element (with an ID of `jPanelMenu-menu`), and the panel element (with a class of `jPanelMenu-panel`). In addition, a class of `jPanelMenu` is applied to the `<html>` tag.
 
-The menu, `#jPanelMenu-menu`, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. The targeted menu element is cloned into `#jPanelMenu-menu`, and is not removed from its original position in the DOM, it is only hidden (using `display: none`).
+The menu, `#jPanelMenu-menu`, contains the elements targeted by the menu selector passed into the jPanelMenu constructor function. By default, the targeted menu element is cloned into `#jPanelMenu-menu`, and is not removed from its original position in the DOM. This action can be overridden with the [`clone`](#options-clone) option.
 
-The panel, `.jPanelMenu-panel`, contains all of the content in the `<body>` element (except for the elements specified by the `[excludedPanelContent](#options-excludedPanelContent)` option). The selected content is moved, not cloned, into `.jPanelMenu-panel`.
+The panel, `.jPanelMenu-panel`, contains all of the content in the `<body>` element (except for the elements specified by the [`excludedPanelContent`](#options-excludedPanelContent) option). The selected content is moved, not cloned, into `.jPanelMenu-panel`.
 
 To style or select the menu, use the following selector: `#jPanelMenu-menu`.
 
@@ -102,6 +102,16 @@ Generally, `<style>` and `<script>` tags should not be moved from their original
 
 - **Data Type:** `string`
 - **Default Value:** `style, script`
+
+***
+
+###<a href="#options-clone" id="options-clone">clone</a>
+
+A boolean value specifying whether or not the targeted menu element should be cloned to create `#jPanelMenu-menu`, or simply moved in the DOM.
+
+- **Data Type:** `boolean`
+- **Accepted Values:** `true` or `false`
+- **Default Value:** `true`
 
 ***
 

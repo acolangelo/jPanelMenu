@@ -14,6 +14,7 @@
 				menu: '#menu',
 				trigger: '.menu-trigger',
 				excludedPanelContent: 'style, script',
+				clone: true,
 				keepEventHandlers: false,
 
 				direction: 'left',
@@ -102,7 +103,7 @@
 					allowedUnits = ['%','px','em']
 				;
 
-				for ( unitID in allowedUnits ) {
+				for (var unitID = 0; unitID < allowedUnits.length; unitID++) {
 					var unit = allowedUnits[unitID];
 					if ( jP.options.openPosition.toString().substr(-unit.length) == unit )
 					{
@@ -446,7 +447,8 @@
 			setupMarkup: function() {
 				$('html').addClass('jPanelMenu');
 				$('body > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
-				$(jP.options.menu).clone(jP.options.keepEventHandlers).attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
+				var menu = ( jP.options.clone )?$(jP.options.menu).clone(jP.options.keepEventHandlers):$(jP.options.menu);
+				menu.attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
 			},
 
 			resetMarkup: function() {
