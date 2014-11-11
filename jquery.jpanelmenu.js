@@ -1,6 +1,6 @@
 /**
   *
-  * jPanelMenu 1.4.0 (http://jpanelmenu.com)
+  * jPanelMenu 1.4.1 (http://jpanelmenu.com)
   * By Anthony Colangelo (http://acolangelo.com)
   *
 * */
@@ -394,24 +394,19 @@
 			},
 
 			initiateClickListeners: function() {
-				$(document).on('click',jP.options.trigger,function(e){
+				$(document).on('click touchend',jP.options.trigger,function(e){
 					jP.triggerMenu(jP.options.animated); e.preventDefault();
 				});
 			},
 
 			destroyClickListeners: function() {
-				$(document).off('click',jP.options.trigger,null);
+				$(document).off('click touchend',jP.options.trigger,null);
 			},
 
 			initiateContentClickListeners: function() {
 				if ( !jP.options.closeOnContentClick ) return false;
 
-				$(document).on('click',jP.panel,function(e){
-					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
-					e.preventDefault();
-				});
-				
-				$(document).on('touchend',jP.panel,function(e){
+				$(document).on('click touchend',jP.panel,function(e){
 					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
 					e.preventDefault();
 				});
@@ -420,8 +415,7 @@
 			destroyContentClickListeners: function() {
 				if ( !jP.options.closeOnContentClick ) return false;
 
-				$(document).off('click',jP.panel,null);
-				$(document).off('touchend',jP.panel,null);
+				$(document).off('click touchend',jP.panel,null);
 			},
 
 			initiateKeyboardListeners: function() {

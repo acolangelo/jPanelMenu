@@ -1,6 +1,6 @@
 #<a id="docs" href="#docs">jPanelMenu</a>
 
-###Version 1.4.0
+###Version 1.4.1
 
 jPanelMenu is a [jQuery](http://jquery.com) plugin for easily creating and managing off-canvas content.
 
@@ -526,6 +526,12 @@ Check out the [example](http://jpanelmenu.com/examples/jrespond) of how to use j
 jPanelMenu is distributed freely under the [MIT License](http://opensource.org/licenses/MIT), so you&rsquo;re free to use this plugin on any and all projects.
 
 #<a href="#changelog" id="#changelog">Changelog</a>
+
+###<a href="#changelog-1.4.1" id="changelog-1.4.1">1.4.1</a>
+
+November 11th, 2014
+
+- Added `touchend` listeners for better touch support.
 
 ###<a href="#changelog-1.4.0" id="changelog-1.4.0">1.4.0</a>
 
