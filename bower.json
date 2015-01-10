@@ -1,0 +1,22 @@
+{
+  "name": "jPanelMenu",
+  "description": "A jQuery plugin that creates a paneled-style menu",
+  "version": "1.4.1",
+  "keywords": [
+    "js",
+    "jquery",
+    "jquery-ui"
+  ],
+  "homepage": "https://github.com/acolangelo/jPanelMenu",
+  "main": [
+    "./jquery.jpanelmenu.js"
+  ],
+  "ignore": [
+    ".*",
+    "docs",
+    "README.md"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.7.0"
+  }
+}
