@@ -1,12 +1,12 @@
-#1.4.1
+# 1.4.1
 
-###November 11th, 2014
+### November 11th, 2014
 
 - [ADDED] `touchend` listeners for better touch support.
 
-#1.4.0
+# 1.4.0
 
-###November 11th, 2014
+### November 11th, 2014
 
 - [ADDED] [`panel`](#options-panel) option.
 - [ADDED] [`clone`](#options-clone) option.
@@ -19,34 +19,34 @@
 - [FIXED] An issue causing links under the menu button to be triggered inadvertently.
 - [FIXED] An issue with loop styles and the Ember.js framework.
 
-#1.3.0
+# 1.3.0
 
-###February 4th, 2013
+### February 4th, 2013
 
 - [ADDED] [`closeOnContentClick`](#options-closeOnContentClick) option.
 
-#1.2.0
+# 1.2.0
 
-###February 3rd, 2013
+### February 3rd, 2013
 
 - [ADDED] New callback options: [`beforeOn`](#options-beforeOn), [`afterOn`](#options-afterOn), [`beforeOff`](#options-beforeOff), [`afterOff`](#options-afterOff)
 
-#1.1.1
+# 1.1.1
 
-###February 3rd, 2013
+### February 3rd, 2013
 
 - [FIXED] A conflict between [keyboard shortcuts](#options-keyboardShortcuts) and text inputs. (Thanks to [stoeffel](https://github.com/stoeffel).)
 - Renamed JavaScript resources to be more friendly for future development.
 
-#1.1.0
+# 1.1.0
 
-###December 7th, 2012
+### December 7th, 2012
 
 - [ADDED] [Directional control](#options-direction). Panel can now slide left or right.
 - [REMOVED] Unnecessary trigger check condition. (Thanks to [James Wilson](https://twitter.com/jimmynotjim)!)
 
-#1.0.0
+# 1.0.0
 
-###November 4th, 2012
+### November 4th, 2012
 
 - First release of jPanelMenu.
