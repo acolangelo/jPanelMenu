@@ -1,6 +1,6 @@
-#<a id="docs" href="#docs">jPanelMenu</a>
+# <a id="docs" href="#docs">jPanelMenu</a>
 
-###Version 1.4.1
+### Version 1.4.1
 
 jPanelMenu is a [jQuery](http://jquery.com) plugin for easily creating and managing off-canvas content.
 
@@ -10,7 +10,7 @@ Check out the [changelog](#changelog) to see what&rsquo;s new.
 
 
 
-#<a id="usage" href="#usage">How Do I Use This Thing?</a>
+# <a id="usage" href="#usage">How Do I Use This Thing?</a>
 
 Start off by including the jPanelMenu.js file in your page. (Bonus points for using the minified version [jPanelMenu.min.js], or for bundling the jPanelMenu code into your own JavaScript file to reduce size and HTTP requests.)
 
@@ -37,7 +37,7 @@ If you want to take things to the next level, keep reading.
 
 
 
-#<a id="inner-workings" href="#inner-workings">How Does This Thing Work?</a>
+# <a id="inner-workings" href="#inner-workings">How Does This Thing Work?</a>
 
 When jPanelMenu is [turned on](#api-on), two `<div>` elements are created. The menu element (with an ID of `jPanelMenu-menu`), and the panel element (with a class of `jPanelMenu-panel`). In addition, a class of `jPanelMenu` is applied to the `<html>` tag.
 
@@ -53,7 +53,7 @@ When jPanelMenu is [turned off](#api-off), the two `<div>` elements are removed,
 
 
 
-#<a id="animation" href="#animation">Does It Animate?</a>
+# <a id="animation" href="#animation">Does It Animate?</a>
 
 Of course! (If you want it to, there&rsquo;s an [option](#options) for that.)
 
@@ -63,7 +63,7 @@ For browsers that do not support CSS transitions, the jQuery animation engine is
 
 
 
-#<a id="options" href="#options">Options</a>
+# <a id="options" href="#options">Options</a>
 
 The following options are set via an `object` passed into the constructor function call, as shown below.
 
@@ -75,7 +75,7 @@ The following options are set via an `object` passed into the constructor functi
 
 ***
 
-###<a href="#options-menu" id="options-menu">menu</a>
+### <a href="#options-menu" id="options-menu">menu</a>
 
 A selector string pointing to the desired menu element.
 
@@ -84,7 +84,7 @@ A selector string pointing to the desired menu element.
 
 ***
 
-###<a href="#options-panel" id="options-panel">panel</a>
+### <a href="#options-panel" id="options-panel">panel</a>
 
 A selector string pointing to the desired root panel element. Point this to the element containing all content that should go into the panel.
 
@@ -93,7 +93,7 @@ A selector string pointing to the desired root panel element. Point this to the 
 
 ***
 
-###<a href="#options-trigger" id="options-trigger">trigger</a>
+### <a href="#options-trigger" id="options-trigger">trigger</a>
 
 A selector string pointing to the menu-triggering element.
 
@@ -102,7 +102,7 @@ A selector string pointing to the menu-triggering element.
 
 ***
 
-###<a href="#options-excludedPanelContent" id="options-excludedPanelContent">excludedPanelContent</a>
+### <a href="#options-excludedPanelContent" id="options-excludedPanelContent">excludedPanelContent</a>
 
 A selector string specifying which elements within the `<body>` element should **not** be pushed into `.jPanelMenu-panel`. The selector string may contain any selector, not just tags.
 
@@ -113,7 +113,7 @@ Generally, `<style>` and `<script>` tags should not be moved from their original
 
 ***
 
-###<a href="#options-clone" id="options-clone">clone</a>
+### <a href="#options-clone" id="options-clone">clone</a>
 
 A boolean value specifying whether or not the targeted menu element should be cloned to create `#jPanelMenu-menu`, or simply moved in the DOM.
 
@@ -123,7 +123,7 @@ A boolean value specifying whether or not the targeted menu element should be cl
 
 ***
 
-###<a href="#options-direction" id="options-direction">direction</a>
+### <a href="#options-direction" id="options-direction">direction</a>
 
 A string specifying which direction the menu should open from.
 
@@ -133,7 +133,7 @@ A string specifying which direction the menu should open from.
 
 ***
 
-###<a href="#options-openPosition" id="options-openPosition">openPosition</a>
+### <a href="#options-openPosition" id="options-openPosition">openPosition</a>
 
 The measurement value for the open position of the menu. Can be set as a pixel, percentage, or `em` value.
 
@@ -143,7 +143,7 @@ The measurement value for the open position of the menu. Can be set as a pixel, 
 
 ***
 
-###<a href="#options-animated" id="options-animated">animated</a>
+### <a href="#options-animated" id="options-animated">animated</a>
 
 A boolean value specifying whether or not the opening and closing of the menu should be animated.
 
@@ -155,7 +155,7 @@ When using the API functions [`open( )`](#api-open), [`close()`](#api-close), an
 
 ***
 
-###<a href="#options-closeOnContentClick" id="options-closeOnContentClick">closeOnContentClick</a>
+### <a href="#options-closeOnContentClick" id="options-closeOnContentClick">closeOnContentClick</a>
 
 A boolean value specifying whether or not the menu should be closed when clicking on the panel content.
 
@@ -165,7 +165,7 @@ A boolean value specifying whether or not the menu should be closed when clickin
 
 ***
 
-###<a href="#options-keyboardShortcuts" id="options-keyboardShortcuts">keyboardShortcuts</a>
+### <a href="#options-keyboardShortcuts" id="options-keyboardShortcuts">keyboardShortcuts</a>
 
 An option that allows you to control if keyboard shortcuts are enabled, and if they are, which keys do what.
 
@@ -203,7 +203,7 @@ Setting this option to `false` will disable keyboard shortcuts entirely. To enab
 
 ***
 
-###<a href="#options-duration" id="options-duration">duration</a>
+### <a href="#options-duration" id="options-duration">duration</a>
 
 The time, in milliseconds, which it should take to open and close the menu, when animated.
 
@@ -212,7 +212,7 @@ The time, in milliseconds, which it should take to open and close the menu, when
 
 ***
 
-###<a href="#options-openDuration" id="options-openDuration">openDuration</a>
+### <a href="#options-openDuration" id="options-openDuration">openDuration</a>
 
 The time, in milliseconds, which it should take to open the menu, when animated. If set, this overrides the duration option.
 
@@ -221,7 +221,7 @@ The time, in milliseconds, which it should take to open the menu, when animated.
 
 ***
 
-###<a href="#options-closeDuration">closeDuration</a>
+### <a href="#options-closeDuration">closeDuration</a>
 
 The time, in milliseconds, which it should take to close the menu, when animated. If set, this overrides the duration option.
 
@@ -230,7 +230,7 @@ The time, in milliseconds, which it should take to close the menu, when animated
 
 ***
 
-###<a href="#options-easing" id="options-easing">easing</a>
+### <a href="#options-easing" id="options-easing">easing</a>
 
 The easing function to use when animating the opening and closing of the menu.
 
@@ -240,7 +240,7 @@ The easing function to use when animating the opening and closing of the menu.
 
 ***
 
-###<a href="#options-openEasing" id="options-openEasing">openEasing</a>
+### <a href="#options-openEasing" id="options-openEasing">openEasing</a>
 
 The easing function to use when animating the opening of the menu. If set, this overrides the easing option.
 
@@ -250,7 +250,7 @@ The easing function to use when animating the opening of the menu. If set, this 
 
 ***
 
-###<a href="#options-closeEasing" id="options-closeEasing">closeEasing</a>
+### <a href="#options-closeEasing" id="options-closeEasing">closeEasing</a>
 
 The easing function to use when animating the closing of the menu. If set, this overrides the easing option.
 
@@ -260,7 +260,7 @@ The easing function to use when animating the closing of the menu. If set, this 
 
 ***
 
-###<a href="#options-before" id="options-before">before</a>
+### <a href="#options-before" id="options-before">before</a>
 
 Called before the menu is opened or closed, regardless of animation state.
 
@@ -269,7 +269,7 @@ Called before the menu is opened or closed, regardless of animation state.
 
 ***
 
-###<a href="#options-beforeOpen" id="options-beforeOpen">beforeOpen</a>
+### <a href="#options-beforeOpen" id="options-beforeOpen">beforeOpen</a>
 
 Called before the menu is opened, regardless of animation state.
 
@@ -278,7 +278,7 @@ Called before the menu is opened, regardless of animation state.
 
 ***
 
-###<a href="#options-beforeClose" id="options-beforeClose">beforeClose</a>
+### <a href="#options-beforeClose" id="options-beforeClose">beforeClose</a>
 
 Called before the menu is closed, regardless of animation state.
 
@@ -287,7 +287,7 @@ Called before the menu is closed, regardless of animation state.
 
 ***
 
-###<a href="#options-after" id="options-after">after</a>
+### <a href="#options-after" id="options-after">after</a>
 
 Called after the menu is opened or closed, regardless of animation state.
 
@@ -296,7 +296,7 @@ Called after the menu is opened or closed, regardless of animation state.
 
 ***
 
-###<a href="#options-afterOpen" id="options-afterOpen">afterOpen</a>
+### <a href="#options-afterOpen" id="options-afterOpen">afterOpen</a>
 
 Called after the menu is opened, regardless of animation state.
 
@@ -305,7 +305,7 @@ Called after the menu is opened, regardless of animation state.
 
 ***
 
-###<a href="#options-afterClose" id="options-afterClose">afterClose</a>
+### <a href="#options-afterClose" id="options-afterClose">afterClose</a>
 
 Called after the menu is closed, regardless of animation state.
 
@@ -314,7 +314,7 @@ Called after the menu is closed, regardless of animation state.
 
 ***
 
-###<a href="#options-beforeOn" id="options-beforeOn">beforeOn</a>
+### <a href="#options-beforeOn" id="options-beforeOn">beforeOn</a>
 
 Called before the plugin is turned on (when [`on( )`](#api-on) is called).
 
@@ -323,7 +323,7 @@ Called before the plugin is turned on (when [`on( )`](#api-on) is called).
 
 ***
 
-###<a href="#options-afterOn" id="options-afterOn">afterOn</a>
+### <a href="#options-afterOn" id="options-afterOn">afterOn</a>
 
 Called after the plugin is turned on (when [`on( )`](#api-on) is called).
 
@@ -332,7 +332,7 @@ Called after the plugin is turned on (when [`on( )`](#api-on) is called).
 
 ***
 
-###<a href="#options-beforeOff" id="options-beforeOff">beforeOff</a>
+### <a href="#options-beforeOff" id="options-beforeOff">beforeOff</a>
 
 Called before the plugin is turned off (when [`off( )`](#api-off) is called).
 
@@ -341,14 +341,14 @@ Called before the plugin is turned off (when [`off( )`](#api-off) is called).
 
 ***
 
-###<a href="#options-afterOff" id="options-afterOff">afterOff</a>
+### <a href="#options-afterOff" id="options-afterOff">afterOff</a>
 
 Called after the plugin is turned off (when [`off( )`](#api-off) is called).
 
 - **Data Type:** `function`
 - **Default Value:** `function(){ }`
 
-#<a id="api" href="#api">API</a>
+# <a id="api" href="#api">API</a>
 
 The following are the methods and properties of the object returned by the jPanelMenu constructor function call. In the following example, these would be the methods and properties of `jPM`.
 
@@ -358,7 +358,7 @@ The following are the methods and properties of the object returned by the jPane
 
 	jPM.trigger(true);
 
-###<a href="#api-on" id="api-on">on(&nbsp;)</a>
+### <a href="#api-on" id="api-on">on(&nbsp;)</a>
 
 Initializes a jPanelMenu instance. Sets up the markup, styles, listeners, and interactions, according to the options passed into the constructor function.
 
@@ -366,7 +366,7 @@ Initializes a jPanelMenu instance. Sets up the markup, styles, listeners, and in
 
 ***
 
-###<a href="#api-off" id="api-off">off(&nbsp;)</a>
+### <a href="#api-off" id="api-off">off(&nbsp;)</a>
 
 Destroys a jPanelMenu instance. Resets the markup and styles, removes listeners and interactions.
 
@@ -374,7 +374,7 @@ Destroys a jPanelMenu instance. Resets the markup and styles, removes listeners 
 
 ***
 
-###<a href="#api-trigger" id="api-trigger">trigger(&nbsp;`animated`&nbsp;)</a>
+### <a href="#api-trigger" id="api-trigger">trigger(&nbsp;`animated`&nbsp;)</a>
 
 Triggers the opening or closing of the menu, depending on the current state (open or closed).
 
@@ -387,7 +387,7 @@ Triggers the opening or closing of the menu, depending on the current state (ope
 
 ***
 
-###<a href="#api-open" id="api-open">open(&nbsp;`animated`&nbsp;)</a>
+### <a href="#api-open" id="api-open">open(&nbsp;`animated`&nbsp;)</a>
 
 Triggers the opening of the menu.
 
@@ -400,7 +400,7 @@ Triggers the opening of the menu.
 
 ***
 
-###<a href="#api-close" id="api-close">close(&nbsp;`animated`&nbsp;)</a>
+### <a href="#api-close" id="api-close">close(&nbsp;`animated`&nbsp;)</a>
 
 Triggers the closing of the menu.
 
@@ -429,7 +429,7 @@ A property equal to the raw selector string of the created menu object.
 
 ***
 
-###<a href="#api-getMenu" id="api-getMenu">getMenu(&nbsp;)</a>
+### <a href="#api-getMenu" id="api-getMenu">getMenu(&nbsp;)</a>
 
 Returns a `jQuery Object` containing the created menu object.
 
@@ -437,7 +437,7 @@ Returns a `jQuery Object` containing the created menu object.
 
 ***
 
-###<a href="#api-panel" id="api-panel">panel</a>
+### <a href="#api-panel" id="api-panel">panel</a>
 
 A property equal to the raw selector string of the created panel object.
 
@@ -445,7 +445,7 @@ A property equal to the raw selector string of the created panel object.
 
 ***
 
-###<a href="#api-getPanel" id="api-getPanel">getPanel(&nbsp;)</a>
+### <a href="#api-getPanel" id="api-getPanel">getPanel(&nbsp;)</a>
 
 Returns a `jQuery Object` containing the created panel object.
 
@@ -453,7 +453,7 @@ Returns a `jQuery Object` containing the created panel object.
 
 ***
 
-###<a href="#api-setPosition" id="api-setPosition">setPosition(&nbsp;`position`&nbsp;)</a>
+### <a href="#api-setPosition" id="api-setPosition">setPosition(&nbsp;`position`&nbsp;)</a>
 
 Sets the measurement value for the open position of the menu. Can be set as a pixel, percentage, or em value.
 
@@ -466,7 +466,7 @@ Sets the measurement value for the open position of the menu. Can be set as a pi
 
 
 
-#<a id="tips" href="#tips">Tips, Best Practices, and Other Good Ideas (with Examples)</a>
+# <a id="tips" href="#tips">Tips, Best Practices, and Other Good Ideas (with Examples)</a>
 
 jPanelMenu was built to be very open-ended and allow a lot of customization for each implementation. A lot of the customization of jPanelMenu implementations will start with the easy hooks provided by the plugin.
 
@@ -488,7 +488,7 @@ When jPanelMenu is [turned on](#api-on), the following elements are created (or 
 In addition, there are a few helpful things to know that will improve specific implementations, regardless of use case.
 
 
-###<a href="#tips-styling" id="tips-styling">Stylin&rsquo;</a>
+### <a href="#tips-styling" id="tips-styling">Stylin&rsquo;</a>
 
 There are no default graphical styles injected into your page by jPanelMenu, because, as a developer who loves complete control over my pages, there is nothing I dislike more than plugins which do that. Therefore, all graphical styling is up to you, and jPanelMenu makes it very easy.
 
@@ -499,7 +499,7 @@ The background color of `.jPanelMenu-panel` is set by the plugin, and its value 
 If the `<body>` element&rsquo;s `background-color` is not set, the `<html>` element&rsquo;s `background-color` is used. If neither is set, the `background-color` is set to white.
 
 
-###<a href="#tips-progressive-enhancement" id="tips-progressive-enhancement">Progressive Enhancement</a>
+### <a href="#tips-progressive-enhancement" id="tips-progressive-enhancement">Progressive Enhancement</a>
 
 Users without JavaScript (whether they have turned it off or are using a device without it) will obviously not get the interactions provided by jPanelMenu. It&rsquo;s a good idea to take a [&ldquo;progressive enhancement&rdquo;](http://www.alistapart.com/articles/understandingprogressiveenhancement/) approach, and build your site to work without JavaScript and jPanelMenu.
 
@@ -510,7 +510,7 @@ Build your site as you normally would, without JavaScript and without styles spe
 That idea was used to create [the demo/documentation page](http://jpanelmenu.com#tips-progressive-enhancement).
 
 
-###<a href="#tips-jrespond" id="tips-jrespond">jPanelMenu and jRespond &mdash; Perfect Together</a>
+### <a href="#tips-jrespond" id="tips-jrespond">jPanelMenu and jRespond &mdash; Perfect Together</a>
 
 I'm a **huge** fan of [jRespond](https://github.com/ten1seven/jRespond), which is &ldquo;a simple way to globally manage JavaScript on responsive websites.&rdquo;
 
@@ -521,19 +521,19 @@ Responsive design is awesome on its own, but add responsive behavior to the mix,
 Check out the [example](http://jpanelmenu.com/examples/jrespond) of how to use jRespond with jPanelMenu, which includes a basic how-to, code snippets, and helpful tips.
 
 
-#<a href="#license" id="#license">License</a>
+# <a href="#license" id="#license">License</a>
 
 jPanelMenu is distributed freely under the [MIT License](http://opensource.org/licenses/MIT), so you&rsquo;re free to use this plugin on any and all projects.
 
-#<a href="#changelog" id="#changelog">Changelog</a>
+# <a href="#changelog" id="#changelog">Changelog</a>
 
-###<a href="#changelog-1.4.1" id="changelog-1.4.1">1.4.1</a>
+### <a href="#changelog-1.4.1" id="changelog-1.4.1">1.4.1</a>
 
 November 11th, 2014
 
 - Added `touchend` listeners for better touch support.
 
-###<a href="#changelog-1.4.0" id="changelog-1.4.0">1.4.0</a>
+### <a href="#changelog-1.4.0" id="changelog-1.4.0">1.4.0</a>
 
 November 11th, 2014
 
@@ -548,40 +548,40 @@ November 11th, 2014
 - Fixed an issue causing links under the menu button to be triggered inadvertently.
 - Fixed an issue with loop styles and the Ember.js framework.
 
-###<a href="#changelog-1.3.0" id="changelog-1.3.0">1.3.0</a>
+### <a href="#changelog-1.3.0" id="changelog-1.3.0">1.3.0</a>
 
 February 4th, 2013
 
 - Added [`closeOnContentClick`](#options-closeOnContentClick) option.
 
-###<a href="#changelog-1.2.0" id="changelog-1.2.0">1.2.0</a>
+### <a href="#changelog-1.2.0" id="changelog-1.2.0">1.2.0</a>
 
 February 3rd, 2013
 
 - Added new callback options: [`beforeOn`](#options-beforeOn), [`afterOn`](#options-afterOn), [`beforeOff`](#options-beforeOff), [`afterOff`](#options-afterOff)
 
-###<a href="#changelog-1.1.1" id="changelog-1.1.1">1.1.1</a>
+### <a href="#changelog-1.1.1" id="changelog-1.1.1">1.1.1</a>
 
 February 3rd, 2013
 
 - Fixed a conflict between [keyboard shortcuts](#options-keyboardShortcuts) and text inputs. (Thanks to [stoeffel](https://github.com/stoeffel).)
 - Renamed JavaScript resources to be more friendly for future development.
 
-###<a href="#changelog-1.1.0" id="changelog-1.1.0">1.1.0</a>
+### <a href="#changelog-1.1.0" id="changelog-1.1.0">1.1.0</a>
 
 December 7th, 2012
 
 - Added [directional control](#options-direction). Panel can now slide left or right.
 - Removed unnecessary trigger check condition. (Thanks to [James Wilson](https://twitter.com/jimmynotjim)!)
 
-###<a href="#changelog-1.0.0" id="changelog-1.0.0">1.0.0</a>
+### <a href="#changelog-1.0.0" id="changelog-1.0.0">1.0.0</a>
 
 November 4th, 2012
 
 - First release of jPanelMenu.
 
 
-#<a href="#about" id="#about">Who Made This Wonderful Little Plugin?</a>
+# <a href="#about" id="#about">Who Made This Wonderful Little Plugin?</a>
 
 jPanelMenu was created, and is maintained, by [Anthony Colangelo](http://acolangelo.com).
 
